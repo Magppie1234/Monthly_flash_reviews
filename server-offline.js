@@ -114,6 +114,10 @@ app.get('/api/flash-review/people', (req, res) => {
   }
 });
 
+// Reviews are the one thing this server stores. Mounted ahead of the read-only rule below, which
+// protects the CRM snapshot, not the reviews.
+require('./lib/review-store').mountReviews(app);
+
 app.use('/api', (req, res, next) => {
   res.setHeader('Cache-Control', 'no-store');
   if (!['GET', 'HEAD'].includes(req.method)) {

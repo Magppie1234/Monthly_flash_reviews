@@ -23,14 +23,8 @@ test('installation timing excludes invalid pairs and other managers',()=>{
  const live=snapshot('Deals',['Installation_Managers','Actual_installation_start_date','Actual_End_Date'],[{id:'1',Installation_Managers:'Rishabh',Actual_installation_start_date:'2026-09-01',Actual_End_Date:'2026-09-07'},{id:'2',Installation_Managers:'Rishabh',Actual_installation_start_date:'2026-09-15',Actual_End_Date:'2026-09-07'},{id:'3',Installation_Managers:'Rishab',Actual_installation_start_date:'2026-09-01',Actual_End_Date:'2026-09-20'}]);
  const e=enrichRoles(make('installation_manager'),null,live),i=e.items[0];assert.equal(i.display.done,'6.0');assert.equal(i.records.length,2);assert.equal(i.records[1].days,null);assert.equal(i.suggestedRating,null);
 });
-test('new role imports require consent, preserve measurements and undo later manual edits',()=>{
- const e=make('installation_manager');Object.assign(e.items[0],{status:'available',summary:'Evidence',dataset:'Deals'});
- const review={ratings:{},mis:{},remarks:{[e.items[0].id]:'Manual'},measurements:{[e.items[0].id]:{actual:42}}},before=JSON.stringify(review),candidate=ui.candidates(e)[0];assert.equal(JSON.stringify(review),before);
- assert.throws(()=>ui.apply(review,e,[candidate.id],[],e.context),/Explicitly/);
- const applied=ui.apply(review,e,[candidate.id],[candidate.id],e.context);assert.deepEqual(applied.measurements,review.measurements);applied.remarks[e.items[0].id]='Later manual';const undone=ui.undo(applied,e.context);assert.equal(undone.review.remarks[e.items[0].id],'Later manual');assert.deepEqual(undone.review.ratings,{});
-});
 test('AVP context is read-only; operational gaps never receive unrelated evidence',()=>{
  const live=snapshot('Events',['Owner','Start_DateTime'],[{id:'1',Owner:{id:directory.roles.avp.employees[0].id},Start_DateTime:'2026-09-01'}]);
- const avp=enrichRoles(make('avp'),null,live);assert.equal(avp.items[0].records.length,1);assert.deepEqual(ui.candidates(avp),[]);
+ const avp=enrichRoles(make('avp'),null,live);assert.equal(avp.items[0].records.length,1);
  for(const role of ['factory_head','purchase_head','logistics_head'])assert.ok(enrichRoles(make(role),null,live).items.every(i=>i.status==='missing_data'&&i.suggestedRating===null));
 });

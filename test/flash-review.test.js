@@ -98,13 +98,13 @@ test('three missed target months and consecutive Below reviews raise separate fl
   assert.equal(annual.pipCount, 1);
 });
 
-test('evidence coverage tracks unrecorded MIS sources and remarks without blocking submission', () => {
+test('a missing remark keeps a review incomplete; a missing MIS source no longer does', () => {
   const review = completedReview('above');
   const first = flashReview.constants.WORK_ITEMS[0];
   delete review.mis[first.id];
   delete review.remarks[first.id];
   const completeness = flashReview.reviewCompleteness(review);
-  assert.equal(completeness.missingMis, 1);
+  assert.equal(completeness.missingMis, 0);
   assert.equal(completeness.missingRemarks, 1);
   assert.equal(completeness.complete, false);
 });
@@ -160,7 +160,7 @@ test('seeds a new factory workbook with its sheet tracking methods as MIS source
   assert.deepEqual(restored.roles.customer_care_head.setup.misSources, [...ROLE_CONFIGS.customer_care_head.defaultMisSources]);
 });
 
-test('preserves the workbook-specific evidence rule for Designer versus ASM and PSM', () => {
+test('a fully rated review is complete for every workbook without recording an MIS source', () => {
   const { ROLE_CONFIGS } = flashReview.constants;
   const reviewFor = roleId => {
     const config = ROLE_CONFIGS[roleId];
@@ -173,10 +173,10 @@ test('preserves the workbook-specific evidence rule for Designer versus ASM and 
   const psm = flashReview.reviewCompleteness(reviewFor('psm'), 'psm');
   assert.equal(designer.missingMis, 0);
   assert.equal(designer.complete, true);
-  assert.equal(asm.missingMis, 22);
-  assert.equal(psm.missingMis, 18);
-  assert.equal(asm.complete, false);
-  assert.equal(psm.complete, false);
+  assert.equal(asm.missingMis, 0);
+  assert.equal(psm.missingMis, 0);
+  assert.equal(asm.complete, true);
+  assert.equal(psm.complete, true);
 });
 
 test('migrates the original Sales Manager review into the multi-workbook store without data loss', () => {

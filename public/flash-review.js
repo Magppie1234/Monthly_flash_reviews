@@ -239,7 +239,7 @@
   function reviewCompleteness(review, roleId='sales_manager') {
     const c=roleConfig(roleId),list=allItems(c),ratings=list.filter(i=>SCORE[review?.ratings?.[i.id]]||review?.ratings?.[i.id]==='na').length;
     const missingRemarks=list.filter(i=>['above','below'].includes(review?.ratings?.[i.id])&&!String(review?.remarks?.[i.id]||'').trim()).length;
-    const missingMis=c.requiresMis?list.filter(i=>SCORE[review?.ratings?.[i.id]]&&!String(review?.mis?.[i.id]||'').trim()).length:0;
+    const missingMis=0;
     return{ratings,total:list.length,missingRemarks,missingMis,complete:ratings===list.length&&!missingRemarks&&!missingMis&&Boolean(review?.overallAssessment)};
   }
   function annualRating(score){if(!Number.isFinite(score))return'Not enough data yet';if(score<1.6)return'Below Expectations — formal review with HR';if(score<2)return'Partially Meets — improvement plan required';if(score<2.4)return'Meets Expectations';if(score<2.75)return'Exceeds Expectations';return'Outstanding';}
@@ -296,6 +296,53 @@
     localStorage.setItem(STORAGE_KEY,JSON.stringify(currentStore));
   }
   function reviewPolicyRole(){return currentEmployee?.policyRoleId||currentRole;}
+
+  // Reviews also live in the server's database when one is configured. This browser's copy stays
+  // the working copy: every save is sent on, and a newer copy saved elsewhere replaces it on load.
+  const remote={enabled:false,revisions:{},timers:{},queue:{}};
+  const remoteKey=(policy,id)=>`${policy}:${id}`;
+  const setSaveState=text=>{const state=currentContainer?.querySelector('.flash-save-state');if(state)state.textContent=text;};
+  function adoptRemote(doc){
+    const entries=currentStore.employeeReviews[doc.policyRole]||(currentStore.employeeReviews[doc.policyRole]={});
+    entries[doc.employeeId]=normalizeState(doc.state,doc.policyRole);remote.revisions[remoteKey(doc.policyRole,doc.employeeId)]=doc.revision;
+  }
+  async function pullReviews(){
+    try{
+      const response=await fetch('/api/flash-review/reviews',{cache:'no-store',signal:AbortSignal.timeout(15000)});
+      const value=await response.json();remote.enabled=response.ok&&value.enabled===true;if(!remote.enabled)return;
+      const stored=new Set();
+      for(const doc of value.reviews){
+        if(!ROLE_CONFIGS[doc.policyRole]||!doc.state)continue;
+        const key=remoteKey(doc.policyRole,doc.employeeId);stored.add(key);remote.revisions[key]=doc.revision;
+        const local=currentStore.employeeReviews[doc.policyRole]?.[doc.employeeId];
+        if(!local?.updatedAt||String(doc.state.updatedAt||'')>=String(local.updatedAt))adoptRemote(doc);
+        else pushReview(doc.policyRole,doc.employeeId);
+      }
+      // Reviews written in this browser before the database existed are sent up once.
+      for(const [policy,entries] of Object.entries(currentStore.employeeReviews))for(const [id,state] of Object.entries(entries))if(state.updatedAt&&!stored.has(remoteKey(policy,id)))pushReview(policy,id);
+      persist();
+    }catch{remote.enabled=false;}
+  }
+  // Typing saves on every change; wait for a pause, and never send two saves of one review at once.
+  function pushReview(policy,id,delay=0){
+    if(!remote.enabled)return;const key=remoteKey(policy,id);clearTimeout(remote.timers[key]);
+    remote.timers[key]=setTimeout(()=>{remote.queue[key]=(remote.queue[key]||Promise.resolve()).then(()=>sendReview(policy,id));},delay);
+  }
+  async function sendReview(policy,id){
+    const key=remoteKey(policy,id),state=currentStore.employeeReviews[policy]?.[id];if(!state)return;
+    const showing=currentEmployee?.id===id&&reviewPolicyRole()===policy;
+    try{
+      const response=await fetch(`/api/flash-review/reviews/${policy}/${encodeURIComponent(id)}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({state,revision:remote.revisions[key]||0}),signal:AbortSignal.timeout(15000)});
+      const value=await response.json();
+      if(response.ok){remote.revisions[key]=value.revision;if(showing)setSaveState('Saved to database');return;}
+      if(response.status===409&&value.current){
+        adoptRemote(value.current);try{persist();}catch{}
+        if(showing){selectEmployeeData(id);renderCurrent();if(currentContext?.toast)currentContext.toast('Someone else saved this review first. Their version is now shown.');}
+        return;
+      }
+      if(showing)setSaveState('Saved in this browser only');
+    }catch{if(showing)setSaveState('Saved in this browser only');}
+  }
   function peopleForRole(roleId){return directory?.roles?.[roleId]?.employees||[];}
   function selectEmployeeData(id){
     currentEmployee=peopleForRole(currentRole).find(person=>person.id===id)||null;
@@ -329,7 +376,7 @@
       if(!response.ok)throw new Error('Directory unavailable');
       const value=await response.json();
       if(value.orgId!=='60046349006'||!value.roles)throw new Error('Unverified directory');
-      directory=value;selectEmployeeData(currentStore.activeEmployees[currentRole]);
+      directory=value;await pullReviews();selectEmployeeData(currentStore.activeEmployees[currentRole]);
     }catch{directory=null;currentEmployee=null;directoryError='Could not load the employee list. Retry to select a verified employee.';}
     directoryLoading=false;renderCurrent();
   }
@@ -349,7 +396,7 @@
     }
     currentData.updatedAt=new Date().toISOString();currentStore.activeRole=currentRole;currentStore.employeeReviews[reviewPolicyRole()][currentEmployee.id]=currentData;
     try{persist();}catch{currentData.updatedAt=previousUpdatedAt;showIssues(['Could not save in this browser. Free browser storage or enable site storage, then try again. Keep this page open to retain your entries.']);return false;}
-    const state=currentContainer?.querySelector('.flash-save-state');if(state)state.textContent='Saved locally';
+    setSaveState(remote.enabled?'Saving…':'Saved locally');pushReview(reviewPolicyRole(),currentEmployee.id,1200);
     if(currentContext?.toast)currentContext.toast(message);return true;
   }
   function setupIssues(setup){
@@ -436,30 +483,28 @@
     const update=(k,v,refreshPeriod=false)=>{s[k]=v;save();if(refreshPeriod)refreshSetupPeriod();};
     grid.append(field('Employee name',s.employeeName,()=>{},{readOnly:true}),field('Designation',c.designation,()=>{},{readOnly:true}),field('Reporting manager',s.reportingManager,v=>update('reportingManager',v),{readOnly:!!currentEmployee?.reportingManager}),field('Date of joining',s.joiningDate,v=>update('joiningDate',v,true),{type:'date'}),field('Annual review period',s.annualPeriod,v=>update('annualPeriod',v,true),{select:[['april-march','April – March'],['january-december','January – December']]}),field('Review period starts in year',s.startYear,v=>update('startYear',Number(v),true),{type:'number',min:'2020',max:'2100'}),field('Override first review month (optional)',s.overrideFirstMonth,v=>update('overrideFirstMonth',v,true),{type:'month'}));panel.appendChild(grid);
     const sequence=monthSequence(s),eligible=sequence.filter(m=>m.inPeriod),period=node('div','flash-period-summary');period.append(node('strong',null,eligible.length?`${eligible[0].label} to ${eligible.at(-1).label}`:'No eligible months'),node('span',null,`${eligible.length} of 12 months · pro-rata factor ${(eligible.length/12).toFixed(2)}`));panel.appendChild(period);
-    if(c.requiresMis){const mis=field('Approved MIS / Zoho CRM report names — one per line',s.misSources.join('\n'),v=>{s.misSources=v.split('\n').map(x=>x.trim()).filter(Boolean).slice(0,50);save();},{type:'textarea',placeholder:'Example: Lead Logging TAT\nBooking Conversion by Owner'});mis.classList.add('flash-field-wide');panel.append(mis,node('p','flash-note','MIS sources and remarks are optional. Add supporting evidence whenever useful; you can submit with blank fields.'));}
-    else panel.appendChild(node('p','flash-note flash-note-standalone',c.id==='designer'?'The Designer workbook has no separate MIS column. Above and Below ratings need a remark stating the fact, a specific example, impact and evidence source. Drafts can be saved with gaps.':'This workbook has no separate MIS column. Remarks are optional; add examples and evidence whenever useful.'));
+    panel.appendChild(node('p','flash-note flash-note-standalone',c.id==='designer'?'Above and Below ratings need a remark stating the fact, a specific example, impact and evidence source. Drafts can be saved with gaps.':'Remarks are optional; add examples and evidence whenever useful. You can submit with blank fields.'));
     body.appendChild(panel);
-    actions(body,'Changes save automatically in this browser. Continue to enter the monthly assessment.',[
+    actions(body,`Changes save automatically ${remote.enabled?'to the review database':'in this browser'}. Continue to enter the monthly assessment.`,[
       actionButton('View Annual Summary',()=>goTo('annual')),
       actionButton('Save Setup & Continue',()=>{const issues=setupIssues(currentData.setup);if(issues.length){showIssues(issues);return;}if(save('Setup saved',true)){const months=monthSequence(currentData.setup),now=new Date();selectedMonth=(months.find(m=>m.inPeriod&&m.key===MONTHS[now.getMonth()][0]&&m.year===now.getFullYear())||months.find(m=>m.inPeriod)).key;goTo('monthly');}},true)
     ]);
   }
 
   function assessment(title,copy,list,review){
-    const c=roleConfig(reviewPolicyRole()),section=node('section','flash-panel flash-assessment'),wrap=node('div','flash-table-scroll'),table=node('table',`flash-review-table ${c.requiresMis?'':'without-mis'}`),thead=node('thead'),hr=node('tr'),tbody=node('tbody');section.appendChild(header(title,copy));
-    ['Responsibility','Assessment',...(c.requiresMis?['MIS evidence']:[]),'Remarks'].forEach(x=>hr.appendChild(node('th',null,x)));thead.appendChild(hr);const sources=Array.from(new Set([...currentData.setup.misSources,...(c.defaultMisSources||[]),...(window.MagppieFlashMis?.supported(c.id)?Object.values(review.mis||{}):[]),'Other']));
+    const c=roleConfig(reviewPolicyRole()),section=node('section','flash-panel flash-assessment'),wrap=node('div','flash-table-scroll'),table=node('table','flash-review-table without-mis'),thead=node('thead'),hr=node('tr'),tbody=node('tbody');section.appendChild(header(title,copy));
+    ['Responsibility','Assessment','Remarks'].forEach(x=>hr.appendChild(node('th',null,x)));thead.appendChild(hr);
     list.forEach(item=>{const tr=node('tr'),heading=node('th',null,item.label);if(item.referenceTarget)heading.appendChild(node('p',null,`Reference: ${item.referenceTarget}`));tr.appendChild(heading);const rc=node('td');rc.appendChild(rating(review.ratings[item.id]||'',v=>{review.ratings[item.id]=v;save();refreshMonthly();},`${item.label} assessment`));tr.appendChild(rc);
       if(c.combinedReview&&list===c.workItems){
         review.measurements ||= {};const values=review.measurements[item.id] ||= {},cell=node('details','flash-measurement-details');cell.appendChild(node('summary',null,'Measurements'));
         [['Baseline','baseline'],['Agreed target','target'],['Actual result','actual'],['Unit','unit']].forEach(([label,key])=>{const control=field(label,values[key],v=>{values[key]=v;save();});control.querySelector('input').setAttribute('aria-label',`${item.label} — ${label}`);cell.appendChild(control);});
         heading.appendChild(cell);
       }
-      if(c.requiresMis){const td=node('td'),sel=node('select');const blank=node('option',null,'Select MIS');blank.value='';sel.appendChild(blank);sources.forEach(src=>{const o=node('option',null,src);o.value=src;o.selected=review.mis[item.id]===src;sel.appendChild(o);});sel.onchange=()=>{review.mis[item.id]=sel.value;save();refreshMonthly();};td.appendChild(sel);tr.appendChild(td);}
-      const td=node('td'),ta=node('textarea');ta.value=review.remarks[item.id]||'';ta.placeholder=c.requiresMis?'Specific example and impact':'Fact, example, impact and evidence source';ta.setAttribute('aria-label',`${item.label} remarks`);ta.dataset.reviewItem=item.id;ta.onchange=()=>{review.remarks[item.id]=ta.value;save();refreshMonthly();};
+      const td=node('td'),ta=node('textarea');ta.value=review.remarks[item.id]||'';ta.placeholder=c.id==='designer'?'Fact, example, impact and evidence source':'Specific example and impact';ta.setAttribute('aria-label',`${item.label} remarks`);ta.dataset.reviewItem=item.id;ta.onchange=()=>{review.remarks[item.id]=ta.value;save();refreshMonthly();};
       if(c.id==='designer'){const missing=['above','below'].includes(review.ratings[item.id])&&!ta.value.trim();ta.setAttribute('aria-invalid',String(missing));ta.style.borderColor=missing?'#b42318':'';const hint=node('small','flash-remark-hint',missing?'Remark required for Above or Below':'');td.append(ta,hint);}else td.appendChild(ta);tr.appendChild(td);tbody.appendChild(tr);});
     if(window.MagppieFlashMis?.supported(c.id)){
       table.classList.add('with-mis-results');hr.appendChild(node('th',null,'MIS results'));
-      Array.from(tbody.rows).forEach((row,index)=>{const result=node('td','flash-mis-result');result.dataset.misItem=list[index].id;row.appendChild(result);const select=row.querySelector('select');if(select)select.dataset.misItem=list[index].id;});
+      Array.from(tbody.rows).forEach((row,index)=>{const result=node('td','flash-mis-result');result.dataset.misItem=list[index].id;row.appendChild(result);});
     }
     table.append(thead,tbody);wrap.appendChild(table);section.appendChild(wrap);return section;
   }
@@ -494,7 +539,7 @@
   function renderMonthly(body){
     const c=roleConfig(reviewPolicyRole()),sequence=monthSequence(currentData.setup);if(!sequence.some(m=>m.inPeriod)){const empty=node('section','flash-panel');empty.appendChild(header('No eligible review months','Update the review period or first review month in Setup.'));body.appendChild(empty);actions(body,'Choose an eligible review period to begin.',[actionButton('Open Setup',()=>goTo('setup'),true)]);return;}if(!sequence.some(m=>m.key===selectedMonth&&m.inPeriod))selectedMonth=(sequence.find(m=>m.inPeriod)||sequence[0]).key;const month=sequence.find(m=>m.key===selectedMonth),review=currentData.reviews[selectedMonth]={...monthReview(),...(currentData.reviews[selectedMonth]||{})};review.ratings={...(review.ratings||{})};review.mis={...(review.mis||{})};review.remarks={...(review.remarks||{})};const comp=reviewCompleteness(review,reviewPolicyRole());
     const toolbar=node('section','flash-month-toolbar'),monthSelect=node('select');sequence.forEach(m=>{const o=node('option',null,`${m.label}${m.inPeriod?'':' · not applicable'}`);o.value=m.key;o.selected=m.key===selectedMonth;o.disabled=!m.inPeriod;monthSelect.appendChild(o);});monthSelect.onchange=()=>{selectedMonth=monthSelect.value;renderCurrent();};const progress=node('div','flash-progress');progress.append(node('strong',null,`${comp.ratings}/${comp.total} responsibilities marked`),node('span',null,'All review fields are optional. Submit whenever you are ready.'));toolbar.append(monthSelect,progress,actionButton('Submit & View Report',submitReview,true));body.appendChild(toolbar);
-    const top=node('section','flash-panel'),topGrid=node('div','flash-form-grid');top.appendChild(header(`${month.label} · ${c.selectorLabel}`,'Review by the 5th of the following month. Ratings, evidence, remarks and sign-offs are optional.'));topGrid.append(field('Employee name',currentData.setup.employeeName||'Not entered (optional)',()=>{},{readOnly:true}),field('Reporting manager',currentData.setup.reportingManager||'Not entered (optional)',()=>{},{readOnly:true}),field('Date of discussion',review.discussionDate,v=>{review.discussionDate=v;save();},{type:'date'}));const hr=node('label','flash-check'),cb=node('input');cb.type='checkbox';cb.checked=Boolean(review.hrPresent);cb.onchange=()=>{review.hrPresent=cb.checked;save();};hr.append(cb,node('span',null,'HR present for this review'));topGrid.appendChild(hr);top.appendChild(topGrid);body.appendChild(top);
+    const top=node('section','flash-panel'),topGrid=node('div','flash-form-grid');top.appendChild(header(`${month.label} · ${c.selectorLabel}`,'Review by the 5th of the following month. Ratings, remarks and sign-offs are optional.'));topGrid.append(field('Employee name',currentData.setup.employeeName||'Not entered (optional)',()=>{},{readOnly:true}),field('Reporting manager',currentData.setup.reportingManager||'Not entered (optional)',()=>{},{readOnly:true}),field('Date of discussion',review.discussionDate,v=>{review.discussionDate=v;save();},{type:'date'}));const hr=node('label','flash-check'),cb=node('input');cb.type='checkbox';cb.checked=Boolean(review.hrPresent);cb.onchange=()=>{review.hrPresent=cb.checked;save();};hr.append(cb,node('span',null,'HR present for this review'));topGrid.appendChild(hr);top.appendChild(topGrid);body.appendChild(top);
     if(c.id==='designer'){
       progress.querySelector('span').textContent=comp.missingRemarks?`${comp.missingRemarks} Above / Below ratings need remarks.`:'Use Above, Meets or Below; add remarks for Above and Below.';
       top.querySelector('.flash-section-head p').textContent='Designer workbook: review by the 5th of the following month. Above and Below ratings need a fact, example, impact and evidence source in Remarks.';
@@ -504,16 +549,9 @@
     if(c.combinedReview){renderSavings(body,review,false);renderLegacy(body,review,c);}else {const target=node('section','flash-panel'),tg=node('div','flash-target-grid');target.appendChild(header('Target vs Achievement','Agree the target at the start of the month and record the actual at review.'));tg.append(field('Monthly target',review.target,v=>{review.target=v;save();refreshMonthly();},{type:'number'}),field('Unit',review.targetUnit,v=>{review.targetUnit=v;save();},{placeholder:'₹ Cr, count, %…'}),field('Actual achieved',review.achieved,v=>{review.achieved=v;save();refreshMonthly();},{type:'number'}),field('Reason / corrective action',review.correctiveAction,v=>{review.correctiveAction=v;save();},{type:'textarea'}));const t=safeNumber(review.target),a=safeNumber(review.achieved),pct=t!==null&&a!==null&&t!==0?a/t:null,res=node('div',`flash-target-result ${Number.isFinite(pct)?(pct>=1?'is-good':'is-danger'):''}`);res.append(node('span',null,'Achievement'),node('strong',null,fmtPercent(pct)),node('small',null,Number.isFinite(pct)?(pct>=1?'Target achieved':'Target not achieved'):'Enter target and actual'));tg.appendChild(res);target.appendChild(tg);body.appendChild(target);}
     if(currentEmployee&&window.MagppieFlashMis?.supported(c.id)){
       const host=node('div');body.insertBefore(host,body.querySelector('.flash-assessment'));
-      window.MagppieFlashMis.mount({host,body,context:{role:currentRole,policy:c.id,employeeId:currentEmployee.id,month:`${month.year}-${String(MONTHS.findIndex(m=>m[0]===month.key)+1).padStart(2,'0')}`},getReview:()=>review,commit:next=>{
-        const before=JSON.parse(JSON.stringify(review));Object.keys(review).forEach(k=>delete review[k]);Object.assign(review,next);
-        if(!save('MIS changes saved')){Object.keys(review).forEach(k=>delete review[k]);Object.assign(review,before);return false;}
-        body.querySelectorAll('textarea[data-review-item]').forEach(ta=>{ta.value=review.remarks[ta.dataset.reviewItem]||'';});
-        body.querySelectorAll('select[data-mis-item]').forEach(select=>{const value=review.mis[select.dataset.misItem]||'';if(value&&!Array.from(select.options).some(o=>o.value===value)){const option=node('option',null,value);option.value=value;select.appendChild(option);}select.value=value;});
-        body.querySelectorAll('label.flash-field').forEach(label=>{const text=label.querySelector('span')?.textContent,input=label.querySelector('input');if(input&&text==='Actual achieved')input.value=review.achieved??'';if(input&&text==='Unit')input.value=review.targetUnit??'';});
-        refreshMonthly();return true;
-      }});
+      window.MagppieFlashMis.mount({host,body,context:{role:currentRole,policy:c.id,employeeId:currentEmployee.id,month:`${month.year}-${String(MONTHS.findIndex(m=>m[0]===month.key)+1).padStart(2,'0')}`}});
     }
-    actions(body,'Saved only in this browser. Submit to generate the report. Editing returns a submitted review to draft; nothing is sent to CRM or HR.',[
+    actions(body,`${remote.enabled?'Saved to the review database':'Saved only in this browser'}. Submit to generate the report. Editing returns a submitted review to draft; nothing is sent to CRM or HR.`,[
       actionButton('Save Draft',()=>{save('Draft saved');}),
       actionButton('View Report',()=>goTo('report')),
       actionButton('Submit & View Report',submitReview,true)
@@ -528,9 +566,9 @@
     if(!submitted){const notice=node('section','flash-callout is-warning');notice.append(node('strong',null,'Draft report'),node('p',null,issues.length?issues.join(' '):'You can submit this report with any fields left blank.'));body.appendChild(notice);}
     const metrics=node('div','flash-metrics');[['Work',scores.work],['Behavioural',scores.behavioural],['Foundational',scores.foundational],['Overall',scores.overall]].forEach(([label,value])=>{const card=node('article','flash-metric');card.append(node('span',null,label),node('strong',null,fmtScore(value)),node('small',null,'Score from entered ratings · out of 3.00'));metrics.appendChild(card);});if(!c.combinedReview)body.appendChild(metrics);
     [['Section A — Work',c.workItems],['Section B — Behavioural',c.behaviouralItems],['Section C — Foundational',c.foundationalItems]].forEach(([title,items])=>{
-      const section=node('section','flash-panel'),wrap=node('div','flash-table-scroll'),table=node('table','flash-report-table'),thead=node('thead'),head=node('tr'),tbody=node('tbody');section.appendChild(header(title,'Recorded assessment and supporting evidence.'));
-      ['Responsibility','Assessment',...(c.requiresMis?['MIS evidence']:[]),'Remarks'].forEach(label=>head.appendChild(node('th',null,label)));thead.appendChild(head);
-      items.forEach(item=>{const row=node('tr');row.append(node('th',null,item.label),node('td',null,RATING_LABEL[review.ratings?.[item.id]]||'Not assessed'));if(c.requiresMis)row.appendChild(node('td',null,review.mis?.[item.id]||'Not recorded'));row.appendChild(node('td',null,[review.remarks?.[item.id]||'—',...(c.combinedReview&&item.referenceTarget?[`Reference: ${item.referenceTarget}`,['baseline','target','actual','unit'].map(key=>`${key}: ${review.measurements?.[item.id]?.[key]||'Not recorded'}`).join(' · ')]:[])].join(' · ')));tbody.appendChild(row);});table.append(thead,tbody);wrap.appendChild(table);section.appendChild(wrap);body.appendChild(section);
+      const section=node('section','flash-panel'),wrap=node('div','flash-table-scroll'),table=node('table','flash-report-table'),thead=node('thead'),head=node('tr'),tbody=node('tbody');section.appendChild(header(title,'Recorded assessment and remarks.'));
+      ['Responsibility','Assessment','Remarks'].forEach(label=>head.appendChild(node('th',null,label)));thead.appendChild(head);
+      items.forEach(item=>{const row=node('tr');row.append(node('th',null,item.label),node('td',null,RATING_LABEL[review.ratings?.[item.id]]||'Not assessed'));row.appendChild(node('td',null,[review.remarks?.[item.id]||'—',...(c.combinedReview&&item.referenceTarget?[`Reference: ${item.referenceTarget}`,['baseline','target','actual','unit'].map(key=>`${key}: ${review.measurements?.[item.id]?.[key]||'Not recorded'}`).join(' · ')]:[])].join(' · ')));tbody.appendChild(row);});table.append(thead,tbody);wrap.appendChild(table);section.appendChild(wrap);body.appendChild(section);
     });
     const closing=node('section','flash-panel'),grid=node('div','flash-form-grid');closing.appendChild(header('Discussion and target result','Notes, sign-offs and target figures entered for this month.'));
     [['Key strengths','strengths'],['Focus areas','focus'],['Agreed actions','actions'],["Last month’s actions",'lastActions'],['Overall remark','overallRemark'],['Employee sign-off','employeeSignoff'],['Manager sign-off','managerSignoff'],['Monthly target','target'],['Actual achieved','achieved'],['Unit','targetUnit'],['Reason / corrective action','correctiveAction']].forEach(([label,key])=>{const item=node('div','flash-report-detail');item.append(node('strong',null,label),node('p',null,String(review[key]??'').trim()||'Not recorded'));grid.appendChild(item);});
@@ -544,7 +582,7 @@
     ]);
   }
 
-  function annualTable(body,annual){const c=roleConfig(reviewPolicyRole()),panel=node('section','flash-panel'),wrap=node('div','flash-table-scroll'),table=node('table','flash-summary-table'),thead=node('thead'),trh=node('tr'),tbody=node('tbody');panel.appendChild(header('Month by month',`Work, Behavioural, Foundational, overall assessment, ${c.requiresMis?'MIS evidence':'review'} completion and target result.`));['Month','Work','Behavioural','Foundational','Overall','Evidence','Target','Status'].forEach(x=>trh.appendChild(node('th',null,x)));thead.appendChild(trh);annual.rows.forEach(r=>{const tr=node('tr');tr.append(node('th',null,r.label),node('td',null,fmtScore(r.scores.work)),node('td',null,fmtScore(r.scores.behavioural)),node('td',null,fmtScore(r.scores.foundational)),node('td',null,RATING_LABEL[r.review.overallAssessment]||'—'),node('td',null,r.completeness.complete?'Complete':`${r.completeness.ratings}/${r.completeness.total}`),node('td',null,r.target!==null&&r.achieved!==null?`${r.achieved}/${r.target} ${r.review.targetUnit||''}`.trim():'—'),node('td',r.targetStatus==='Not Achieved'?'is-danger-text':'',r.targetStatus));tbody.appendChild(tr);});table.append(thead,tbody);wrap.appendChild(table);panel.appendChild(wrap);body.appendChild(panel);}
+  function annualTable(body,annual){const c=roleConfig(reviewPolicyRole()),panel=node('section','flash-panel'),wrap=node('div','flash-table-scroll'),table=node('table','flash-summary-table'),thead=node('thead'),trh=node('tr'),tbody=node('tbody');panel.appendChild(header('Month by month',`Work, Behavioural, Foundational, overall assessment, review completion and target result.`));['Month','Work','Behavioural','Foundational','Overall','Evidence','Target','Status'].forEach(x=>trh.appendChild(node('th',null,x)));thead.appendChild(trh);annual.rows.forEach(r=>{const tr=node('tr');tr.append(node('th',null,r.label),node('td',null,fmtScore(r.scores.work)),node('td',null,fmtScore(r.scores.behavioural)),node('td',null,fmtScore(r.scores.foundational)),node('td',null,RATING_LABEL[r.review.overallAssessment]||'—'),node('td',null,r.completeness.complete?'Complete':`${r.completeness.ratings}/${r.completeness.total}`),node('td',null,r.target!==null&&r.achieved!==null?`${r.achieved}/${r.target} ${r.review.targetUnit||''}`.trim():'—'),node('td',r.targetStatus==='Not Achieved'?'is-danger-text':'',r.targetStatus));tbody.appendChild(tr);});table.append(thead,tbody);wrap.appendChild(table);panel.appendChild(wrap);body.appendChild(panel);}
   function renderAnnual(body){
     if(roleConfig(reviewPolicyRole()).combinedReview){
       const annual=calculateAnnual(currentData,reviewPolicyRole());body.appendChild(header('Annual review history','Overall assessments are selected by the reviewer. Numerical weights, incentive payouts and escalation rules remain pending.'));
@@ -654,7 +692,7 @@
     if(!container||typeof document==='undefined')return;
     currentContainer=container;currentContext=context;currentStore=loadStore();currentRole=currentStore.activeRole;
     currentEmployee=null;currentData=defaultState(currentRole);currentView='overview';
-    if(directory){selectEmployeeData(currentStore.activeEmployees[currentRole]);renderCurrent();}else loadDirectory();
+    if(directory){selectEmployeeData(currentStore.activeEmployees[currentRole]);renderCurrent();pullReviews().then(()=>{if(remote.enabled&&currentContainer===container){selectEmployeeData(currentStore.activeEmployees[currentRole]);renderCurrent();}});}else loadDirectory();
   }
   return Object.freeze({render,savingsResult,calculateAnnual,monthlyScores,monthSequence,reviewCompleteness,setupIssues,submissionIssues,defaultState,defaultStore,normalizeState,normalizeStore,constants:Object.freeze({STORAGE_KEY,MONTHS,SCORE,KRA_WEIGHTS,ASPECT_WEIGHTS,WORK_ITEMS,BEHAVIOURAL_ITEMS,FOUNDATIONAL_ITEMS,ROLE_CONFIGS,ROLE_ORDER})});
 });

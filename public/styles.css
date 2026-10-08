@@ -474,47 +474,28 @@ select.celledit { padding:5px 7px; }
 .flash-role-switch select:focus { border-color:#7771e7; box-shadow:0 0 0 3px rgba(79,70,229,.1); }
 .flash-save-state { margin-left:auto; color:#7b8497; font-size:10.8px; white-space:nowrap; }
 .flash-module-body { width:min(1460px,100%); margin:0 auto; padding:22px; }
-.flash-mis-panel { padding:20px; }
-.flash-mis-panel h2 { margin:0 0 8px; font-size:18px; }
-.flash-mis-panel p { color:#39465c; line-height:1.55; overflow-wrap:anywhere; }
-.flash-mis-actions { display:flex; flex-wrap:wrap; gap:10px; margin:16px 0; }
+.flash-mis-panel { padding:14px 20px; scroll-margin-top:190px; }
+.flash-mis-actions { display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
 .flash-mis-actions button:disabled { opacity:.55; cursor:not-allowed; }
-.flash-mis-inline { font-weight:400; font-size:12px; color:#39465c; line-height:1.5; }
-.flash-review-table.with-mis-results tbody th { width:27%; min-width:240px; }
+.flash-mis-status { margin:0; color:#526079; font-size:12px; }
+.flash-review-table.with-mis-results tbody th { width:38%; min-width:260px; }
 .flash-review-table.with-mis-results tbody td { min-width:140px; }
-.flash-review-table.with-mis-results tbody td.flash-mis-result { width:26%; min-width:260px; vertical-align:top; }
-.flash-mis-panel { scroll-margin-top:190px; }
-.flash-mis-inline strong { display:block; color:#17243b; }
-.flash-mis-inline p { margin:6px 0; overflow-wrap:anywhere; }
-.flash-mis-inline summary { cursor:pointer; color:#3530a3; padding:8px 0; }
-.flash-mis-records { max-height:260px; overflow:auto; }
-.flash-mis-progress { background:#f4f6fc; border:1px solid #e1e6f2; border-radius:10px; padding:12px 14px; margin-bottom:6px; }
-.flash-mis-progress h3 { margin:0 0 10px; font-size:12px; font-weight:600; color:#36445f; }
-.flash-mis-numbers { display:flex; align-items:baseline; gap:8px; font-variant-numeric:tabular-nums; }
-.flash-mis-numbers strong { font-size:30px; line-height:1.15; font-weight:700; color:#253d70; }
-.flash-mis-numbers span { font-size:18px; color:#526079; }
-.flash-mis-progress progress { appearance:none; display:block; width:100%; height:8px; margin:12px 0 8px; border:0; border-radius:8px; overflow:hidden; background:#d9e1f0; accent-color:#5146ce; }
-.flash-mis-progress progress::-webkit-progress-bar { background:#d9e1f0; border-radius:8px; }
-.flash-mis-progress progress::-webkit-progress-value { background:#5146ce; border-radius:8px; }
-.flash-mis-progress progress::-moz-progress-bar { background:#5146ce; border-radius:8px; }
-.flash-mis-progress .flash-mis-percent { font-size:11px; color:#455572; }
-.flash-mis-progress .flash-mis-expected { margin:6px 0 0; font-size:11px; color:#526079; font-weight:500; }
-.flash-mis-caption { color:#526079; font-size:11px; }
-.flash-mis-inline .flash-mis-empty { color:#526079; font-size:12px; font-weight:500; }
-.flash-mis-empty { display:inline-block; background:#f0f2f6; border-radius:6px; padding:5px 9px; }
-.flash-mis-inline .flash-mis-detail { border:0; margin-top:2px; }
-.flash-mis-detail h4 { margin:14px 0 4px; font-size:12px; }
-.flash-mis-detail[open] { padding-bottom:8px; }
-.flash-mis-inline details { border-top:1px solid #e5e9f1; margin-top:8px; }
-.flash-mis-inline summary { font-weight:600; padding:9px 0; }
-.flash-mis-record { display:grid; grid-template-columns:minmax(75px,1fr) minmax(0,1.5fr); gap:5px 10px; margin:0; padding:12px 2px; border-bottom:1px solid #e5e9f1; font-size:11px; }
-.flash-mis-record dt { color:#526079; }
-.flash-mis-record dd { margin:0; overflow-wrap:anywhere; color:#253047; }
-.flash-mis-inline button { border:1px solid #dce3f1; border-radius:7px; padding:7px 10px; background:#fff; color:#3530a3; cursor:pointer; margin-top:8px; }
-.flash-mis-candidate { border-top:1px solid #dce2eb; padding:16px 0; }
-.flash-mis-candidate label { display:flex; align-items:flex-start; gap:10px; font-weight:600; }
-.flash-mis-candidate input { flex-shrink:0; width:18px; height:18px; }
-.flash-mis-panel button:focus-visible,.flash-mis-inline button:focus-visible { outline:2px solid #4338ca; outline-offset:3px; }
+.flash-review-table.with-mis-results tbody td.flash-mis-result { width:120px; min-width:120px; text-align:right; }
+.flash-review-table.with-mis-results thead th:last-child { text-align:right; }
+.flash-mis-value { font-size:18px; font-weight:700; color:#253d70; font-variant-numeric:tabular-nums; white-space:nowrap; }
+button.flash-mis-value { border:0; background:none; padding:0; font-family:inherit; cursor:pointer; text-decoration:underline; text-decoration-color:#b9c2dc; text-underline-offset:3px; }
+button.flash-mis-value:hover { color:#4338ca; text-decoration-color:#4338ca; }
+.flash-mis-dialog { width:min(560px,92vw); max-height:80vh; padding:0; border:1px solid #dce3f1; border-radius:14px; box-shadow:0 20px 60px #14162333; }
+.flash-mis-dialog::backdrop { background:#14162355; }
+.flash-mis-dialog-head { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:16px 18px; border-bottom:1px solid #edf0f4; }
+.flash-mis-dialog-head strong { display:block; font-size:22px; color:#253d70; }
+.flash-mis-dialog-head span { font-size:12px; color:#526079; }
+.flash-mis-records { max-height:60vh; overflow:auto; padding:8px 18px 16px; font-size:13px; color:#39465c; }
+.flash-mis-records-count { margin:6px 0 8px; font-size:12px; color:#526079; }
+.flash-mis-record { display:flex; justify-content:space-between; gap:14px; padding:9px 2px; border-bottom:1px solid #edf0f4; color:#253047; text-decoration:none; }
+a.flash-mis-record:hover span { color:#4338ca; text-decoration:underline; }
+.flash-mis-record small { color:#526079; white-space:nowrap; }
+.flash-mis-panel button:focus-visible,button.flash-mis-value:focus-visible,a.flash-mis-record:focus-visible { outline:2px solid #4338ca; outline-offset:3px; }
 .flash-hero { display:flex; align-items:flex-end; justify-content:space-between; gap:28px; min-height:220px; padding:36px; margin-bottom:16px; border-radius:20px; color:#fff; background:radial-gradient(circle at 85% 10%,rgba(165,180,252,.45),transparent 34%),linear-gradient(135deg,#25345a,#4f46e5 72%,#6d5ce7); box-shadow:0 18px 48px rgba(52,55,120,.22); }
 .flash-hero > div { max-width:760px; }
 .flash-eyebrow { display:block; margin-bottom:9px; font-size:10.5px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; opacity:.78; }
