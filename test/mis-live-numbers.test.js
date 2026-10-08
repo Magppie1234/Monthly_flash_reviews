@@ -101,6 +101,65 @@ test('sales rows: bookings, booked value, price discussions, own handovers and f
   assert.equal(asm.asm_w8, '₹1.15 Cr');
 });
 
+test('a field that exists but is empty names who has not filled it, instead of showing zero', async () => {
+  const result = await live.fetchNumbers({ zoho: fakeZoho({ Events: [{ id: 'E1', Event_Title: 'Site visit' }, { id: 'E2', Event_Title: 'Showroom' }] }), policy: 'asm', employee: { id: '77', name: 'Anushka' }, month: '2026-09', itemIds: ['asm_w5', 'asm_w12', 'asm_w10', 'asm_w1'], now: NOW });
+  const [checkIns, meetings, portfolio, notInCrm] = result.items;
+  assert.deepEqual(checkIns, { id: 'asm_w5', value: null, records: 2, note: 'Field exists but not filled by Anushka' });
+  assert.deepEqual(result.records.asm_w5.map(row => row.name), ['Site visit', 'Showroom']);   // the records waiting for it
+  assert.equal(meetings.value, '2');
+  assert.equal(portfolio.note, 'No CRM records this month');
+  assert.deepEqual(notInCrm, { id: 'asm_w1', value: null, records: 0 });
+  const past = await live.fetchNumbers({ zoho: fakeZoho({}), policy: 'asm', employee: { id: '77', name: 'Anushka' }, month: '2026-06', itemIds: ['asm_w10'], now: NOW });
+  assert.equal(past.items[0].note, 'Running total in CRM; only available for the current month');
+});
+
+test('PSM duplicates and qualification speed come from the dead reason and the status history', async () => {
+  const leads = [
+    { id: 'L1', Created_Time: at(1), Dead_Reason: 'Duplicate Lead' },
+    { id: 'L2', Created_Time: at(2) },
+    { id: 'L3', Created_Time: at(3) },
+    { id: 'L4', Created_Time: at(5) },     // Saturday 5 Sep: Sunday does not count, Monday still on time
+  ];
+  const history = [
+    { id: 'H1', Lead_Status: 'Not Contacted Yet', Modified_Time: at(2), Full_Name: { id: 'L2' } },
+    { id: 'H2', Lead_Status: 'Qualified/ Drawings Awiated', Modified_Time: at(3, 15), Full_Name: { id: 'L2' } },   // next day
+    { id: 'H3', Lead_Status: 'No Response/ Call Back Later', Modified_Time: at(3, 12), Full_Name: { id: 'L3' } }, // still open
+    { id: 'H4', Lead_Status: 'Not Interested', Modified_Time: at(9), Full_Name: { id: 'L3' } },                    // decided late
+    { id: 'H5', Lead_Status: 'Junk Lead', Modified_Time: at(7, 18), Full_Name: { id: 'L4' } },
+  ];
+  const result = await numbers('psm', { Leads: leads, Lead_Status_History: history }, { ids: ['psm_w2', 'psm_w5'], month: '2026-09' });
+  assert.equal(result.psm_w2, '25%');
+  assert.equal(result.psm_w5, '50%');
+});
+
+test('a figure with an issue carries the reason; nothing is ever filled in for it', async () => {
+  const fetch = (data, ids, policy = 'psm') => live.fetchNumbers({ zoho: fakeZoho(data), policy, employee, month: '2026-09', itemIds: ids, now: NOW }).then(result => result.items);
+  // part of the records have no value: the total is shown, with the count it is based on
+  const [partial] = await fetch({ Contacts: [{ id: 'C1', Amount: 50 }, { id: 'C2', Amount: null }, { id: 'C3' }] }, ['psm_w6']);
+  assert.equal(partial.value, '₹0.50 Cr');
+  assert.match(partial.warning, /^Based on 1 of 3 qualified opportunities\. The other 2 have this field empty in CRM\.$/);
+  // Zoho cut the search short: no number at all, and the reason
+  const [cut] = await fetch({ Leads: null }, ['psm_w1']);
+  assert.equal(cut.value, null);
+  assert.match(cut.warning, /More than 2,000 CRM records/);
+  // the read failed
+  const [failed] = await fetch({ Leads: () => { throw new Error('boom'); } }, ['psm_w1']);
+  assert.equal(failed.value, null);
+  assert.match(failed.warning, /did not answer/);
+  // a complete figure carries no warning
+  const [clean] = await fetch({ Leads: [{ id: 'L1', Created_Time: at(1) }] }, ['psm_w1']);
+  assert.deepEqual(clean, { id: 'psm_w1', value: '1', records: 1 });
+});
+
+test('an empty field names whoever is responsible for it, not always the person under review', async () => {
+  const complaints = [{ id: 'A1', Name: 'Hinge loose', Owner: { id: '9', name: 'Ramesh' } }, { id: 'A2', Name: 'Shutter gap', Owner: { id: '9', name: 'Ramesh' } }];
+  const care = await live.fetchNumbers({ zoho: fakeZoho({ AMS_Complaints: complaints }), policy: 'customer_care_head', employee: { id: '5', name: 'Sudhakar' }, month: '2026-09', itemIds: ['customer_care_head_v2_w1'], now: NOW });
+  assert.equal(care.items[0].note, 'Field exists but not filled by Ramesh');
+  const designs = [{ id: 'D1', Deal_Name: 'Kitchen', Design_Approved_Date: at(4) }];
+  const designer = await live.fetchNumbers({ zoho: fakeZoho({ Deals: designs }), policy: 'designer', employee: { id: 'local:designer-rashi', name: 'Rashi' }, month: '2026-09', itemIds: ['dc_w5', 'dc_w11'], now: NOW });
+  assert.deepEqual(designer.items.map(item => item.note), ['Field exists but not filled by the site measurement team', 'Field exists but not filled by the PDI team']);
+});
+
 test('designers are matched by name and judged on dates met', async () => {
   const searches = [];
   const zoho = fakeZoho({ Deals: criteria => (criteria.includes('Send_For_Approval_Date')

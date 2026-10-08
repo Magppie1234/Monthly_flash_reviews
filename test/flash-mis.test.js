@@ -36,7 +36,7 @@ test('PSM call records use call month; first-response timing excludes another re
 });
 test('the results column shows the fetched number, or a dash when CRM has none',()=>{
  const shown=ui.values({items:[{id:'psm_w1',value:'259'},{id:'psm_w2',value:null},{id:'psm_w6',value:'₹0.00 Cr'}]});
- assert.equal(shown.get('psm_w1'),'259');assert.equal(shown.get('psm_w2'),'—');assert.equal(shown.get('psm_w6'),'₹0.00 Cr');assert.equal(ui.values(null).size,0);
- const open=ui.openable({items:[{id:'a',value:'5',records:5},{id:'b',value:'0',records:0},{id:'c',value:null,records:0}]});assert.deepEqual([...open],['a']);
+ assert.equal(shown.get('psm_w1'),'259');assert.equal(shown.get('psm_w2'),'-');assert.equal(shown.get('psm_w6'),'₹0.00 Cr');assert.equal(ui.values(null).size,0);
+ const open=ui.openable({items:[{id:'a',value:'5',records:5},{id:'b',value:'0',records:0},{id:'c',value:null,records:0}]});assert.deepEqual([...open],[['a',5]]);
  assert.equal(ui.zohoLink('https://crm.zoho.in/crm/org1/tab/Leads/1'),'https://crm.zoho.in/crm/org1/tab/Leads/1');assert.equal(ui.zohoLink('javascript:alert(1)'),'');
 });

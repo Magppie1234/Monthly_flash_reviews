@@ -3,13 +3,19 @@
  // The MIS results column: one number per review row, read live from Zoho CRM on Fetch MIS.
  // A row CRM cannot measure shows a dash. Clicking a number lists the CRM records it was counted
  // from, and each of those opens in Zoho CRM. Ratings and remarks are never touched.
- const DASH='—';
+ const DASH='-';
  const supported=role=>['sales_manager','asm','psm','designer','factory_head','purchase_head','logistics_head','installation_manager','customer_care_head','avp'].includes(role);
  const contextKey=c=>[c.role,c.policy,c.employeeId,c.month].join('|');
  // Row id → text for its cell. Anything the server did not return a number for is a dash.
  function values(result){return new Map((result?.items||[]).map(item=>[item.id,item.value===null||item.value===undefined||item.value===''?DASH:String(item.value)]));}
  // Row ids whose number has records behind it to open.
- function openable(result){return new Set((result?.items||[]).filter(item=>item.value!==null&&item.value!==undefined&&Number(item.records)>0).map(item=>item.id));}
+ function openable(result){return new Map((result?.items||[]).filter(item=>Number(item.records)>0&&(item.note||(item.value!==null&&item.value!==undefined))).map(item=>[item.id,Number(item.records)]));}
+ // Row id → why there is no number although CRM has a field for it.
+ // Row id → an issue with that row's figure, shown behind an exclamation mark.
+ function warnings(result){return new Map((result?.items||[]).filter(item=>item.warning).map(item=>[item.id,String(item.warning)]));}
+ function notes(result){return new Map((result?.items||[]).filter(item=>item.note).map(item=>[item.id,String(item.note)]));}
+ // Behavioural and Foundational rows are judged by the manager; no CRM figure exists for them.
+ const judged=id=>/_(b|f)_?\d+$/.test(id);
  // Only a Zoho CRM address is ever turned into a link.
  const zohoLink=url=>String(url||'').startsWith('https://crm.zoho.in/')?url:'';
  function mount(options){
@@ -42,17 +48,24 @@
    }catch(error){list.textContent=error.name==='TimeoutError'?'Zoho CRM took too long. Try again.':error.message;}
   };
   let request=0;
-  const draw=(shown,canOpen)=>{for(const cell of body.querySelectorAll('td.flash-mis-result[data-mis-item]')){
-   const id=cell.dataset.misItem,text=shown?shown.get(id)||DASH:'',opens=Boolean(canOpen?.has(id));
-   const value=el(opens?'button':'span',text,'flash-mis-value');
-   if(opens){value.type='button';value.title='Show the CRM records behind this number';value.onclick=()=>showRecords(id,text,cell.parentElement.querySelector('th')?.firstChild?.textContent||'');}
-   cell.replaceChildren(value);
+  const draw=(shown,canOpen,why,issues)=>{for(const cell of body.querySelectorAll('td.flash-mis-result[data-mis-item]')){
+   const id=cell.dataset.misItem,text=shown?shown.get(id)||DASH:'',count=canOpen?.get(id)||0,heading=cell.parentElement.querySelector('th');
+   const open=()=>showRecords(id,text,heading?.querySelector('strong')?.textContent||heading?.textContent||'');
+   const note=why?.get(id)||'';
+   const value=el(count&&!note?'button':'span',text,'flash-mis-value'+(text===DASH?' is-none':''));
+   if(count&&!note){value.type='button';value.title='Show the CRM records behind this number';value.onclick=open;}
+   const issue=issues?.get(id),figure=el('div',undefined,'flash-mis-figure');
+   if(issue){const mark=el('span','!','flash-mis-warn');mark.tabIndex=0;mark.title=issue;mark.dataset.tip=issue;mark.setAttribute('role','img');mark.setAttribute('aria-label','Issue with this figure: '+issue);figure.appendChild(mark);}
+   figure.appendChild(value);cell.replaceChildren(figure);if(!shown)continue;
+   const caption=el(count?'button':'small',note||(count?`${count.toLocaleString('en-IN')} record${count===1?'':'s'} in Zoho`:text!==DASH?'From Zoho CRM':judged(id)?'Assessed by manager':'Not in CRM'),'flash-mis-caption'+(note.startsWith('Field exists')?' is-unfilled':''));
+   if(count){caption.type='button';caption.onclick=open;}
+   cell.appendChild(caption);
   }};
   fetchButton.onclick=async()=>{
    const ticket=++request;fetchButton.disabled=true;status.textContent='Fetching from Zoho CRM…';draw(null);
    try{
     const result=await read({});if(!panel.isConnected||ticket!==request)return;
-    draw(values(result),openable(result));
+    draw(values(result),openable(result),notes(result),warnings(result));
     const at=new Date(result.fetchedAt).toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit'});
     status.textContent=`Zoho CRM · ${at}`+(result.incomplete?' · some rows did not load, fetch again':'');
    }catch(error){if(panel.isConnected&&ticket===request)status.textContent=error.name==='TimeoutError'?'Zoho CRM took too long. Try again.':error.message;}
@@ -60,5 +73,5 @@
   };
   panel.append(controls,dialog);host.appendChild(panel);draw(null);
  }
- return {supported,mount,contextKey,values,openable,zohoLink};
+ return {supported,mount,contextKey,values,openable,notes,warnings,zohoLink};
 });

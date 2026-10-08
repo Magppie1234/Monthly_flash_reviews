@@ -93,7 +93,7 @@ test('three missed target months and consecutive Below reviews raise separate fl
   });
   const annual = flashReview.calculateAnnual(state);
   assert.equal(annual.missedTargets, 3);
-  assert.equal(annual.targetFlag, 'RED FLAG — recommend PIP and HR discussion');
+  assert.equal(annual.targetFlag, 'RED FLAG: recommend PIP and HR discussion');
   assert.equal(annual.escalationCount, 1);
   assert.equal(annual.pipCount, 1);
 });
