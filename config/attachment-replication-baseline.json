@@ -1,0 +1,18 @@
+{
+  "captured_at": "2026-08-30",
+  "source_org_id": "org60046349006",
+  "source_mode": "read-only",
+  "source_attachment_unique_ids": 78758,
+  "source_parent_records": 3734,
+  "source_declared_bytes": 205279257214,
+  "local_crm_record_attachment_ids": 2,
+  "local_ids_present_in_source": 2,
+  "source_ids_absent_from_crm_records": 78756,
+  "local_linked_object_bytes": 741460,
+  "missing_parent_module_references": 431,
+  "missing_parent_id_and_module_references": 5,
+  "current_linked_objects_anonymous_head_accessible": true,
+  "storage_bucket_enumerated": false,
+  "orphan_object_count": null,
+  "migration_executed": false
+}

@@ -1,0 +1,787 @@
+{
+  "generated_at": "2026-08-29",
+  "source_mode": "read_only_local_capture",
+  "scope": {
+    "workflow_detail_source": "local /api/meta/automation",
+    "workflow_rules_detailed": 44,
+    "active_workflow_rules": 39,
+    "workflow_function_associations": 22,
+    "unique_workflow_function_action_ids": 21,
+    "custom_button_entries": 19,
+    "custom_function_button_references": 2,
+    "captured_function_bodies_available": 60,
+    "captured_function_bodies_analyzed": 23,
+    "unresolved_in_scope_function_references": 0,
+    "excluded_non_function_buttons": {
+      "widget": 14,
+      "voc": 3
+    }
+  },
+  "secret_scan": {
+    "high": 1,
+    "medium": 0,
+    "low": 0
+  },
+  "mapping_notes": [
+    "Workflow action IDs are the exact IDs returned by the detailed active workflow rules in the local automation endpoint.",
+    "Workflow action IDs and captured function-definition IDs are different identifier types. Bodies were matched by exact display name and catalog metadata; the two same-named note functions were disambiguated by their action and definition ID lineage.",
+    "Custom-button function references use a different ID namespace from captured function definitions. Both were matched by unique display name plus Button category.",
+    "Field arrays contain CRM API names only. External payload keys and literal values are intentionally omitted.",
+    "No function was executed and no source CRM record or configuration was written."
+  ],
+  "functions": [
+    {
+      "id": "1032257000003489144",
+      "api_name": "create_lead",
+      "display_name": "Create_lead",
+      "category": "Automation",
+      "inputs": [
+        { "name": "ID", "type": "Int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000003489158",
+          "rule_name": "Automatic Lead Creation",
+          "rule_module": "Calls",
+          "action_id": "1032257000003489154",
+          "action_name": "Create_lead"
+        }
+      ],
+      "behavior": "Reads a Call, resolves its caller number against Leads, creates a Lead when no match is found, and links the Call to the resolved or created Lead.",
+      "modules_read": ["Calls", "Leads"],
+      "modules_written": ["Leads", "Calls"],
+      "fields_read": ["Call_Type", "From_Number__s", "Owner"],
+      "fields_written": ["Last_Name", "Lead_Source", "Lead_Status", "Mobile", "Owner", "What_Id"],
+      "external_services": ["Zoho CRM REST"],
+      "connection_dependencies": ["Zoho CRM OAuth connection"],
+      "local_implementation_complexity": "High",
+      "blockers": [
+        "Caller-number normalization and duplicate-match precedence must be reproduced exactly.",
+        "Lead creation and Call linking need idempotency and partial-failure handling.",
+        "The named CRM connection and write permissions are not available in public local configuration."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000023782453",
+      "api_name": "markdonevisit",
+      "display_name": "Mark Done Visit",
+      "category": "Automation",
+      "inputs": [
+        { "name": "Id", "type": "int" },
+        { "name": "recoadcount", "type": "Float" },
+        { "name": "teamCount", "type": "int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000023782470",
+          "rule_name": "Mark Visit Done",
+          "rule_module": "Visit_Module",
+          "action_id": "1032257000023782468",
+          "action_name": "Mark Done Visit"
+        }
+      ],
+      "behavior": "Conditionally marks a Visit_Module record complete after comparing the supplied record and team counts.",
+      "modules_read": [],
+      "modules_written": ["Visit_Module"],
+      "fields_read": [],
+      "fields_written": ["AMS_Status"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Low",
+      "blockers": [
+        "The exact counter semantics and accepted numeric coercions need regression tests before enabling writes."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000005147130",
+      "api_name": "createticketservicemanagement",
+      "display_name": "Create Ticket Services Management",
+      "category": "Automation",
+      "inputs": [
+        { "name": "Id", "type": "Int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000005147032",
+          "rule_name": "create ticket in services management",
+          "rule_module": "Calls",
+          "action_id": "1032257000005147164",
+          "action_name": "Create Ticket Services Management"
+        }
+      ],
+      "behavior": "Reads the originating Call and creates a Service_Managements ticket with client, owner, priority, status, contact, and service-date data.",
+      "modules_read": ["Calls"],
+      "modules_written": ["Service_Managements"],
+      "fields_read": ["From_Number__s"],
+      "fields_written": ["Client_Name", "Email", "Last_Service_Date", "Name", "Owner", "Service_Request_Priority", "Service_Status"],
+      "external_services": ["Zoho CRM REST"],
+      "connection_dependencies": ["Zoho CRM OAuth connection"],
+      "local_implementation_complexity": "Moderate",
+      "blockers": [
+        "Hard-coded communication-target literals must be replaced with approved configuration.",
+        "Ticket defaults, owner routing, and duplicate-ticket behavior require business confirmation.",
+        "CRM connection and create permission are not available in public local configuration."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000010762191",
+      "api_name": "updatedesignername",
+      "display_name": "updateDesignerName",
+      "category": "Automation",
+      "inputs": [
+        { "name": "designerName", "type": "string" },
+        { "name": "oppId", "type": "string" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000010762211",
+          "rule_name": "UpdateDesignerName",
+          "rule_module": "Deals",
+          "action_id": "1032257000010762207",
+          "action_name": "updateDesignerName"
+        }
+      ],
+      "behavior": "Writes the supplied designer name to the target Deal.",
+      "modules_read": [],
+      "modules_written": ["Deals"],
+      "fields_read": [],
+      "fields_written": ["Designer_Name"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Low",
+      "blockers": [
+        "Input validation and missing-record handling must be added before local enablement."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000004871115",
+      "api_name": "set_psm_user",
+      "display_name": "Set PSM User",
+      "category": "Automation",
+      "inputs": [
+        { "name": "oppId", "type": "int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000004871161",
+          "rule_name": "Set PSM User",
+          "rule_module": "Contacts",
+          "action_id": "1032257000004871157",
+          "action_name": "Set PSM User"
+        }
+      ],
+      "behavior": "Reads the Contact record creator and copies that user reference into Sales_Manager.",
+      "modules_read": ["Contacts"],
+      "modules_written": ["Contacts"],
+      "fields_read": ["Created_By"],
+      "fields_written": ["Sales_Manager"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Low",
+      "blockers": [
+        "User lookup compatibility and inactive-user handling require validation."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000011594003",
+      "api_name": "sync_order_value_with_opp",
+      "display_name": "Sync Order Value With Opp",
+      "category": "Automation",
+      "inputs": [
+        { "name": "Id", "type": "Int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000011594112",
+          "rule_name": "Sync Order Value with Opp",
+          "rule_module": "Deals",
+          "action_id": "1032257000011594108",
+          "action_name": "Sync Order Value With Opp"
+        }
+      ],
+      "behavior": "Reads a Deal and its linked Contact, locates the matching Product_Details1 row, and synchronizes the row value back to the Contact record.",
+      "modules_read": ["Deals", "Contacts"],
+      "modules_written": ["Contacts"],
+      "fields_read": ["Opportunity_Name", "Product_Details1", "Project_Name", "Value"],
+      "fields_written": ["Product_Details1", "Value"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Moderate",
+      "blockers": [
+        "Subform row identity, missing lookup behavior, and concurrent edits require exact tests."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000005804238",
+      "api_name": "createnoteinopportunity",
+      "display_name": "Create Note in Opportunity",
+      "category": "Automation",
+      "inputs": [
+        { "name": "oppId", "type": "Int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000005804262",
+          "rule_name": "Create Note In Opportunity",
+          "rule_module": "Contacts",
+          "action_id": "1032257000005804258",
+          "action_name": "Create Note in Opportunity"
+        }
+      ],
+      "behavior": "Converts a Contact Description into a related Note, mirrors the text to Last_Note, and clears the source Description after note creation.",
+      "modules_read": ["Contacts"],
+      "modules_written": ["Notes", "Contacts"],
+      "fields_read": ["Description"],
+      "fields_written": ["Description", "Last_Note", "Note_Content", "Note_Title", "Parent_Id"],
+      "external_services": ["Zoho CRM REST"],
+      "connection_dependencies": ["Zoho CRM OAuth connection"],
+      "local_implementation_complexity": "Moderate",
+      "blockers": [
+        "Note creation and Description clearing must be transactional or safely retryable.",
+        "CRM REST connection and Notes permission are not available in public local configuration."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000006125020",
+      "api_name": "setcalldurationinminutes",
+      "display_name": "Set Call Duration In Minutes",
+      "category": "Automation",
+      "inputs": [
+        { "name": "Id", "type": "Int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000015737666",
+          "rule_name": "Call Durations Update In Mint",
+          "rule_module": "Calls",
+          "action_id": "1032257000006125030",
+          "action_name": "Set Call Duration In Minutes"
+        }
+      ],
+      "behavior": "Reads Call_Duration, converts it to a minute value, and writes Call_Durations_In_Minutes.",
+      "modules_read": ["Calls"],
+      "modules_written": ["Calls"],
+      "fields_read": ["Call_Duration"],
+      "fields_written": ["Call_Durations_In_Minutes"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Low",
+      "blockers": [
+        "Duration format variants, rounding, blanks, and invalid values require parity tests."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000005832107",
+      "api_name": "updatenoteinopportunity",
+      "display_name": "Update Note In Opportunity",
+      "category": "Automation",
+      "inputs": [
+        { "name": "oppId", "type": "Int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000005832133",
+          "rule_name": "Update Note In Opportunity",
+          "rule_module": "Contacts",
+          "action_id": "1032257000005832129",
+          "action_name": "Update Note In Opportunity"
+        }
+      ],
+      "behavior": "Reads Notes related to a Contact and copies the selected note content into Last_Note.",
+      "modules_read": ["Notes", "Contacts"],
+      "modules_written": ["Contacts"],
+      "fields_read": ["Note_Content"],
+      "fields_written": ["Last_Note"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Low",
+      "blockers": [
+        "Related-note ordering and empty-note behavior must match Zoho exactly."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000007791080",
+      "api_name": "updatenoteinopportunity1",
+      "display_name": "Update Note In Opportunity",
+      "category": "Automation",
+      "inputs": [
+        { "name": "oppId", "type": "Int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000007791110",
+          "rule_name": "fetch old note",
+          "rule_module": "Contacts",
+          "action_id": "1032257000007791094",
+          "action_name": "Update Note In Opportunity"
+        }
+      ],
+      "behavior": "Reads Notes related to a Contact and copies the selected note content into Last_Note.",
+      "modules_read": ["Notes", "Contacts"],
+      "modules_written": ["Contacts"],
+      "fields_read": ["Note_Content"],
+      "fields_written": ["Last_Note"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Low",
+      "blockers": [
+        "This is a separate near-duplicate definition; related-note ordering and version choice must be preserved."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000005804096",
+      "api_name": "createnotefromdesc",
+      "display_name": "Create Note From Desc",
+      "category": "Automation",
+      "inputs": [
+        { "name": "leadId", "type": "Int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000005804209",
+          "rule_name": "Create Note From Description",
+          "rule_module": "Leads",
+          "action_id": "1032257000005804205",
+          "action_name": "Create Note From Desc"
+        }
+      ],
+      "behavior": "Converts a Lead Description into a related Note, mirrors the text to Last_Note, and clears the source Description after note creation.",
+      "modules_read": ["Leads"],
+      "modules_written": ["Notes", "Leads"],
+      "fields_read": ["Description"],
+      "fields_written": ["Description", "Last_Note", "Note_Content", "Note_Title", "Parent_Id"],
+      "external_services": ["Zoho CRM REST"],
+      "connection_dependencies": ["Zoho CRM OAuth connection"],
+      "local_implementation_complexity": "Moderate",
+      "blockers": [
+        "Note creation and Description clearing must be transactional or safely retryable.",
+        "CRM REST connection and Notes permission are not available in public local configuration."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000010080001",
+      "api_name": "createaccounts",
+      "display_name": "createAccounts",
+      "category": "Automation",
+      "inputs": [
+        { "name": "accountName", "type": "String" },
+        { "name": "ownerId", "type": "String" },
+        { "name": "accountId", "type": "String" },
+        { "name": "oppId", "type": "String" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000010080047",
+          "rule_name": "Create Account",
+          "rule_module": "Contacts",
+          "action_id": "1032257000010080027",
+          "action_name": "createAccounts"
+        },
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000010080063",
+          "rule_name": "Update Accounts",
+          "rule_module": "Contacts",
+          "action_id": "1032257000010080027",
+          "action_name": "createAccounts"
+        }
+      ],
+      "behavior": "Creates an Account when needed, applies the supplied owner, and links the target Contact through Account_Name; the same function action is reused by two active rules.",
+      "modules_read": [],
+      "modules_written": ["Accounts", "Contacts"],
+      "fields_read": [],
+      "fields_written": ["Account_Name", "Owner"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Moderate",
+      "blockers": [
+        "Account identity, duplicate prevention, and create-versus-update branching require exact tests.",
+        "Partial failure can leave an unlinked Account or a stale Contact lookup."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000005832019",
+      "api_name": "udpatenoteinlead",
+      "display_name": "Update Note In Lead",
+      "category": "Automation",
+      "inputs": [
+        { "name": "leadId", "type": "Int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000005832094",
+          "rule_name": "Update Last Note In Lead",
+          "rule_module": "Leads",
+          "action_id": "1032257000005832090",
+          "action_name": "Update Note In Lead"
+        }
+      ],
+      "behavior": "Reads Notes related to a Lead and copies the selected note content into Last_Note.",
+      "modules_read": ["Notes", "Leads"],
+      "modules_written": ["Leads"],
+      "fields_read": ["Note_Content"],
+      "fields_written": ["Last_Note"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Low",
+      "blockers": [
+        "Related-note ordering and empty-note behavior must match Zoho exactly."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000007467439",
+      "api_name": "create_project",
+      "display_name": "Project Creation And Updation",
+      "category": "Automation",
+      "inputs": [
+        { "name": "Id", "type": "String" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000015737607",
+          "rule_name": "Copy of Create And Update Order",
+          "rule_module": "Contacts",
+          "action_id": "1032257000008937694",
+          "action_name": "Project Creation And Updation"
+        }
+      ],
+      "behavior": "Transforms a Contact into a related Deal, copies a broad business-field set and Product_Details1 rows, transfers attachments, and writes the resulting relationship back to the source record.",
+      "modules_read": ["Contacts", "Attachments"],
+      "modules_written": ["Deals", "Contacts", "Attachments"],
+      "fields_read": [
+        "AD_Name", "Account_Name", "Actual_Closure_Date", "Adset_Name", "Arc", "Arc_Phone_Number", "Arch_Code", "Architect_Firm", "Architect_Name", "Area", "Billing_Address_City", "Campaign_Name", "City", "Client_Budget_In_Lakhs", "Client_Profession", "Client_Status", "Date_of_Birth1", "Description", "Email", "Est_Budget_In_Lakhs", "Est_Closoure_Date", "Exchange_Rate", "File_Name", "Floor", "Full_Name", "How_Soon_Do_You_Require_Magppie", "Kitchen_Layout", "Lead_Details", "Lead_Disposition", "Lead_ID1", "Lead_Ratings", "Lead_Source", "Level_of_Trust", "Magppie_Lead_ID", "Management_Discount", "Meeting_Place", "Mobile", "Next_Follow_UP_Date", "Next_Follow_Up_Date1", "Owner", "Product", "Product_Details1", "Product_Requirement", "Project_Name", "Project_Size_Sqyard_Sqft_Sqmtr", "Project_Stage", "Property_Size", "Property_Type", "Quantity", "Remarks", "Sales_Oppourtunity_Status", "Scanner_Name", "Shipping_Address_City", "State", "Total_Product_Value", "Type_of_Client", "Value", "Vertical", "Yes_No", "leadchain0__Social_Lead_ID"
+      ],
+      "fields_written": [
+        "AD_Name", "Account_Name", "Actual_Closure_Date", "Adset_Name", "Arc", "Arc_Phone_Number", "Arch_Code", "Architect_Firm", "Architect_Name", "Area", "Billing_Adress_City", "Campaign_Name", "Client_Budget_In_Lakhs", "Client_Profession", "Closing_Probability", "Date_of_Birth", "Deal_Name", "Description", "Email", "Est_Budget_In_Lakhs", "Est_Closure_Date", "Exchange_Rate", "Floor", "How_Soon_Do_You_Require_Magppie", "Kitchen_Layout", "Layout", "Lead_Details", "Lead_Disposition", "Lead_ID", "Lead_Ratings", "Lead_Source", "Level_of_Trust", "Magppie_Lead_ID", "Management_Discount", "Meeting_Place", "Mobile", "Next_Follow_UP_Date", "Next_Follow_Up_Date1", "Opportunity_Name", "Owner", "Product_Details1", "Product_Requirement", "Product_Type", "Project_Name", "Project_Size_Sqyard_Sqft_Sqmtr", "Project_Stage", "Property_Size", "Property_Type", "Quantity", "Sales_Oppourtunity_Status", "Scanner_Name", "Shipping_Address_City", "Stage", "State", "Total_Opportunity_Value", "Type_of_Client", "Value", "Vertical", "Yes_No", "city", "leadchain0__Social_Lead_ID"
+      ],
+      "external_services": ["Zoho CRM REST"],
+      "connection_dependencies": ["Zoho CRM OAuth connection"],
+      "local_implementation_complexity": "Very high",
+      "blockers": [
+        "Large cross-module mapping includes similarly named fields that must not be normalized or corrected without source confirmation.",
+        "Create/update identity and retry semantics must prevent duplicate Deals and duplicate attachments.",
+        "Subform row mapping, lookup IDs, file transfer, field-level permissions, and required fields need sandbox fixtures.",
+        "The named CRM connection is not available in public local configuration."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000016568140",
+      "api_name": "update_expected_closing_date_change_counter",
+      "display_name": "Update Expected Closing Date Change Counter",
+      "category": "Automation",
+      "inputs": [
+        { "name": "Id", "type": "int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000016568154",
+          "rule_name": "Update Expected Closing Date Change Counter",
+          "rule_module": "Contacts",
+          "action_id": "1032257000016568150",
+          "action_name": "Update Expected Closing Date Change Counter"
+        }
+      ],
+      "behavior": "Reads and increments Expected_Closing_Date_Change_Counter on the target Contact.",
+      "modules_read": ["Contacts"],
+      "modules_written": ["Contacts"],
+      "fields_read": ["Expected_Closing_Date_Change_Counter"],
+      "fields_written": ["Expected_Closing_Date_Change_Counter"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Low",
+      "blockers": [
+        "Null initialization and concurrent increment behavior require explicit handling."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000015032233",
+      "api_name": "addleadtransferinfo",
+      "display_name": "Add Lead Transfer Info",
+      "category": "Automation",
+      "inputs": [
+        { "name": "Id", "type": "Int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000015032363",
+          "rule_name": "Add Lead Transfer Info",
+          "rule_module": "Leads",
+          "action_id": "1032257000015032359",
+          "action_name": "Add Lead Transfer Info"
+        }
+      ],
+      "behavior": "Detects an owner change and records current and previous owner metadata, assignment type, and assignment date on the Lead.",
+      "modules_read": ["Leads"],
+      "modules_written": ["Leads"],
+      "fields_read": ["Current_Owner", "Owner"],
+      "fields_written": ["Assign_Type", "Current_Owner", "Lead_Assigned_Date", "Previous_Owner_Name"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Moderate",
+      "blockers": [
+        "Owner lookup shape, first-assignment behavior, and workflow recursion need tests."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000011574083",
+      "api_name": "sync_attachments_with_orders",
+      "display_name": "Sync Attachments with Orders",
+      "category": "Automation",
+      "inputs": [
+        { "name": "id", "type": "Int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000018629177",
+          "rule_name": "Sync Attachment",
+          "rule_module": "Contacts",
+          "action_id": "1032257000011574155",
+          "action_name": "Sync Attachments with Orders"
+        }
+      ],
+      "behavior": "Reads attachments from a Contact, locates related Deals through Product_Details1, downloads source files, and attaches them to the matching Deal records.",
+      "modules_read": ["Contacts", "Deals", "Attachments"],
+      "modules_written": ["Deals", "Attachments"],
+      "fields_read": ["File_Name", "Product_Details1", "Project_Name"],
+      "fields_written": [],
+      "external_services": ["Zoho CRM REST"],
+      "connection_dependencies": ["Zoho CRM OAuth connection"],
+      "local_implementation_complexity": "Very high",
+      "blockers": [
+        "Attachment deduplication, size limits, MIME handling, download failures, and partial retries need implementation.",
+        "CRM file access and attach permissions are not available in public local configuration."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000006796017",
+      "api_name": "addcountrycodewithremoveduplicate",
+      "display_name": "Add Country Code With Remove Duplicate",
+      "category": "Automation",
+      "inputs": [
+        { "name": "LeadID", "type": "String" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000015737626",
+          "rule_name": "Modify Add Country Code And Remove Duplicate Lead",
+          "rule_module": "Leads",
+          "action_id": "1032257000006796053",
+          "action_name": "Add Country Code With Remove Duplicate"
+        }
+      ],
+      "behavior": "Normalizes a Lead mobile number, searches Leads and Contacts for phone and email duplicates, updates the source Lead, creates a follow-up Task in selected cases, and can delete a matched CRM record through a connector.",
+      "modules_read": ["Leads", "Contacts"],
+      "modules_written": ["Leads", "Tasks"],
+      "fields_read": ["Country", "Email", "Full_Name", "Last_Name", "Mobile", "Owner"],
+      "fields_written": ["Due_Date", "Mobile", "Owner", "Priority", "Status", "Subject", "What_Id"],
+      "external_services": ["Zoho CRM connector"],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Very high",
+      "blockers": [
+        "Destructive delete behavior is present and must remain disabled pending explicit merge/delete approval.",
+        "Phone normalization, country rules, match precedence, and cross-module duplicate semantics require exhaustive fixtures.",
+        "Task creation and deletion must be idempotent and preserve linked operational history."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000021616713",
+      "api_name": "checkissunrooof",
+      "display_name": "Check Is Sunrooof",
+      "category": "Automation",
+      "inputs": [
+        { "name": "Id", "type": "String" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000021616723",
+          "rule_name": "Is Sunrooof",
+          "rule_module": "Contacts",
+          "action_id": "1032257000021616721",
+          "action_name": "Check Is Sunrooof"
+        }
+      ],
+      "behavior": "Inspects Product_Details1 product references on a Contact and sets the Is_Sunrooof classification flag.",
+      "modules_read": ["Contacts"],
+      "modules_written": ["Contacts"],
+      "fields_read": ["Product", "Product_Details1"],
+      "fields_written": ["Is_Sunrooof"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Low",
+      "blockers": [
+        "Product identity matching and empty-subform behavior require source-equivalent tests."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000017855001",
+      "api_name": "findduplicateleadsandopp",
+      "display_name": "Find Duplicate Leads and Opp",
+      "category": "Automation",
+      "inputs": [
+        { "name": "LeadID", "type": "String" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000015737646",
+          "rule_name": "Creation Add Country Code And Remove Duplicate Lead",
+          "rule_module": "Leads",
+          "action_id": "1032257000017855019",
+          "action_name": "Find Duplicate Leads and Opp"
+        }
+      ],
+      "behavior": "Normalizes a newly created Lead, searches Leads and Contacts for phone and email duplicates, updates the source Lead, creates a follow-up Task in selected cases, and can delete a matched CRM record through a connector.",
+      "modules_read": ["Leads", "Contacts"],
+      "modules_written": ["Leads", "Tasks"],
+      "fields_read": ["Country", "Email", "Full_Name", "Last_Name", "Mobile", "Owner"],
+      "fields_written": ["Due_Date", "Mobile", "Owner", "Priority", "Status", "Subject", "What_Id"],
+      "external_services": ["Zoho CRM connector"],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Very high",
+      "blockers": [
+        "Destructive delete behavior is present and must remain disabled pending explicit merge/delete approval.",
+        "Phone normalization, country rules, match precedence, and cross-module duplicate semantics require exhaustive fixtures.",
+        "Task creation and deletion must be idempotent and preserve linked operational history."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000023616244",
+      "api_name": "addsunroooffilesinworkdrive",
+      "display_name": "Add Sunrooof Files in Workdrive",
+      "category": "Automation",
+      "inputs": [
+        { "name": "oppId", "type": "Int" }
+      ],
+      "associations": [
+        {
+          "source": "active_workflow",
+          "rule_id": "1032257000023616255",
+          "rule_name": "Add Sunrooof files in the workdrive folder",
+          "rule_module": "Contacts",
+          "action_id": "1032257000023616253",
+          "action_name": "Add Sunrooof Files in Workdrive"
+        }
+      ],
+      "behavior": "Finds related Deals through Product_Details1, reads their attachments, uploads qualifying files to a WorkDrive folder, and updates source and related-record completion flags.",
+      "modules_read": ["Contacts", "Deals", "Attachments"],
+      "modules_written": ["Contacts", "Deals"],
+      "fields_read": ["File_Name", "Files_Added_In_Folder", "Magppie_Folder_ID", "Product", "Product_Details1", "Project_Name"],
+      "fields_written": ["Files_Added_In_Folder", "Sunrooof_Files_Added"],
+      "external_services": ["Zoho CRM REST", "Zoho WorkDrive"],
+      "connection_dependencies": ["Zoho CRM OAuth connection", "Zoho WorkDrive connection"],
+      "local_implementation_complexity": "Very high",
+      "blockers": [
+        "WorkDrive folder identity, upload permission, file filtering, deduplication, and partial retry behavior require sandbox coverage.",
+        "Status flags must not be set until all required uploads succeed.",
+        "The required external connections are not available in public local configuration."
+      ],
+      "mapping_confidence": "High"
+    },
+    {
+      "id": "1032257000022801585",
+      "api_name": "initiatecallsontimepay",
+      "display_name": "Initiate Calls on TimePay",
+      "category": "Button",
+      "inputs": [
+        { "name": "Ids", "type": "String" }
+      ],
+      "associations": [
+        {
+          "source": "custom_button",
+          "button_id": "1032257000022801590",
+          "button_api_name": "Initiate_Calls_on_Timepay",
+          "button_module": "Leads",
+          "button_position": "list_view",
+          "action_reference_id": "342586000000262006",
+          "action_reference_name": "Initiate Calls on TimePay"
+        }
+      ],
+      "behavior": "Parses selected Lead IDs, reads lead name and mobile data, obtains TimePay authorization, and submits outbound call requests to TimePay.",
+      "modules_read": ["Leads"],
+      "modules_written": [],
+      "fields_read": ["First_Name", "Last_Name", "Mobile"],
+      "fields_written": [],
+      "external_services": ["TimePay"],
+      "connection_dependencies": ["TimePay authentication"],
+      "local_implementation_complexity": "Very high",
+      "blockers": [
+        "This initiates external communications and must remain disabled until explicit recipient, consent, rate-limit, and retry controls exist.",
+        "TimePay credentials, endpoint configuration, and a non-production test destination are not available in public local configuration.",
+        "The button reference and function definition use different ID namespaces; the mapping is name-and-category based."
+      ],
+      "mapping_confidence": "Medium"
+    },
+    {
+      "id": "1032257000011594193",
+      "api_name": "test_button",
+      "display_name": "test button",
+      "category": "Button",
+      "inputs": [
+        { "name": "recoadIds", "type": "String" }
+      ],
+      "associations": [
+        {
+          "source": "custom_button",
+          "button_id": "1032257000011594251",
+          "button_api_name": "sync_with_orders",
+          "button_module": "Contacts",
+          "button_position": "list_view",
+          "action_reference_id": "342586000000151003",
+          "action_reference_name": "test button"
+        }
+      ],
+      "behavior": "Parses selected Contact IDs, reads Product_Details1 project references, and updates each referenced Deal with the source Contact in Opportunity_Name.",
+      "modules_read": ["Contacts"],
+      "modules_written": ["Deals"],
+      "fields_read": ["Product_Details1", "Project_Name"],
+      "fields_written": ["Opportunity_Name"],
+      "external_services": [],
+      "connection_dependencies": [],
+      "local_implementation_complexity": "Moderate",
+      "blockers": [
+        "Bulk-selection parsing, duplicate project references, missing Deals, and partial failure reporting require tests.",
+        "The button reference and function definition use different ID namespaces; the mapping is name-and-category based."
+      ],
+      "mapping_confidence": "Medium"
+    }
+  ]
+}

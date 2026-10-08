@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-08-31T03:21:21Z",
+  "evidence_scope": {
+    "source_mode": "authenticated_read_only_ui",
+    "source_contacted": true,
+    "mutation_attempted": false,
+    "source_mutations": false,
+    "local_mutations": false,
+    "configured_module_count": 28
+  },
+  "pipelines": {
+    "status": "Verified empty",
+    "definitions_observed": 0,
+    "evidence": "The authenticated source Pipelines screen showed the new-pipeline onboarding empty state and no configured pipeline rows."
+  },
+  "approval_processes": {
+    "status": "Verified empty",
+    "definitions_observed": 0,
+    "evidence": "The authenticated source Approval Processes table explicitly stated that no approval process is configured."
+  },
+  "validation_rules": {
+    "status": "Partially verified empty",
+    "configured_module_count": 28,
+    "verified_empty_module_count": 8,
+    "verified_empty_modules": [
+      "Leads",
+      "Products",
+      "Quotes",
+      "SalesOrders",
+      "PurchaseOrders",
+      "Invoices",
+      "Campaigns",
+      "Vendors"
+    ],
+    "unresolved_module_count": 20,
+    "unresolved_modules": [
+      "Contacts",
+      "Tasks",
+      "Potentials",
+      "Accounts",
+      "Events",
+      "Calls",
+      "PriceBooks",
+      "Cases",
+      "Solutions",
+      "Visits",
+      "Services",
+      "Appointments",
+      "CustomModule4",
+      "CustomModule5",
+      "CustomModule6",
+      "CustomModule7",
+      "CustomModule8",
+      "CustomModule9",
+      "LinkingModule14",
+      "CustomModule10"
+    ],
+    "rate_limited_modules": [
+      "Contacts",
+      "Tasks",
+      "Potentials",
+      "Accounts",
+      "Events",
+      "Calls"
+    ],
+    "not_yet_audited_modules": [
+      "PriceBooks",
+      "Cases",
+      "Solutions",
+      "Visits",
+      "Services",
+      "Appointments",
+      "CustomModule4",
+      "CustomModule5",
+      "CustomModule6",
+      "CustomModule7",
+      "CustomModule8",
+      "CustomModule9",
+      "LinkingModule14",
+      "CustomModule10"
+    ],
+    "evidence": "Each verified module showed the authenticated source empty state stating that no rules are configured. Source rate limiting stopped the remaining audit; unresolved modules are not treated as empty."
+  },
+  "execution_boundary": {
+    "source_equivalence": "Partial",
+    "verified_empty_behavior": "No local process execution is required while the corresponding source configuration remains empty.",
+    "unresolved_behavior": "Deny",
+    "refresh_requirement": "Re-audit the authenticated source configuration before enabling any process execution or claiming complete parity."
+  }
+}

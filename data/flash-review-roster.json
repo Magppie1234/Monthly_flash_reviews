@@ -1,0 +1,196 @@
+{
+  "orgId": "60046349006",
+  "fetchedAt": "2026-09-16T10:55:05.772137+00:00",
+  "source": "Zoho CRM Users (ActiveUsers) and Roles",
+  "employees": [
+    {
+      "id": "1032257000000414377",
+      "name": "Rananjay",
+      "roleId": "1032257000000437258",
+      "roleName": "PSM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000000442001",
+      "name": "Anushka",
+      "roleId": "1032257000000437249",
+      "roleName": "SM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000000443001",
+      "name": "Ashish",
+      "roleId": "1032257000000437258",
+      "roleName": "PSM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000000451017",
+      "name": "Sowmya",
+      "roleId": "1032257000000437258",
+      "roleName": "PSM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000000451033",
+      "name": "Tavneet",
+      "roleId": "1032257000000437258",
+      "roleName": "PSM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000000452001",
+      "name": "Rahul Mahajan",
+      "roleId": "1032257000000437258",
+      "roleName": "PSM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000000453001",
+      "name": "Sakshi",
+      "roleId": "1032257000000437258",
+      "roleName": "PSM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000000454001",
+      "name": "Vaishnavi",
+      "roleId": "1032257000000437258",
+      "roleName": "PSM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000005147103",
+      "name": "Sudhakar Sudhakar",
+      "roleId": "1032257000026007001",
+      "roleName": "AMS Head",
+      "status": "active"
+    },
+    {
+      "id": "1032257000011098458",
+      "name": "Designer1 Magppie",
+      "roleId": "1032257000011385266",
+      "roleName": "Designer1 Magppie",
+      "status": "active"
+    },
+    {
+      "id": "1032257000011505042",
+      "name": "Ishita",
+      "roleId": "1032257000000437258",
+      "roleName": "PSM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000018948037",
+      "name": "Siddharth",
+      "roleId": "1032257000000437249",
+      "roleName": "SM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000020181001",
+      "name": "Himanshu Thakur",
+      "roleId": "1032257000000437258",
+      "roleName": "PSM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000020192004",
+      "name": "Lang Takhel",
+      "roleId": "1032257000000437249",
+      "roleName": "SM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000022036018",
+      "name": "Sparshan",
+      "roleId": "1032257000000437258",
+      "roleName": "PSM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000022501030",
+      "name": "Shrestha",
+      "roleId": "1032257000000437249",
+      "roleName": "SM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000023468019",
+      "name": "Saurabh",
+      "roleId": "1032257000023456501",
+      "roleName": "IM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000023480001",
+      "name": "Nishant Jain",
+      "roleId": "1032257000023456501",
+      "roleName": "IM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000024019001",
+      "name": "Deepak",
+      "roleId": "1032257000000437258",
+      "roleName": "PSM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000024934001",
+      "name": "Ramesh kashyap",
+      "roleId": "1032257000023456501",
+      "roleName": "IM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000026015001",
+      "name": "Tanveer Singh",
+      "roleId": "1032257000023456501",
+      "roleName": "IM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000026958082",
+      "name": "Arjun",
+      "roleId": "1032257000000437249",
+      "roleName": "SM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000027013001",
+      "name": "Rajkumar",
+      "roleId": "1032257000000437249",
+      "roleName": "SM",
+      "status": "active"
+    },
+    {
+      "id": "1032257000024419001",
+      "name": "Harshita Magppie",
+      "roleId": "1032257000000031151",
+      "roleName": "CEO",
+      "status": "active"
+    },
+    {
+      "id": "1032257000025789001",
+      "name": "Abhinav Tomar",
+      "roleId": "1032257000000031154",
+      "roleName": "Manager",
+      "status": "active"
+    },
+    {
+      "id": "1032257000026023001",
+      "name": "Pratyush Pratyush",
+      "roleId": "1032257000026007264",
+      "roleName": "AVP",
+      "status": "active"
+    },
+    {
+      "id": "1032257000023448089",
+      "name": "Rishabh",
+      "roleId": "1032257000023456494",
+      "roleName": "IM Head",
+      "status": "active"
+    }
+  ]
+}

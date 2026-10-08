@@ -1,0 +1,468 @@
+{
+  "orgId": "60046349006",
+  "roles": {
+    "sales_manager": [
+      "1032257000000437249"
+    ],
+    "designer": [
+      "1032257000011385266"
+    ],
+    "asm": [],
+    "psm": [
+      "1032257000000437258"
+    ],
+    "factory_head": [],
+    "purchase_head": [],
+    "logistics_head": [],
+    "installation_manager": [
+      "1032257000023456501"
+    ],
+    "customer_care_head": [
+      "1032257000026007001"
+    ],
+    "avp": []
+  },
+  "notes": {
+    "designer": "User-confirmed Designer team of 19, reporting to Sachin (2026-09-23). Local review identities; no inferred matches to CRM accounts. Replaces the generic Designer1 Magppie selector entry; previously saved reviews retain their original IDs.",
+    "installation_manager": "User-confirmed local assignment: Rishabh only, using the Installation Manager review policy.",
+    "customer_care_head": "Customer Care Head uses AMS Head.",
+    "unmapped": "AVP review scorecard remains pending. Lokender is assigned locally to Purchase Head and Logistics Head, with separate role workbooks. His reporting manager has not been specified.",
+    "localAssignments": "Local display and review policy only. Do not write these assignments to Zoho. Other departments keep their CRM-role mapping."
+  },
+  "localAssignments": {
+    "avp": [
+      {
+        "id": "1032257000000451033",
+        "department": "Retail",
+        "assignedRole": "AVP",
+        "policyRoleId": "avp"
+      },
+      {
+        "id": "1032257000024419001",
+        "department": "Retail",
+        "assignedRole": "AVP",
+        "policyRoleId": "avp"
+      },
+      {
+        "id": "1032257000026023001",
+        "department": "Projects",
+        "assignedRole": "AVP",
+        "policyRoleId": "avp"
+      }
+    ],
+    "sales_manager": [
+      {
+        "id": "1032257000020192004",
+        "department": "Retail",
+        "assignedRole": "SM",
+        "policyRoleId": "sales_manager"
+      },
+      {
+        "id": "1032257000020181001",
+        "department": "Retail",
+        "assignedRole": "SM",
+        "policyRoleId": "sales_manager"
+      },
+      {
+        "id": "1032257000000453001",
+        "department": "Retail",
+        "assignedRole": "SM",
+        "policyRoleId": "sales_manager"
+      },
+      {
+        "id": "1032257000000443001",
+        "department": "Retail",
+        "assignedRole": "SM",
+        "policyRoleId": "sales_manager"
+      },
+      {
+        "id": "1032257000025789001",
+        "department": "Retail",
+        "assignedRole": "SM",
+        "policyRoleId": "sales_manager"
+      },
+      {
+        "id": "1032257000026958082",
+        "department": "Retail",
+        "assignedRole": "SM",
+        "policyRoleId": "sales_manager"
+      },
+      {
+        "id": "1032257000000452001",
+        "department": "Retail",
+        "assignedRole": "SM",
+        "policyRoleId": "asm"
+      },
+      {
+        "id": "1032257000018948037",
+        "department": "Retail",
+        "assignedRole": "SM",
+        "policyRoleId": "asm"
+      },
+      {
+        "id": "1032257000000414377",
+        "department": "Projects",
+        "assignedRole": "SM",
+        "policyRoleId": "sales_manager"
+      }
+    ],
+    "asm": [
+      {
+        "id": "1032257000000454001",
+        "department": "Retail",
+        "assignedRole": "ASM",
+        "policyRoleId": "asm"
+      },
+      {
+        "id": "1032257000000442001",
+        "department": "Retail",
+        "assignedRole": "ASM",
+        "policyRoleId": "asm"
+      },
+      {
+        "id": "1032257000022501030",
+        "department": "Retail",
+        "assignedRole": "ASM",
+        "policyRoleId": "asm"
+      }
+    ],
+    "psm": [
+      {
+        "id": "1032257000000451017",
+        "department": "Pre-Sales",
+        "assignedRole": "PSM",
+        "policyRoleId": "psm"
+      },
+      {
+        "id": "1032257000011505042",
+        "department": "Pre-Sales",
+        "assignedRole": "PSM",
+        "policyRoleId": "psm"
+      },
+      {
+        "id": "1032257000022036018",
+        "department": "Pre-Sales",
+        "assignedRole": "PSM",
+        "policyRoleId": "psm"
+      },
+      {
+        "id": "1032257000024019001",
+        "department": "Pre-Sales",
+        "assignedRole": "PSM",
+        "policyRoleId": "psm"
+      }
+    ],
+    "factory_head": [
+      {
+        "id": "local:rajni",
+        "department": "Factory",
+        "assignedRole": "Factory Office",
+        "policyRoleId": "factory_head"
+      }
+    ],
+    "installation_manager": [
+      {
+        "id": "1032257000023448089",
+        "department": "Factory",
+        "assignedRole": "Installation Manager",
+        "policyRoleId": "installation_manager"
+      }
+    ],
+    "purchase_head": [
+      {
+        "id": "local:lokender",
+        "department": "Factory",
+        "assignedRole": "Purchase Head",
+        "policyRoleId": "purchase_head"
+      }
+    ],
+    "logistics_head": [
+      {
+        "id": "local:lokender",
+        "department": "Factory",
+        "assignedRole": "Logistics Head",
+        "policyRoleId": "logistics_head"
+      }
+    ],
+    "designer": [
+      {
+        "id": "local:designer-atif-hussain",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-rishabh-butar",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-rashi",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-vishal-dubey",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-kavita",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-nidhi",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-shruti",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-jyoti",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-gunjan",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-pravallika",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-ankita",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-palak",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-rupa",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-mansi",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-sudha",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-mehul",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-deepanksha",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-soma",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      },
+      {
+        "id": "local:designer-abdul",
+        "department": "Design",
+        "assignedRole": "Design Consultant",
+        "policyRoleId": "designer"
+      }
+    ]
+  },
+  "assignmentSource": "User-approved project-only department lists",
+  "reportingHierarchy": {
+    "source": "User-confirmed hierarchy, 2026-09-17; project only",
+    "parents": {
+      "Pratyush": "Dr. Suruchi Mittal",
+      "Tavneet": "Dr. Suruchi Mittal",
+      "Harshita": "Dr. Suruchi Mittal",
+      "Sachin": "Dr. Suruchi Mittal",
+      "Sadhvi": "Dr. Suruchi Mittal",
+      "Satvir": "Dr. Suruchi Mittal",
+      "Factory": "Dr. Suruchi Mittal",
+      "Lang": "Tavneet",
+      "Arjun": "Tavneet",
+      "Siddharth": "Tavneet",
+      "Anushka": "Tavneet",
+      "Vaishnavi": "Tavneet",
+      "Ashish": "Harshita",
+      "Shreya": "Harshita",
+      "Sudhakar": "Factory",
+      "Rishabh": "Factory",
+      "Sakshi": "Dr. Suruchi Mittal",
+      "Himanshu": "Harshita",
+      "Abhinav": "Dr. Suruchi Mittal",
+      "Rahul": "Tavneet",
+      "Shrestha": "Ashish",
+      "Rajnikant": "Factory"
+    },
+    "departments": [
+      "Factory"
+    ],
+    "employeeNodes": {
+      "1032257000000451033": "Tavneet",
+      "1032257000024419001": "Harshita",
+      "1032257000026023001": "Pratyush",
+      "1032257000001960001": "Sachin",
+      "1032257000022104010": "Sadhvi",
+      "1032257000020192004": "Lang",
+      "1032257000026958082": "Arjun",
+      "1032257000018948037": "Siddharth",
+      "1032257000000442001": "Anushka",
+      "1032257000000454001": "Vaishnavi",
+      "1032257000000443001": "Ashish",
+      "1032257000005147103": "Sudhakar",
+      "1032257000023448089": "Rishabh",
+      "local:rajni": "Rajnikant",
+      "1032257000000453001": "Sakshi",
+      "1032257000020181001": "Himanshu",
+      "1032257000025789001": "Abhinav",
+      "1032257000000452001": "Rahul",
+      "1032257000022501030": "Shrestha"
+    },
+    "workbookManagers": {
+      "psm": "Sadhvi",
+      "designer": "Sachin"
+    },
+    "notes": "No guessed identity matches. Shreya is not Shrestha. Unspecified employees have no configured manager. All PSMs in the application report to Sadhvi; CRM role names do not override this."
+  },
+  "projectPeople": [
+    {
+      "id": "local:rajni",
+      "name": "Rajnikant",
+      "status": "active"
+    },
+    {
+      "id": "local:lokender",
+      "name": "Lokender",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-atif-hussain",
+      "name": "Atif Hussain",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-rishabh-butar",
+      "name": "Rishabh Butar",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-rashi",
+      "name": "Rashi",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-vishal-dubey",
+      "name": "Vishal Dubey",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-kavita",
+      "name": "Kavita",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-nidhi",
+      "name": "Nidhi",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-shruti",
+      "name": "Shruti",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-jyoti",
+      "name": "Jyoti",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-gunjan",
+      "name": "Gunjan",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-pravallika",
+      "name": "Pravallika",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-ankita",
+      "name": "Ankita",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-palak",
+      "name": "Palak",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-rupa",
+      "name": "Rupa",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-mansi",
+      "name": "Mansi",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-sudha",
+      "name": "Sudha",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-mehul",
+      "name": "Mehul",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-deepanksha",
+      "name": "Deepanksha",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-soma",
+      "name": "Soma",
+      "status": "active"
+    },
+    {
+      "id": "local:designer-abdul",
+      "name": "Abdul",
+      "status": "active"
+    }
+  ]
+}

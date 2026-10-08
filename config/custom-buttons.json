@@ -1,0 +1,547 @@
+{
+  "generated_at": "2026-08-29T18:08:21.123Z",
+  "source_mode": "read-only",
+  "buttons": [
+    {
+      "id": "1032257000011559053",
+      "module": "Leads",
+      "name": "Picky-WhatsApp",
+      "api_name": "Picky_WhatsApp",
+      "description": null,
+      "position": "list_view",
+      "action": "widget",
+      "source": "platform",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370"
+      ],
+      "layout_ids": [],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000011559129",
+        "name": "Picky-WhatsApp"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000011559059",
+      "module": "Leads",
+      "name": "Picky-WhatsApp",
+      "api_name": "Picky_WhatsApp1",
+      "description": null,
+      "position": "view",
+      "action": "widget",
+      "source": "platform",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370"
+      ],
+      "layout_ids": [
+        "1032257000000000167"
+      ],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000011559135",
+        "name": "Picky-WhatsApp"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000011958248",
+      "module": "Leads",
+      "name": "Estimate",
+      "api_name": "Estimate",
+      "description": null,
+      "position": "view",
+      "action": "widget",
+      "source": "crm",
+      "sequence_number": 2,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370"
+      ],
+      "layout_ids": [
+        "1032257000000000167"
+      ],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000012167001",
+        "name": "Estimate Widget"
+      },
+      "local_status": "Read-only preview",
+      "block_reason": "A separately implemented calculation-only preview is available. It does not read or save a Lead, execute captured widget source, perform CRM writes, or contact an external service; the full source action remains blocked."
+    },
+    {
+      "id": "1032257000022801590",
+      "module": "Leads",
+      "name": "Initiate Calls on Timepay",
+      "api_name": "Initiate_Calls_on_Timepay",
+      "description": null,
+      "position": "list_view",
+      "action": "custom_function",
+      "source": "crm",
+      "sequence_number": 2,
+      "profile_ids": [
+        "1032257000000031157"
+      ],
+      "layout_ids": [],
+      "user_types": [],
+      "action_reference": {
+        "type": "custom_function",
+        "id": "342586000000262006",
+        "name": "Initiate Calls on TimePay"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000011559065",
+      "module": "Contacts",
+      "name": "Picky-WhatsApp",
+      "api_name": "Picky_WhatsApp11",
+      "description": null,
+      "position": "list_view",
+      "action": "widget",
+      "source": "platform",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370"
+      ],
+      "layout_ids": [],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000011559141",
+        "name": "Picky-WhatsApp"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000011559071",
+      "module": "Contacts",
+      "name": "Picky-WhatsApp",
+      "api_name": "Picky_WhatsApp111",
+      "description": null,
+      "position": "view",
+      "action": "widget",
+      "source": "platform",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370"
+      ],
+      "layout_ids": [
+        "1032257000000000171",
+        "1032257000005515301"
+      ],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000011559147",
+        "name": "Picky-WhatsApp"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000011594251",
+      "module": "Contacts",
+      "name": "sync with orders",
+      "api_name": "sync_with_orders",
+      "description": null,
+      "position": "list_view",
+      "action": "custom_function",
+      "source": "crm",
+      "sequence_number": 2,
+      "profile_ids": [
+        "1032257000000031157"
+      ],
+      "layout_ids": [],
+      "user_types": [],
+      "action_reference": {
+        "type": "custom_function",
+        "id": "342586000000151003",
+        "name": "test button"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000017358923",
+      "module": "Contacts",
+      "name": "Revise-Approve Quote",
+      "api_name": "Revise_Approve_Quote",
+      "description": null,
+      "position": "view",
+      "action": "widget",
+      "source": "crm",
+      "sequence_number": 2,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370"
+      ],
+      "layout_ids": [
+        "1032257000000000171",
+        "1032257000005515301"
+      ],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000017358913",
+        "name": "Revise-Approve Quote-Any Stage"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000022961587",
+      "module": "Contacts",
+      "name": "Deploy Team for Installation",
+      "api_name": "Assign_Visit_for_Installation",
+      "description": null,
+      "position": "view",
+      "action": "widget",
+      "source": "crm",
+      "sequence_number": 3,
+      "profile_ids": [
+        "1032257000000031157"
+      ],
+      "layout_ids": [
+        "1032257000000000171"
+      ],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000022961582",
+        "name": "Deploy Team"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000023270892",
+      "module": "Contacts",
+      "name": "Sunrooof Mark Closures",
+      "api_name": "Sunrooof_Mark_Closures",
+      "description": null,
+      "position": "view",
+      "action": "widget",
+      "source": "crm",
+      "sequence_number": 4,
+      "profile_ids": [
+        "1032257000000031157"
+      ],
+      "layout_ids": [
+        "1032257000000000171"
+      ],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000023270884",
+        "name": "Sunrooof Mark Closures"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000011559077",
+      "module": "Deals",
+      "name": "Picky-WhatsApp",
+      "api_name": "Picky_WhatsApp1111",
+      "description": null,
+      "position": "list_view",
+      "action": "widget",
+      "source": "platform",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370"
+      ],
+      "layout_ids": [],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000011559153",
+        "name": "Picky-WhatsApp"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000011559083",
+      "module": "Deals",
+      "name": "Picky-WhatsApp",
+      "api_name": "Picky_WhatsApp11111",
+      "description": null,
+      "position": "view",
+      "action": "widget",
+      "source": "platform",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370"
+      ],
+      "layout_ids": [
+        "1032257000000000173"
+      ],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000011559159",
+        "name": "Picky-WhatsApp"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000011559089",
+      "module": "Accounts",
+      "name": "Picky-WhatsApp",
+      "api_name": "Picky_WhatsApp111111",
+      "description": null,
+      "position": "list_view",
+      "action": "widget",
+      "source": "platform",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370"
+      ],
+      "layout_ids": [],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000011559165",
+        "name": "Picky-WhatsApp"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000011559095",
+      "module": "Accounts",
+      "name": "Picky-WhatsApp",
+      "api_name": "Picky_WhatsApp1111111",
+      "description": null,
+      "position": "view",
+      "action": "widget",
+      "source": "platform",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370"
+      ],
+      "layout_ids": [
+        "1032257000000000169"
+      ],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000011559171",
+        "name": "Picky-WhatsApp"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000011559101",
+      "module": "Invoices",
+      "name": "Picky-WhatsApp",
+      "api_name": "Picky_WhatsApp11111111",
+      "description": null,
+      "position": "list_view",
+      "action": "widget",
+      "source": "platform",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370"
+      ],
+      "layout_ids": [],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000011559177",
+        "name": "Picky-WhatsApp"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000011559107",
+      "module": "Invoices",
+      "name": "Picky-WhatsApp",
+      "api_name": "Picky_WhatsApp111111111",
+      "description": null,
+      "position": "view",
+      "action": "widget",
+      "source": "platform",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370"
+      ],
+      "layout_ids": [
+        "1032257000000000185"
+      ],
+      "user_types": [],
+      "action_reference": {
+        "type": "widget",
+        "id": "1032257000011559183",
+        "name": "Picky-WhatsApp"
+      },
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000009808377",
+      "module": "VocResponses_Leads",
+      "name": "voc.drilldown.view.response.button",
+      "api_name": "View_Response",
+      "description": null,
+      "position": "list_view_each_record",
+      "action": "voc",
+      "source": "integration",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370",
+        "1032257000023456508",
+        "1032257000023456553",
+        "1032257000026007087",
+        "1032257000026007271"
+      ],
+      "layout_ids": [],
+      "user_types": [],
+      "action_reference": null,
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000009808383",
+      "module": "VocResponses_Contacts",
+      "name": "voc.drilldown.view.response.button",
+      "api_name": "View_Response",
+      "description": null,
+      "position": "list_view_each_record",
+      "action": "voc",
+      "source": "integration",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155",
+        "1032257000011385280",
+        "1032257000011385370",
+        "1032257000023456508",
+        "1032257000023456553",
+        "1032257000026007087",
+        "1032257000026007271"
+      ],
+      "layout_ids": [],
+      "user_types": [],
+      "action_reference": null,
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    },
+    {
+      "id": "1032257000009808389",
+      "module": "VocResponses_VocAnonymous",
+      "name": "voc.drilldown.view.response.button",
+      "api_name": "View_Response",
+      "description": null,
+      "position": "list_view_each_record",
+      "action": "voc",
+      "source": "integration",
+      "sequence_number": 1,
+      "profile_ids": [
+        "1032257000000031157",
+        "1032257000000031160",
+        "1032257000000437001",
+        "1032257000000437079",
+        "1032257000000437155"
+      ],
+      "layout_ids": [],
+      "user_types": [],
+      "action_reference": null,
+      "local_status": "Blocked",
+      "block_reason": "Source action is inventoried but local execution is disabled until its behavior, permissions, inputs, side effects, and failure handling are fully reproduced and tested."
+    }
+  ]
+}

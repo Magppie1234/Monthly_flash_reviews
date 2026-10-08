@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "description": "Read-only evidence switches. Context facts never imply a rating. Missing workbook thresholds remain unset.",
+  "liveEnabled": true,
+  "refreshAfterMinutes": 60,
+  "enabledResponsibilities": ["sm_w2", "sm_w3", "sm_w6", "sm_w9", "sm_w10", "sm_w12", "asm_w5", "asm_w7", "asm_w8", "asm_w10", "asm_w11", "asm_w12", "psm_w1", "psm_w4", "psm_w5", "psm_w6"],
+  "ratingSuggestionsEnabled": false,
+  "pending": ["historical-team-membership", "event-time-values", "response-window-and-evidence", "conversion-cohorts", "working-day-calendar", "forecast-baselines", "CSAT-access", "provider-reconciliation"]
+}

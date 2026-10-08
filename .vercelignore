@@ -1,0 +1,24 @@
+# Credentials and local access material
+.env
+.env.*
+!.env.example
+.access-code
+.crm-sql-secret
+
+# Private CRM evidence, exports, attachments, and captured archives
+.private
+private
+exports
+attachments
+*.csv
+*.zip
+
+# Development-only material
+node_modules
+.claude
+.DS_Store
+coverage
+*.log
+test
+docs
+sync

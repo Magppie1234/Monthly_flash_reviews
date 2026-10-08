@@ -1,0 +1,313 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-08-30T09:33:54.421Z",
+  "source_snapshot_generated_at": "2026-08-29T18:08:21.123Z",
+  "audit_mode": "Historical offline source evidence plus batched SELECT-only local crm_meta verification and static enforcement-code review; no source contact or mutation.",
+  "evidence_scope": {
+    "modules_cataloged": 122,
+    "offline_source_artifacts_only": true,
+    "source_contacted": false,
+    "source_mutations": false,
+    "local_database_queried": true,
+    "local_database_query_scope": "SELECT-only crm_meta fields, layouts, views, and module catalog.",
+    "local_database_mutations": false,
+    "module_level_rows_included": false,
+    "configuration_names_included": false,
+    "record_values_included": false,
+    "limitations": [
+      "A successful list response proves only that the captured list was readable at snapshot time.",
+      "An inaccessible endpoint does not prove that no source configuration exists.",
+      "Local engine capability does not prove equivalence without complete source definitions and negative-path tests."
+    ]
+  },
+  "source_coverage": {
+    "layouts": {
+      "endpoint_responses": 122,
+      "successful_responses": 75,
+      "blocked_responses": 47,
+      "responses_by_status": {
+        "200": 67,
+        "204": 8,
+        "400": 47
+      },
+      "definitions_captured": 70,
+      "modules_with_definitions": 67,
+      "successful_empty_modules": 8,
+      "definitions_with_sections_property": 70,
+      "definitions_with_nonempty_sections": 69,
+      "definitions_with_profile_scope_property": 70,
+      "definitions_with_action_permissions_property": 70,
+      "status": "Partially captured"
+    },
+    "custom_views": {
+      "endpoint_responses": 122,
+      "successful_responses": 121,
+      "blocked_responses": 1,
+      "responses_by_status": {
+        "200": 41,
+        "204": 80,
+        "400": 1
+      },
+      "definitions_captured": 386,
+      "modules_with_definitions": 41,
+      "successful_empty_modules": 80,
+      "list_rows_captured": 386,
+      "criteria_details_captured": 0,
+      "criteria_details_missing": 386,
+      "source_criteria_compile_verified": 0,
+      "source_criteria_compile_blocked": 386,
+      "status": "List captured; criteria detail blocked offline"
+    },
+    "validation_rules": {
+      "endpoint_responses": 122,
+      "successful_responses": 0,
+      "blocked_responses": 122,
+      "responses_by_status": {
+        "404": 122
+      },
+      "definitions_captured": 0,
+      "modules_with_definitions": 0,
+      "successful_empty_modules": 0,
+      "rule_bodies_captured": 0,
+      "executable_definitions_captured": 0,
+      "status": "Not accessible in captured discovery"
+    },
+    "assignment_rules": {
+      "endpoint_responses": 122,
+      "successful_responses": 12,
+      "blocked_responses": 110,
+      "responses_by_status": {
+        "200": 1,
+        "204": 11,
+        "400": 110
+      },
+      "definitions_captured": 1,
+      "modules_with_definitions": 1,
+      "successful_empty_modules": 11,
+      "definitions_with_criteria": 0,
+      "definitions_with_actions": 0,
+      "definitions_with_assignee_reference": 1,
+      "executable_definitions_captured": 0,
+      "status": "List evidence only; execution detail blocked"
+    },
+    "approval_rules": {
+      "endpoint_responses": 122,
+      "successful_responses": 0,
+      "blocked_responses": 122,
+      "responses_by_status": {
+        "404": 122
+      },
+      "definitions_captured": 0,
+      "modules_with_definitions": 0,
+      "successful_empty_modules": 0,
+      "rule_bodies_captured": 0,
+      "executable_definitions_captured": 0,
+      "status": "Not accessible in captured discovery"
+    },
+    "pipelines": {
+      "layout_scoped_responses": 70,
+      "successful_responses": 1,
+      "blocked_responses": 69,
+      "responses_by_status": {
+        "204": 1,
+        "400": 69
+      },
+      "definitions_captured": 0,
+      "modules_with_responses": 67,
+      "modules_with_successful_responses": 1,
+      "executable_definitions_captured": 0,
+      "status": "Not accessible beyond one empty response"
+    }
+  },
+  "current_mirrored_runtime": {
+    "audit_scope": "Exact aggregate of hydrated local crm_meta fields, layouts, and custom views; separate from the historical offline source-discovery snapshot.",
+    "evidence_mode": "Batched SELECT-only crm_meta reads plus the production custom-view compiler; no CRM records or source requests.",
+    "local_database_queried_during_generation": true,
+    "source_contacted_during_generation": false,
+    "source_mutations": false,
+    "local_mutations": false,
+    "batching": {
+      "metadata_key_rows": 318,
+      "batch_size": 12,
+      "value_batches": 27,
+      "maximum_concurrency": 4
+    },
+    "modules_cataloged": 153,
+    "fields": {
+      "metadata_scopes": 121,
+      "modules_with_definitions": 120,
+      "empty_scopes": 1,
+      "definitions_mirrored": 2377
+    },
+    "layouts": {
+      "metadata_scopes": 75,
+      "modules_with_definitions": 67,
+      "empty_scopes": 8,
+      "definitions_mirrored": 70,
+      "definitions_with_sections_property": 70,
+      "definitions_with_nonempty_sections": 69,
+      "sections_mirrored": 168,
+      "layout_field_references": 1796
+    },
+    "custom_views": {
+      "metadata_scopes": 121,
+      "modules_with_definitions": 41,
+      "empty_scopes": 80,
+      "definitions_mirrored": 386,
+      "criteria_bearing_definitions": 199,
+      "criteria_leaf_count": 321,
+      "compilation": {
+        "definitions_reviewed": 386,
+        "executable_criteria_definitions": 102,
+        "explicitly_safe_unfiltered_definitions": 53,
+        "unresolved_criteria_bodies": 134,
+        "unsupported_criteria_definitions": 97,
+        "compiled_definitions": 155,
+        "blocked_definitions": 231
+      },
+      "system_defined_compilation": {
+        "definitions_reviewed": 306,
+        "executable_criteria_definitions": 33,
+        "explicitly_safe_unfiltered_definitions": 48,
+        "unresolved_criteria_bodies": 134,
+        "unsupported_criteria_definitions": 91,
+        "compiled_definitions": 81,
+        "blocked_definitions": 225
+      },
+      "default_compilation": {
+        "definitions_reviewed": 41,
+        "executable_criteria_definitions": 4,
+        "explicitly_safe_unfiltered_definitions": 10,
+        "unresolved_criteria_bodies": 26,
+        "unsupported_criteria_definitions": 1,
+        "compiled_definitions": 14,
+        "blocked_definitions": 27,
+        "blocking_dynamic_families": [
+          "CURRENTUSER",
+          "TODAYANDOVERDUE"
+        ]
+      },
+      "compiler_error_codes": {
+        "CUSTOM_VIEW_CRITERIA_UNAVAILABLE": 134,
+        "CUSTOM_VIEW_CRITERIA_UNSUPPORTED": 97
+      },
+      "implicit_unsupported_default_behavior": "Visible fallback to an explicitly safe unfiltered mirrored view.",
+      "explicit_unsupported_selection_decision": "Deny",
+      "source_equivalence": "Partial; unresolved and unsupported criteria remain blocked.",
+      "status": "Partially implemented; fail-closed"
+    }
+  },
+  "local_enforcement": {
+    "layouts": {
+      "status": "Partially implemented",
+      "source_equivalence": "Partial",
+      "exact_or_stored_layout_resolution": true,
+      "ambiguous_multi_layout_create_decision": "Deny",
+      "unknown_layout_decision": "Deny",
+      "field_overlay_applied_before_validation": true,
+      "required_field_enforcement": true,
+      "read_only_and_virtual_field_enforcement": true,
+      "layout_profile_visibility_enforced": false,
+      "layout_action_permissions_enforced": false,
+      "current_layout_definitions_available": 70,
+      "current_field_definitions_available": 2377,
+      "note": "Hydrated local layout and field metadata constrain create and edit validation. Profile visibility and layout action permissions are not locally enforced."
+    },
+    "custom_views": {
+      "status": "Implemented fail-closed",
+      "source_equivalence": "Partial; unresolved and unsupported criteria remain blocked",
+      "nested_groups_supported": true,
+      "group_operators_supported": [
+        "AND",
+        "OR"
+      ],
+      "comparators_supported": [
+        "equal",
+        "not_equal",
+        "contains",
+        "not_contains",
+        "starts_with",
+        "ends_with",
+        "in",
+        "not_in",
+        "greater_than",
+        "greater_equal",
+        "less_than",
+        "less_equal",
+        "between"
+      ],
+      "explicit_unfiltered_view_supported": true,
+      "missing_criteria_decision": "Deny",
+      "disrupted_criteria_decision": "Deny",
+      "dynamic_values_decision": "Deny",
+      "unknown_fields_decision": "Deny",
+      "unsupported_comparators_decision": "Deny",
+      "current_executable_criteria_definitions": 102,
+      "current_explicitly_safe_unfiltered_definitions": 53,
+      "current_unresolved_criteria_bodies": 134,
+      "current_unsupported_criteria_definitions": 97,
+      "current_views_blocked": 231,
+      "note": "Every hydrated local view was passed through the production compiler. Explicit null criteria are safely unfiltered; missing, dynamic, disrupted, unavailable-field, and unsupported criteria remain denied."
+    },
+    "validation_rules": {
+      "status": "Blocked",
+      "source_equivalence": "Not demonstrated",
+      "generic_field_and_layout_validation": "Implemented",
+      "source_rule_interpreter": false,
+      "source_definitions_enforced": 0,
+      "default_execution_decision": "Deny",
+      "note": "Generic type, required-field, picklist, read-only, virtual-field, and layout validation is not a substitute for source validation-rule logic."
+    },
+    "assignment_rules": {
+      "status": "Blocked",
+      "source_equivalence": "Not demonstrated",
+      "source_rule_interpreter": false,
+      "source_definitions_enforced": 0,
+      "automatic_assignee_changes_enabled": false,
+      "caller_asserted_assignment_trusted": false,
+      "default_execution_decision": "Deny",
+      "note": "The one captured list definition has neither criteria nor action detail in the offline evidence."
+    },
+    "approval_rules": {
+      "status": "Blocked",
+      "source_equivalence": "Not demonstrated",
+      "source_rule_interpreter": false,
+      "source_definitions_enforced": 0,
+      "approval_state_mutation_enabled": false,
+      "caller_asserted_approval_trusted": false,
+      "default_execution_decision": "Deny",
+      "note": "No approval definition or executable approval evidence is available in the offline snapshot."
+    },
+    "pipelines": {
+      "status": "Blocked",
+      "source_equivalence": "Not demonstrated",
+      "source_pipeline_interpreter": false,
+      "source_definitions_enforced": 0,
+      "automatic_stage_progression_enabled": false,
+      "caller_asserted_pipeline_transition_trusted": false,
+      "default_execution_decision": "Deny",
+      "note": "Blueprint and ordinary field handling do not establish source pipeline equivalence."
+    }
+  },
+  "enforcement_boundary": {
+    "source_rule_execution_enabled": false,
+    "source_rule_mutations_enabled": false,
+    "caller_supplied_rule_outcomes_trusted": false,
+    "default_rule_decision": "Deny",
+    "validation_rule_decision": "Deny",
+    "assignment_rule_decision": "Deny",
+    "approval_rule_decision": "Deny",
+    "pipeline_decision": "Deny",
+    "status": "Fail-closed",
+    "reason": "Complete source criteria, conditions, actions, ordering, actor context, and failure semantics are not available and implemented for these rule families."
+  },
+  "privacy": {
+    "source_identifiers_included": false,
+    "configuration_names_included": false,
+    "individual_identities_included": false,
+    "record_data_included": false,
+    "communication_targets_included": false,
+    "sensitive_values_included": false,
+    "private_locations_included": false
+  }
+}

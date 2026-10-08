@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "source_mode": "reviewed-local-execution-policy",
+  "policies": [
+    {
+      "blueprint_id": "1032257000000416697",
+      "module": "Leads",
+      "transition_id": "1032257000009279001",
+      "contract": {
+        "name": "Qualified",
+        "common": true,
+        "include_all_states": true,
+        "trigger_type": "manual",
+        "from": { "actual_value": "-None-", "display_value": "-None-" },
+        "to": { "actual_value": "Qualified/ Drawings Awiated", "display_value": "Qualified/ Drawings Awiated" },
+        "before": { "owners": ["All Users"], "criteria": [] },
+        "during_inputs": [
+          { "kind": "field", "api_name": "Oppourtunity_Value", "label": "Value by BD(₹ Lacs)", "data_type": "integer", "required": true },
+          { "kind": "associated_item", "api_name": "Notes", "label": "Notes", "data_type": "textarea", "required": true },
+          { "kind": "field", "api_name": "Type_of_Client", "label": "Type of Client", "data_type": "picklist", "required": true }
+        ],
+        "after_actions": []
+      }
+    },
+    {
+      "blueprint_id": "1032257000000416697",
+      "module": "Leads",
+      "transition_id": "1032257000009322035",
+      "contract": {
+        "name": "Human Intervention Required",
+        "common": true,
+        "include_all_states": true,
+        "trigger_type": "manual",
+        "from": { "actual_value": "-None-", "display_value": "-None-" },
+        "to": { "actual_value": "Human Intervention Required(AI)", "display_value": "Human Intervention Required(AI)" },
+        "before": { "owners": ["All Users"], "criteria": [] },
+        "during_inputs": [
+          { "kind": "associated_item", "api_name": "Notes", "label": "Notes", "data_type": "textarea", "required": true }
+        ],
+        "after_actions": []
+      }
+    },
+    {
+      "blueprint_id": "1032257000001044611",
+      "module": "Contacts",
+      "transition_id": "1032257000001044557",
+      "contract": {
+        "name": "Raw Quotation",
+        "common": false,
+        "include_all_states": false,
+        "trigger_type": "manual",
+        "from": { "actual_value": "Approve/Disapprove Quote", "display_value": "Approve/Disapprove Quote" },
+        "to": { "actual_value": "Raw Quote", "display_value": "Raw Quote" },
+        "before": { "owners": ["All Users"], "criteria": [] },
+        "during_inputs": [
+          { "kind": "field", "api_name": "Next_Follow_UP_Date", "label": "Follow Up Date", "data_type": "date", "required": true },
+          { "kind": "field", "api_name": "Amount", "label": "BD Value", "data_type": "integer", "required": false }
+        ],
+        "after_actions": []
+      }
+    },
+    {
+      "blueprint_id": "1032257000001044611",
+      "module": "Contacts",
+      "transition_id": "1032257000001044561",
+      "contract": {
+        "name": "Ringing No Response",
+        "common": false,
+        "include_all_states": false,
+        "trigger_type": "manual",
+        "from": { "actual_value": "Raw Quote", "display_value": "Raw Quote" },
+        "to": { "actual_value": "Ringing No Response", "display_value": "Ringing No Response" },
+        "before": { "owners": ["All Users"], "criteria": [] },
+        "during_inputs": [],
+        "after_actions": []
+      }
+    },
+    {
+      "blueprint_id": "1032257000001044611",
+      "module": "Contacts",
+      "transition_id": "1032257000001044845",
+      "contract": {
+        "name": "Revised Design Discussion1",
+        "common": false,
+        "include_all_states": false,
+        "trigger_type": "manual",
+        "from": { "actual_value": "Revised Design Discussion", "display_value": "Revised Design Discussion" },
+        "to": { "actual_value": "Revised Design Discussion1", "display_value": "Revised Design Discussion1" },
+        "before": { "owners": ["All Users"], "criteria": [] },
+        "during_inputs": [],
+        "after_actions": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+.vercel/
+node_modules/
+
+# Credentials and local access material
+.env
+.env.*
+!.env.example
+.access-code
+.crm-sql-secret
+
+# Authorized CRM exports, attachments, and private discovery snapshots
+.private/
+snapshot-data/
+private/
+exports/
+attachments/
+*.csv
+*.zip
+
+# Local/runtime artifacts
+.DS_Store
+coverage/
+*.log

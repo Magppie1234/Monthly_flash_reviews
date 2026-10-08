@@ -1,0 +1,975 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-30T13:25:33.156Z",
+  "source_snapshot_at": "2026-08-29T18:01:51.588Z",
+  "evidence": {
+    "mode": "Existing captured sanitized local automation metadata only.",
+    "source_contacted": false,
+    "source_writes": false,
+    "local_metadata_read": true,
+    "local_database_writes": false,
+    "input_endpoint_scope": "Local /api/meta/automation snapshot."
+  },
+  "coverage": {
+    "listed_rules": 44,
+    "detailed_rules": 44,
+    "active_rules": 39,
+    "inactive_rules": 5,
+    "plan_eligible_active_rules": 4,
+    "blocked_active_rules": 35,
+    "runtime_write_enabled_rules": 0,
+    "referenced_actions": 98,
+    "referenced_field_update_actions": 37,
+    "unique_referenced_field_update_actions": 25,
+    "captured_field_update_definitions": 60,
+    "missing_referenced_field_update_definitions": 1,
+    "eligible_condition_count": 4,
+    "eligible_field_mutation_count": 4,
+    "eligible_function_adapter_count": 1,
+    "blocked_active_reason_counts": {
+      "CRITERIA_COMPARATOR_UNSUPPORTED": 2,
+      "CRITERIA_FIELD_UNRESOLVED": 1,
+      "CRITERIA_VALUE_UNSUPPORTED": 6,
+      "FIELD_UPDATE_DEFINITION_MISSING": 1,
+      "FUNCTION_ADAPTER_UNAVAILABLE": 20,
+      "FUNCTION_PARAMETER_BINDING_UNVERIFIED": 1,
+      "IDENTITY_ACTION_UNSUPPORTED": 2,
+      "IDENTITY_CRITERIA_UNSUPPORTED": 7,
+      "IDENTITY_FIELD_UPDATE_UNSUPPORTED": 2,
+      "OUTBOUND_ACTION_UNSUPPORTED": 6,
+      "RECORD_CREATION_ACTION_UNSUPPORTED": 1,
+      "RELATIONAL_CRITERIA_UNSUPPORTED": 6,
+      "TRIGGER_TYPE_UNSUPPORTED": 8
+    }
+  },
+  "runtime_boundary": {
+    "phase": "Inventory, criteria evaluation, and deterministic mutation planning only.",
+    "source_calls_enabled": false,
+    "source_writes_enabled": false,
+    "local_writes_enabled": false,
+    "outbound_delivery_enabled": false,
+    "identity_resolution_enabled": false,
+    "destructive_actions_enabled": false,
+    "scheduled_actions_enabled": false,
+    "function_adapters_registered": 2,
+    "whole_rule_decision": "Deny a rule when any trigger, criterion, condition, or action is unsupported."
+  },
+  "rules": [
+    {
+      "id": "1032257000003489158",
+      "name": "Automatic Lead Creation",
+      "module": "Calls",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "TRIGGER_TYPE_UNSUPPORTED",
+          "message": "The workflow trigger type is unsupported."
+        },
+        {
+          "code": "RELATIONAL_CRITERIA_UNSUPPORTED",
+          "message": "Relational workflow criteria are unsupported."
+        },
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000015737666",
+      "name": "Call Durations Update In Mint",
+      "module": "Calls",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "TRIGGER_TYPE_UNSUPPORTED",
+          "message": "The workflow trigger type is unsupported."
+        },
+        {
+          "code": "RELATIONAL_CRITERIA_UNSUPPORTED",
+          "message": "Relational workflow criteria are unsupported."
+        },
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000005147032",
+      "name": "create ticket in services management",
+      "module": "Calls",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "TRIGGER_TYPE_UNSUPPORTED",
+          "message": "The workflow trigger type is unsupported."
+        },
+        {
+          "code": "RELATIONAL_CRITERIA_UNSUPPORTED",
+          "message": "Relational workflow criteria are unsupported."
+        },
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        },
+        {
+          "code": "FIELD_UPDATE_DEFINITION_MISSING",
+          "message": "The referenced field-update definition was not captured."
+        }
+      ]
+    },
+    {
+      "id": "1032257000023616255",
+      "name": "Add Sunrooof files in the workdrive folder",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000015737607",
+      "name": "Copy of Create And Update Order",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "TRIGGER_TYPE_UNSUPPORTED",
+          "message": "The workflow trigger type is unsupported."
+        },
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000010080047",
+      "name": "Create Account",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "CRITERIA_FIELD_UNRESOLVED",
+          "message": "The source criterion field is missing or invalid."
+        },
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000005804262",
+      "name": "Create Note In Opportunity",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000007791110",
+      "name": "fetch old  note",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000021616723",
+      "name": "Is Sunrooof",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000003501079",
+      "name": "PSM assign",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "IDENTITY_CRITERIA_UNSUPPORTED",
+          "message": "The source criterion depends on an unresolved user, owner, role, or profile identity."
+        },
+        {
+          "code": "IDENTITY_FIELD_UPDATE_UNSUPPORTED",
+          "message": "The field update targets an unresolved identity field."
+        }
+      ]
+    },
+    {
+      "id": "1032257000022813289",
+      "name": "Set Last Services Date",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Eligible",
+      "write_execution": "Blocked",
+      "trigger": {
+        "type": "field_update",
+        "module": "Contacts",
+        "repeat": true,
+        "match_all": false,
+        "watched_fields": [
+          "First_Service_Date"
+        ],
+        "criteria": {
+          "kind": "criterion",
+          "field": "First_Service_Date",
+          "operator": "changed"
+        }
+      },
+      "conditions": [
+        {
+          "sequence": 1,
+          "criteria": {
+            "kind": "match_all"
+          },
+          "field_update_plan": [
+            {
+              "action_id": "1032257000022813285",
+              "action_name": "Set Last Services Date",
+              "operation": "set_field",
+              "field": "Last_Service_Date",
+              "value": {
+                "kind": "record_field",
+                "field": "First_Service_Date"
+              }
+            },
+            {
+              "action_id": "1032257000022813287",
+              "action_name": "Set Next Services Date",
+              "operation": "set_field",
+              "field": "Next_Service_Date",
+              "value": {
+                "kind": "record_field",
+                "field": "First_Service_Date"
+              }
+            }
+          ],
+          "function_adapter_plan": []
+        }
+      ],
+      "idempotency": {
+        "event_id_required": true,
+        "record_id_required": true,
+        "key_components": [
+          "rule_id",
+          "record_id",
+          "event_id"
+        ],
+        "persistence_requirement": "Persist the plan key atomically with mutations before any future write wiring."
+      },
+      "recursion": {
+        "workflow_origin_decision": "Deny",
+        "maximum_planning_depth": 0,
+        "same_rule_same_event_decision": "Deny",
+        "cross_rule_chaining": "Blocked until an authoritative dependency graph and cycle guard are implemented."
+      }
+    },
+    {
+      "id": "1032257000004081038",
+      "name": "set lead qualified date",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Eligible",
+      "write_execution": "Blocked",
+      "trigger": {
+        "type": "create",
+        "module": "Contacts",
+        "repeat": null,
+        "match_all": null,
+        "watched_fields": [],
+        "criteria": {
+          "kind": "match_all"
+        }
+      },
+      "conditions": [
+        {
+          "sequence": 1,
+          "criteria": {
+            "kind": "match_all"
+          },
+          "field_update_plan": [
+            {
+              "action_id": "1032257000004081032",
+              "action_name": "set lead qualified date",
+              "operation": "set_field",
+              "field": "Lead_Qualified_Date1",
+              "value": {
+                "kind": "execution_date",
+                "offset_days": 0
+              }
+            }
+          ],
+          "function_adapter_plan": []
+        }
+      ],
+      "idempotency": {
+        "event_id_required": true,
+        "record_id_required": true,
+        "key_components": [
+          "rule_id",
+          "record_id",
+          "event_id"
+        ],
+        "persistence_requirement": "Persist the plan key atomically with mutations before any future write wiring."
+      },
+      "recursion": {
+        "workflow_origin_decision": "Deny",
+        "maximum_planning_depth": 0,
+        "same_rule_same_event_decision": "Deny",
+        "cross_rule_chaining": "Blocked until an authoritative dependency graph and cycle guard are implemented."
+      }
+    },
+    {
+      "id": "1032257000006063250",
+      "name": "Set Owner Team on Creation - opp",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "IDENTITY_CRITERIA_UNSUPPORTED",
+          "message": "The source criterion depends on an unresolved user, owner, role, or profile identity."
+        }
+      ]
+    },
+    {
+      "id": "1032257000004871161",
+      "name": "Set PSM User",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000006063320",
+      "name": "Set Team on Owner Change - opp",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "IDENTITY_CRITERIA_UNSUPPORTED",
+          "message": "The source criterion depends on an unresolved user, owner, role, or profile identity."
+        }
+      ]
+    },
+    {
+      "id": "1032257000018629177",
+      "name": "Sync Attachment",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "TRIGGER_TYPE_UNSUPPORTED",
+          "message": "The workflow trigger type is unsupported."
+        },
+        {
+          "code": "CRITERIA_VALUE_UNSUPPORTED",
+          "message": "The source criterion value is dynamic, identity-shaped, or otherwise unsupported."
+        },
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000022923018",
+      "name": "test_opp",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "OUTBOUND_ACTION_UNSUPPORTED",
+          "message": "Outbound delivery is disabled and has no local phase-1 adapter."
+        }
+      ]
+    },
+    {
+      "id": "1032257000025276002",
+      "name": "Transfer the Qualified Lead",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "CRITERIA_COMPARATOR_UNSUPPORTED",
+          "message": "The source criterion comparator is unsupported."
+        },
+        {
+          "code": "IDENTITY_ACTION_UNSUPPORTED",
+          "message": "The action depends on unresolved source identities."
+        }
+      ]
+    },
+    {
+      "id": "1032257000010080063",
+      "name": "Update Accounts",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "IDENTITY_CRITERIA_UNSUPPORTED",
+          "message": "The source criterion depends on an unresolved user, owner, role, or profile identity."
+        },
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000016568154",
+      "name": "Update Expected Closing Date Change Counter",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Eligible",
+      "write_execution": "Blocked",
+      "trigger": {
+        "type": "field_update",
+        "module": "Contacts",
+        "repeat": true,
+        "match_all": false,
+        "watched_fields": [
+          "Est_Closoure_Date"
+        ],
+        "criteria": {
+          "kind": "criterion",
+          "field": "Est_Closoure_Date",
+          "operator": "changed"
+        }
+      },
+      "conditions": [
+        {
+          "sequence": 1,
+          "criteria": {
+            "kind": "match_all"
+          },
+          "field_update_plan": [],
+          "function_adapter_plan": [
+            {
+              "action_id": "1032257000016568150",
+              "action_name": "Update Expected Closing Date Change Counter",
+              "adapter": "increment_integer_field_v1",
+              "operation": "increment_field",
+              "field": "Expected_Closing_Date_Change_Counter",
+              "default_value": 0,
+              "increment": 1,
+              "minimum_current": 0,
+              "maximum_current": 999999998
+            }
+          ]
+        }
+      ],
+      "idempotency": {
+        "event_id_required": true,
+        "record_id_required": true,
+        "key_components": [
+          "rule_id",
+          "record_id",
+          "event_id"
+        ],
+        "persistence_requirement": "Persist the plan key atomically with mutations before any future write wiring."
+      },
+      "recursion": {
+        "workflow_origin_decision": "Deny",
+        "maximum_planning_depth": 0,
+        "same_rule_same_event_decision": "Deny",
+        "cross_rule_chaining": "Blocked until an authoritative dependency graph and cycle guard are implemented."
+      }
+    },
+    {
+      "id": "1032257000005832133",
+      "name": "Update Note In Opportunity",
+      "module": "Contacts",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "TRIGGER_TYPE_UNSUPPORTED",
+          "message": "The workflow trigger type is unsupported."
+        },
+        {
+          "code": "RELATIONAL_CRITERIA_UNSUPPORTED",
+          "message": "Relational workflow criteria are unsupported."
+        },
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000000118001",
+      "name": "Big Deal Rule",
+      "module": "Deals",
+      "source_active": false,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "RULE_INACTIVE",
+          "message": "The source workflow rule is inactive."
+        }
+      ]
+    },
+    {
+      "id": "1032257000011594112",
+      "name": "Sync Order Value with Opp",
+      "module": "Deals",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000022769112",
+      "name": "Update Total Revision",
+      "module": "Deals",
+      "source_active": false,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "RULE_INACTIVE",
+          "message": "The source workflow rule is inactive."
+        }
+      ]
+    },
+    {
+      "id": "1032257000010762211",
+      "name": "UpdateDesignerName",
+      "module": "Deals",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000013277102",
+      "name": "updateFormFilledDate",
+      "module": "Deals",
+      "source_active": true,
+      "plan_status": "Eligible",
+      "write_execution": "Blocked",
+      "trigger": {
+        "type": "field_update",
+        "module": "Deals",
+        "repeat": false,
+        "match_all": false,
+        "watched_fields": [
+          "Stage"
+        ],
+        "criteria": {
+          "kind": "criterion",
+          "field": "Stage",
+          "operator": "equal",
+          "value": "Form Filled"
+        }
+      },
+      "conditions": [
+        {
+          "sequence": 1,
+          "criteria": {
+            "kind": "match_all"
+          },
+          "field_update_plan": [
+            {
+              "action_id": "1032257000013277097",
+              "action_name": "Update",
+              "operation": "set_field",
+              "field": "Form_Filled_Date_Time",
+              "value": {
+                "kind": "execution_datetime",
+                "offset_days": 0
+              }
+            }
+          ],
+          "function_adapter_plan": []
+        }
+      ],
+      "idempotency": {
+        "event_id_required": true,
+        "record_id_required": true,
+        "key_components": [
+          "rule_id",
+          "record_id",
+          "event_id"
+        ],
+        "persistence_requirement": "Persist the plan key atomically with mutations before any future write wiring."
+      },
+      "recursion": {
+        "workflow_origin_decision": "Deny",
+        "maximum_planning_depth": 0,
+        "same_rule_same_event_decision": "Deny",
+        "cross_rule_chaining": "Blocked until an authoritative dependency graph and cycle guard are implemented."
+      }
+    },
+    {
+      "id": "1032257000007264083",
+      "name": "Notify When opened",
+      "module": "Emails",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "TRIGGER_TYPE_UNSUPPORTED",
+          "message": "The workflow trigger type is unsupported."
+        },
+        {
+          "code": "RELATIONAL_CRITERIA_UNSUPPORTED",
+          "message": "Relational workflow criteria are unsupported."
+        },
+        {
+          "code": "OUTBOUND_ACTION_UNSUPPORTED",
+          "message": "Outbound delivery is disabled and has no local phase-1 adapter."
+        }
+      ]
+    },
+    {
+      "id": "1032257000015032363",
+      "name": "Add Lead Transfer Info",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "IDENTITY_CRITERIA_UNSUPPORTED",
+          "message": "The source criterion depends on an unresolved user, owner, role, or profile identity."
+        },
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000005804209",
+      "name": "Create Note From Description",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000015737646",
+      "name": "Creation Add Country Code And Remove Duplicate Lead",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "CRITERIA_VALUE_UNSUPPORTED",
+          "message": "The source criterion value is dynamic, identity-shaped, or otherwise unsupported."
+        },
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000004875686",
+      "name": "Lead Distribution - Adglobal",
+      "module": "Leads",
+      "source_active": false,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "RULE_INACTIVE",
+          "message": "The source workflow rule is inactive."
+        }
+      ]
+    },
+    {
+      "id": "1032257000001097014",
+      "name": "Lead Distribution Rule",
+      "module": "Leads",
+      "source_active": false,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "RULE_INACTIVE",
+          "message": "The source workflow rule is inactive."
+        }
+      ]
+    },
+    {
+      "id": "1032257000015737626",
+      "name": "Modify Add Country Code And Remove Duplicate Lead",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "CRITERIA_VALUE_UNSUPPORTED",
+          "message": "The source criterion value is dynamic, identity-shaped, or otherwise unsupported."
+        },
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000022388187",
+      "name": "New Lead Distribution Rule",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "CRITERIA_COMPARATOR_UNSUPPORTED",
+          "message": "The source criterion comparator is unsupported."
+        },
+        {
+          "code": "RECORD_CREATION_ACTION_UNSUPPORTED",
+          "message": "Record-creation actions are outside the phase-1 field-mutation planner."
+        },
+        {
+          "code": "IDENTITY_ACTION_UNSUPPORTED",
+          "message": "The action depends on unresolved source identities."
+        },
+        {
+          "code": "CRITERIA_VALUE_UNSUPPORTED",
+          "message": "The source criterion value is dynamic, identity-shaped, or otherwise unsupported."
+        }
+      ]
+    },
+    {
+      "id": "1032257000022638142",
+      "name": "new_lead_msgtest",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "OUTBOUND_ACTION_UNSUPPORTED",
+          "message": "Outbound delivery is disabled and has no local phase-1 adapter."
+        }
+      ]
+    },
+    {
+      "id": "1032257000005687575",
+      "name": "Priya AI - Edit Lead Sync",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "CRITERIA_VALUE_UNSUPPORTED",
+          "message": "The source criterion value is dynamic, identity-shaped, or otherwise unsupported."
+        },
+        {
+          "code": "OUTBOUND_ACTION_UNSUPPORTED",
+          "message": "Outbound delivery is disabled and has no local phase-1 adapter."
+        }
+      ]
+    },
+    {
+      "id": "1032257000007886187",
+      "name": "Priya AI - New Lead Sync",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "CRITERIA_VALUE_UNSUPPORTED",
+          "message": "The source criterion value is dynamic, identity-shaped, or otherwise unsupported."
+        },
+        {
+          "code": "OUTBOUND_ACTION_UNSUPPORTED",
+          "message": "Outbound delivery is disabled and has no local phase-1 adapter."
+        }
+      ]
+    },
+    {
+      "id": "1032257000004081019",
+      "name": "set lead creation time - test",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "IDENTITY_FIELD_UPDATE_UNSUPPORTED",
+          "message": "The field update targets an unresolved identity field."
+        }
+      ]
+    },
+    {
+      "id": "1032257000006063025",
+      "name": "Set Lead Owner Team on Creation",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "IDENTITY_CRITERIA_UNSUPPORTED",
+          "message": "The source criterion depends on an unresolved user, owner, role, or profile identity."
+        }
+      ]
+    },
+    {
+      "id": "1032257000006063095",
+      "name": "Set Team On Owner Change",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "IDENTITY_CRITERIA_UNSUPPORTED",
+          "message": "The source criterion depends on an unresolved user, owner, role, or profile identity."
+        }
+      ]
+    },
+    {
+      "id": "1032257000022662026",
+      "name": "test",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "OUTBOUND_ACTION_UNSUPPORTED",
+          "message": "Outbound delivery is disabled and has no local phase-1 adapter."
+        }
+      ]
+    },
+    {
+      "id": "1032257000005832094",
+      "name": "Update Last Note In Lead",
+      "module": "Leads",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "TRIGGER_TYPE_UNSUPPORTED",
+          "message": "The workflow trigger type is unsupported."
+        },
+        {
+          "code": "RELATIONAL_CRITERIA_UNSUPPORTED",
+          "message": "Relational workflow criteria are unsupported."
+        },
+        {
+          "code": "FUNCTION_ADAPTER_UNAVAILABLE",
+          "message": "No reviewed, deterministic local adapter is registered for the source function."
+        }
+      ]
+    },
+    {
+      "id": "1032257000007949001",
+      "name": "Task Creation on Follow Up Date",
+      "module": "Tasks",
+      "source_active": false,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "RULE_INACTIVE",
+          "message": "The source workflow rule is inactive."
+        }
+      ]
+    },
+    {
+      "id": "1032257000023782470",
+      "name": "Mark Visit Done",
+      "module": "Visit_Module",
+      "source_active": true,
+      "plan_status": "Blocked",
+      "write_execution": "Blocked",
+      "block_reasons": [
+        {
+          "code": "FUNCTION_PARAMETER_BINDING_UNVERIFIED",
+          "message": "The captured workflow action does not expose authoritative function parameter-to-field bindings."
+        }
+      ]
+    }
+  ]
+}

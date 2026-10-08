@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-29T18:51:56.018Z",
+  "source_mode": "read-only",
+  "evidence_mode": "existing private discovery artifacts only",
+  "coverage": {
+    "reports": {
+      "discovered": 202,
+      "categories": 29,
+      "verified_private_exports": 1,
+      "verified_private_export_rows": 226,
+      "catalog_status": "Reconciled",
+      "definition_parity": "Blocked",
+      "local_execution": "Blocked",
+      "local_result_parity": "Blocked"
+    },
+    "dashboards": {
+      "discovered": 32,
+      "catalog_status": "Reconciled",
+      "selected_dashboard": {
+        "name": "Installation's Head Dashboard",
+        "component_count": 20,
+        "component_names": [
+          "Raw Leads Qualified Leads Accounts Orders Sales Standup",
+          "Tasks Meetings Calls",
+          "Visit Module",
+          "Projects",
+          "Visit A X Orders",
+          "AMS/Complaints",
+          "Approval for Dispatch",
+          "Start Again Installation (Complaint Closed)",
+          "Installation Progress",
+          "New Installations",
+          "Status wise Complaints",
+          "Complaint Raised Ticket Status",
+          "Orders by Installation Manager",
+          "Visits Have to Mark Done",
+          "Visits by Installation Manager",
+          "Client wise Installation Manager",
+          "Installation Progress by Client",
+          "Orders by Team Members",
+          "Settings Page",
+          "Search, Refine, Review and Act - All in one place"
+        ]
+      },
+      "definition_parity": "Blocked",
+      "local_execution": "Blocked",
+      "local_result_parity": "Blocked"
+    }
+  },
+  "execution_boundary": {
+    "local_report_execution_enabled": false,
+    "local_report_result_access_enabled": false,
+    "local_dashboard_execution_enabled": false,
+    "local_dashboard_result_access_enabled": false,
+    "source_execution_enabled": false,
+    "source_writes_enabled": false,
+    "scheduled_delivery_enabled": false,
+    "outbound_delivery_enabled": false,
+    "status": "Blocked",
+    "reason": "Catalog and one private export count are evidence only; report queries, report results, dashboard calculations, and delivery remain unavailable locally."
+  },
+  "privacy": {
+    "report_rows_exposed": false,
+    "customer_data_exposed": false,
+    "source_identifiers_exposed": false,
+    "urls_or_hrefs_exposed": false,
+    "recipients_exposed": false,
+    "private_paths_exposed": false,
+    "organization_identifiers_exposed": false,
+    "credentials_exposed": false,
+    "hashes_exposed": false
+  }
+}

@@ -1,0 +1,19 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Open updated local review</title><body>
+<h1>Open updated local review</h1><p id="status">Copy saved reviews from the original local app. The original reviews remain unchanged.</p><button id="copy">Copy saved reviews and open</button>
+<script>
+'use strict';
+const key='magppie_monthly_flash_review_v1',oldOrigin='http://localhost:3100',newOrigin='http://localhost:3101';
+const status=document.getElementById('status'),button=document.getElementById('copy');
+if(location.origin===oldOrigin){
+ document.body.hidden=true;
+ window.addEventListener('message',event=>{if(event.origin!==newOrigin||event.source!==parent||event.data?.type!=='copy-local-review'||typeof event.data.nonce!=='string')return;parent.postMessage({type:'local-review-copy',nonce:event.data.nonce,value:localStorage.getItem(key)},newOrigin);});
+}else if(location.origin===newOrigin){
+ button.onclick=()=>{
+  button.disabled=true;const nonce=crypto.randomUUID(),frame=document.createElement('iframe');frame.hidden=true;frame.src=oldOrigin+'/local-review-transfer.html';
+  const listener=event=>{if(event.origin!==oldOrigin||event.source!==frame.contentWindow||event.data?.type!=='local-review-copy'||event.data.nonce!==nonce)return;
+   try{const value=event.data.value,existing=localStorage.getItem(key);if(existing&&existing!==value)throw Error('This port already has reviews. No values were replaced.');if(value){const parsed=JSON.parse(value);if(parsed.version!==3)throw Error('Review format not recognized. Nothing was changed.');localStorage.setItem(key,value);if(localStorage.getItem(key)!==value)throw Error('Copy could not be verified.');}status.textContent='Saved reviews copied and verified. Opening the updated app…';location.replace('/#/flash-review');}catch(error){status.textContent=error.message;button.disabled=false;}finally{window.removeEventListener('message',listener);frame.remove();}
+  };
+  window.addEventListener('message',listener);frame.onload=()=>frame.contentWindow.postMessage({type:'copy-local-review',nonce},oldOrigin);document.body.appendChild(frame);
+ };
+}else{button.disabled=true;status.textContent='This helper is available only for the two local app ports.';}
+</script></body></html>

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "regions": ["sin1"],
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 60,
+      "includeFiles": "snapshot-data/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/index" }
+  ]
+}

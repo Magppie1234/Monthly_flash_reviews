@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-08-30T16:38:39.339Z",
+  "source_mode": "read-only",
+  "notes": {
+    "audited_at": "2026-08-30T16:38:39.339Z",
+    "scope": "Active source Note IDs returned by the Zoho CRM Notes records API and compared with local source-derived Note IDs in the same audit run",
+    "source_count_endpoint": 67948,
+    "source_count_endpoint_status": "Observed from the Notes count endpoint during the same audit run; its scope exceeds active enumeration by 150 rows",
+    "source_active_id_count": 67798,
+    "local_source_derived_id_count": 67798,
+    "source_only_id_count": 0,
+    "local_only_source_id_count": 0,
+    "id_parity": true,
+    "parity_classification": "reconciled_current",
+    "parity_basis": "Same-epoch GET-only source enumeration and SELECT-only local ID-set comparison",
+    "current_run_exact_payloads_verified": 0,
+    "historical_exact_payloads_verified": 1,
+    "content_comparison": "The current audit compared active ID sets only; one previously reconciled Note has historical exact-payload verification",
+    "source_record_writes": 0,
+    "local_record_writes": 0,
+    "local_record_deletes": 0
+  },
+  "attachments": {
+    "scope": "Source attachment metadata IDs and declared byte totals; attachment bodies were not downloaded",
+    "source_id_count": 78758,
+    "local_linked_record_count": 2,
+    "absent_local_id_count": 78756,
+    "source_declared_bytes": 205279257214,
+    "content_downloaded": false,
+    "storage_bucket_enumerated": false,
+    "storage_bucket_status": "Not inspected"
+  },
+  "related_lists": {
+    "audited_at": "2026-08-30T09:23:19Z",
+    "scope": "Source related-list definitions compared with locally mirrored metadata and generic Related-tab structural resolution",
+    "source_definition_count": 375,
+    "source_parent_module_count": 29,
+    "local_definition_count": 375,
+    "local_parent_module_count": 29,
+    "visible_parent_module_count": 27,
+    "visible_parent_modules_with_definitions": 26,
+    "visible_definition_count": 350,
+    "generic_ui_excluded_definition_count": 69,
+    "generic_ui_evaluated_definition_count": 281,
+    "queryable_definition_count": 99,
+    "unresolved_definition_count": 182,
+    "queryable_basis_counts": {
+      "exact_source_lookup_relation": 48,
+      "source_polymorphic_base_relation": 51
+    },
+    "unresolved_reason_counts": {
+      "RELATED_LINK_PATH_UNRESOLVED": 100,
+      "RELATED_TARGET_FIELDS_UNAVAILABLE": 33,
+      "RELATED_TARGET_MODULE_UNRESOLVED": 49
+    },
+    "unresolved_behavior": "Unresolved definitions return availability=unresolved with a reason code and are labelled unavailable by the UI; only availability=queryable may be reported as verified empty"
+  }
+}

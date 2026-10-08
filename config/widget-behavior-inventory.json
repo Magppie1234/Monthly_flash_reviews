@@ -1,0 +1,2019 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-29T20:58:32.109Z",
+  "source_mode": "read-only",
+  "analysis_mode": "Offline static package inspection; widget code was not executed and no network calls were made.",
+  "reconciliation": {
+    "source_widget_rows": 40,
+    "zoho_hosted_widgets": 20,
+    "external_hosted_widgets": 20,
+    "expected_zoho_packages": 20,
+    "captured_zoho_packages": 20,
+    "validated_zoho_packages": 20,
+    "unmatched_zoho_packages": 0,
+    "external_packages_unavailable": 20,
+    "status": "Reconciled"
+  },
+  "archive_safety": {
+    "crc_test": "Passed",
+    "path_traversal": "None detected",
+    "absolute_paths": "None detected",
+    "backslash_paths": "None detected",
+    "symbolic_links": "None detected",
+    "duplicate_entries": "None detected",
+    "size_limits": "Passed",
+    "regular_files": 38,
+    "total_uncompressed_bytes": 1109175,
+    "maximum_entries_in_one_package": 4,
+    "maximum_uncompressed_bytes_in_one_package": 126247
+  },
+  "type_summary": {
+    "Blueprint": 19,
+    "Button": 16,
+    "Home Page Dashboard": 3,
+    "Settings": 1,
+    "Web Tab": 1
+  },
+  "execution_boundary": {
+    "local_widget_execution_enabled": false,
+    "source_widget_execution_enabled": false,
+    "source_writes_enabled": false,
+    "outbound_delivery_enabled": false,
+    "status": "Blocked",
+    "reason": "The inventory is evidence for replication planning only; every widget remains fail-closed."
+  },
+  "privacy": {
+    "widget_code_exposed": false,
+    "external_targets_exposed": false,
+    "archive_hashes_exposed": false,
+    "local_paths_exposed": false,
+    "credentials_exposed": false,
+    "personally_identifiable_information_exposed": false
+  },
+  "widgets": [
+    {
+      "id": "1032257000000478094",
+      "name": "WebTab1 Extension",
+      "source_display_name": "WebTab1 Extension",
+      "hosting": "External",
+      "type": "Web Tab",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "External-hosted behavior is not present in the downloaded Zoho package set.",
+        "context_modules": [],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Unavailable",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000000478100",
+      "name": "LeadChain Extension",
+      "source_display_name": "LeadChain Extension",
+      "hosting": "External",
+      "type": "Settings",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "External-hosted behavior is not present in the downloaded Zoho package set.",
+        "context_modules": [],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Unavailable",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000007994308",
+      "name": "Payment Milestone Widget",
+      "source_display_name": "Payment Milestone Widget Installed",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 4,
+        "regular_files": 2,
+        "uncompressed_bytes": 54717
+      },
+      "behavior": {
+        "purpose": "Maintain opportunity payment milestones and the financial and follow-up values used by the closure flow.",
+        "context_modules": [
+          "Contacts"
+        ],
+        "modules_read": [
+          "Contacts",
+          "Payment_Milestones"
+        ],
+        "modules_written": [
+          "Contacts",
+          "Payment_Milestones"
+        ],
+        "record_actions": [
+          "Load the opportunity and its related payment milestones.",
+          "Validate milestone percentages, discounts, booking values, and follow-up data.",
+          "Replace related milestone rows and update the opportunity as one business operation.",
+          "Continue the invoking Blueprint only after a successful save."
+        ],
+        "mandatory_input_status": "Mapped with conditional rules",
+        "mandatory_inputs": [
+          "Estimated closure date",
+          "Next follow-up date",
+          "Number of accessories",
+          "Milestone percentages between 0 and 100 with the Magppie allocation totaling 100%",
+          "Management-discount justification values when a management discount is entered",
+          "Sunrooof total, booking, and discount values when the Sunrooof milestone option is enabled"
+        ],
+        "dependencies": [
+          "Opportunity-to-payment-milestone relationship",
+          "Atomic child-row replacement",
+          "Blueprint continuation"
+        ],
+        "local_equivalent_feasibility": "Partial",
+        "local_blockers": [
+          "Atomic relationship writes are not yet implemented locally.",
+          "The invoking Blueprint transition contract is not fully available."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000008937849",
+      "name": "Handover to Installation",
+      "source_display_name": "Handover to Installation",
+      "hosting": "External",
+      "type": "Blueprint",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "External-hosted behavior is not present in the downloaded Zoho package set.",
+        "context_modules": [],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Unavailable",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000010677612",
+      "name": "Revise Quote - local",
+      "source_display_name": "Revise Quote - local",
+      "hosting": "External",
+      "type": "Blueprint",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "External-hosted behavior is not present in the downloaded Zoho package set.",
+        "context_modules": [],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Unavailable",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000010677855",
+      "name": "Designer Form Widget",
+      "source_display_name": "Designer Form Widget Installed",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 2,
+        "regular_files": 2,
+        "uncompressed_bytes": 36834
+      },
+      "behavior": {
+        "purpose": "Collect project design requirements for every order related to an opportunity.",
+        "context_modules": [
+          "Contacts",
+          "Deals"
+        ],
+        "modules_read": [
+          "Contacts",
+          "Deals"
+        ],
+        "modules_written": [
+          "Deals",
+          "Notes",
+          "Attachments"
+        ],
+        "record_actions": [
+          "Load all related orders for the opportunity.",
+          "Update product-specific design requirements on each completed order.",
+          "Add notes and files to the order.",
+          "Continue the applicable order Blueprint transition after successful validation."
+        ],
+        "mandatory_input_status": "Mapped with product-specific rules",
+        "mandatory_inputs": [
+          "A completed form for every displayed project",
+          "At least one kitchen type for kitchen projects",
+          "At least one wardrobe type for wardrobe projects",
+          "City and room or area name",
+          "All product-specific fields marked mandatory by the form"
+        ],
+        "dependencies": [
+          "Opportunity-to-order relationship",
+          "Order attachments and notes",
+          "Order Blueprint transition"
+        ],
+        "local_equivalent_feasibility": "Partial",
+        "local_blockers": [
+          "Attachment and note writes require atomic local orchestration."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000010720459",
+      "name": "Revise Quote - Widget",
+      "source_display_name": "Revise Quote - Widget Installed",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 4,
+        "regular_files": 2,
+        "uncompressed_bytes": 54367
+      },
+      "behavior": {
+        "purpose": "Revise design requirements and quote status across selected orders for an opportunity.",
+        "context_modules": [
+          "Contacts",
+          "Deals"
+        ],
+        "modules_read": [
+          "Contacts",
+          "Deals",
+          "Stage_History"
+        ],
+        "modules_written": [
+          "Deals",
+          "Notes",
+          "Attachments"
+        ],
+        "record_actions": [
+          "Load related orders and their stage history.",
+          "Update design, quote-status, and revision-reason fields for completed orders.",
+          "Add notes and files to the order.",
+          "Continue the matching order Blueprint transition."
+        ],
+        "mandatory_input_status": "Mapped with status and product rules",
+        "mandatory_inputs": [
+          "At least one completed order",
+          "A status for each completed order",
+          "At least one kitchen or wardrobe type when that product applies",
+          "Notes when the selected status requires sales-manager input",
+          "A revision reason when revising a quote"
+        ],
+        "dependencies": [
+          "Opportunity-to-order relationship",
+          "Order stage history",
+          "Order attachments and notes",
+          "Order Blueprint transition"
+        ],
+        "local_equivalent_feasibility": "Partial",
+        "local_blockers": [
+          "Conditional attachment, note, and status writes are not yet implemented as one transaction."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000010720513",
+      "name": "Designer Form - local",
+      "source_display_name": "Designer Form - local",
+      "hosting": "External",
+      "type": "Blueprint",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "External-hosted behavior is not present in the downloaded Zoho package set.",
+        "context_modules": [],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Unavailable",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000011559129",
+      "name": "Picky-WhatsApp Extension",
+      "source_display_name": "Picky-WhatsApp Extension",
+      "hosting": "External",
+      "type": "Button",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "Provide an external outbound-messaging button in the associated CRM module.",
+        "context_modules": [
+          "Leads"
+        ],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [
+          "Open the external messaging extension from the source record."
+        ],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Partial",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000011559135",
+      "name": "Picky-WhatsApp Extension",
+      "source_display_name": "Picky-WhatsApp Extension",
+      "hosting": "External",
+      "type": "Button",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "Provide an external outbound-messaging button in the associated CRM module.",
+        "context_modules": [
+          "Leads"
+        ],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [
+          "Open the external messaging extension from the source record."
+        ],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Partial",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000011559141",
+      "name": "Picky-WhatsApp Extension",
+      "source_display_name": "Picky-WhatsApp Extension",
+      "hosting": "External",
+      "type": "Button",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "Provide an external outbound-messaging button in the associated CRM module.",
+        "context_modules": [
+          "Contacts"
+        ],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [
+          "Open the external messaging extension from the source record."
+        ],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Partial",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000011559147",
+      "name": "Picky-WhatsApp Extension",
+      "source_display_name": "Picky-WhatsApp Extension",
+      "hosting": "External",
+      "type": "Button",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "Provide an external outbound-messaging button in the associated CRM module.",
+        "context_modules": [
+          "Contacts"
+        ],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [
+          "Open the external messaging extension from the source record."
+        ],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Partial",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000011559153",
+      "name": "Picky-WhatsApp Extension",
+      "source_display_name": "Picky-WhatsApp Extension",
+      "hosting": "External",
+      "type": "Button",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "Provide an external outbound-messaging button in the associated CRM module.",
+        "context_modules": [
+          "Deals"
+        ],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [
+          "Open the external messaging extension from the source record."
+        ],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Partial",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000011559159",
+      "name": "Picky-WhatsApp Extension",
+      "source_display_name": "Picky-WhatsApp Extension",
+      "hosting": "External",
+      "type": "Button",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "Provide an external outbound-messaging button in the associated CRM module.",
+        "context_modules": [
+          "Deals"
+        ],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [
+          "Open the external messaging extension from the source record."
+        ],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Partial",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000011559165",
+      "name": "Picky-WhatsApp Extension",
+      "source_display_name": "Picky-WhatsApp Extension",
+      "hosting": "External",
+      "type": "Button",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "Provide an external outbound-messaging button in the associated CRM module.",
+        "context_modules": [
+          "Accounts"
+        ],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [
+          "Open the external messaging extension from the source record."
+        ],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Partial",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000011559171",
+      "name": "Picky-WhatsApp Extension",
+      "source_display_name": "Picky-WhatsApp Extension",
+      "hosting": "External",
+      "type": "Button",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "Provide an external outbound-messaging button in the associated CRM module.",
+        "context_modules": [
+          "Accounts"
+        ],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [
+          "Open the external messaging extension from the source record."
+        ],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Partial",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000011559177",
+      "name": "Picky-WhatsApp Extension",
+      "source_display_name": "Picky-WhatsApp Extension",
+      "hosting": "External",
+      "type": "Button",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "Provide an external outbound-messaging button in the associated CRM module.",
+        "context_modules": [
+          "Invoices"
+        ],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [
+          "Open the external messaging extension from the source record."
+        ],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Partial",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000011559183",
+      "name": "Picky-WhatsApp Extension",
+      "source_display_name": "Picky-WhatsApp Extension",
+      "hosting": "External",
+      "type": "Button",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "Provide an external outbound-messaging button in the associated CRM module.",
+        "context_modules": [
+          "Invoices"
+        ],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [
+          "Open the external messaging extension from the source record."
+        ],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Partial",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000011589066",
+      "name": "Testing",
+      "source_display_name": "Testing",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 1,
+        "regular_files": 1,
+        "uncompressed_bytes": 20902
+      },
+      "behavior": {
+        "purpose": "Calculate a kitchen estimate from layout, dimensions, package, and wall-unit height, then save the opportunity-value estimate to a Lead.",
+        "context_modules": [
+          "Leads"
+        ],
+        "modules_read": [],
+        "modules_written": [
+          "Leads"
+        ],
+        "record_actions": [
+          "Calculate an estimate in the browser.",
+          "Update the Lead opportunity-value field on save."
+        ],
+        "mandatory_input_status": "Mapped",
+        "mandatory_inputs": [
+          "Kitchen layout",
+          "Kitchen package type",
+          "Wall lengths",
+          "Wall-unit height"
+        ],
+        "dependencies": [
+          "Lead record context",
+          "Source pricing constants"
+        ],
+        "local_equivalent_feasibility": "High",
+        "local_blockers": [
+          "Pricing constants and rounding must be acceptance-tested before enabling writes."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000011958232",
+      "name": "test",
+      "source_display_name": "test",
+      "hosting": "Zoho",
+      "type": "Button",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 1,
+        "regular_files": 1,
+        "uncompressed_bytes": 11111
+      },
+      "behavior": {
+        "purpose": "Calculate a broad kitchen cost estimate from cabinetry, counters, flooring, appliances, labour, and contingency choices.",
+        "context_modules": [
+          "Leads"
+        ],
+        "modules_read": [],
+        "modules_written": [
+          "Leads"
+        ],
+        "record_actions": [
+          "Calculate an estimate in the browser.",
+          "Update the Lead opportunity-value field on save."
+        ],
+        "mandatory_input_status": "No hard-required controls detected",
+        "mandatory_inputs": [
+          "Any supplied numeric area or rate must be valid and non-negative."
+        ],
+        "dependencies": [
+          "Lead record context",
+          "Source pricing constants"
+        ],
+        "local_equivalent_feasibility": "High",
+        "local_blockers": [
+          "Pricing constants and default-value behavior must be acceptance-tested before enabling writes."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000012018119",
+      "name": "KitchenEstimator",
+      "source_display_name": "KitchenEstimator",
+      "hosting": "Zoho",
+      "type": "Button",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 3,
+        "regular_files": 2,
+        "uncompressed_bytes": 41496
+      },
+      "behavior": {
+        "purpose": "Calculate a kitchen estimate from layout, dimensions, kitchen type, and wall-unit height, then save the result to a Lead.",
+        "context_modules": [
+          "Leads"
+        ],
+        "modules_read": [],
+        "modules_written": [
+          "Leads"
+        ],
+        "record_actions": [
+          "Calculate an estimate in the browser.",
+          "Update the Lead opportunity-value field on save."
+        ],
+        "mandatory_input_status": "Mapped",
+        "mandatory_inputs": [
+          "Kitchen layout",
+          "Kitchen type",
+          "Wall lengths",
+          "Wall-unit height"
+        ],
+        "dependencies": [
+          "Lead record context",
+          "Source pricing constants"
+        ],
+        "local_equivalent_feasibility": "High",
+        "local_blockers": [
+          "Pricing constants and rounding must be acceptance-tested before enabling writes."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000012167001",
+      "name": "Estimate Widget",
+      "source_display_name": "Estimate Widget Installed",
+      "hosting": "Zoho",
+      "type": "Button",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 2,
+        "regular_files": 1,
+        "uncompressed_bytes": 26333
+      },
+      "behavior": {
+        "purpose": "Calculate a kitchen estimate from layout, dimensions, package, and wall-unit height, then save the result to a Lead.",
+        "context_modules": [
+          "Leads"
+        ],
+        "modules_read": [],
+        "modules_written": [
+          "Leads"
+        ],
+        "record_actions": [
+          "Calculate an estimate in the browser.",
+          "Update the Lead opportunity-value field on save."
+        ],
+        "mandatory_input_status": "Mapped",
+        "mandatory_inputs": [
+          "Kitchen layout",
+          "Package type",
+          "Wall lengths",
+          "Wall-unit height"
+        ],
+        "dependencies": [
+          "Lead record context",
+          "Source pricing constants"
+        ],
+        "local_equivalent_feasibility": "High",
+        "local_blockers": [
+          "Pricing constants and rounding must be acceptance-tested before enabling writes."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000013052001",
+      "name": "WorkDriveWidget",
+      "source_display_name": "WorkDriveWidget",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 2,
+        "regular_files": 2,
+        "uncompressed_bytes": 10066
+      },
+      "behavior": {
+        "purpose": "Load the WorkDrive reference stored on an Order and display the linked workspace.",
+        "context_modules": [
+          "Deals"
+        ],
+        "modules_read": [
+          "Deals"
+        ],
+        "modules_written": [],
+        "record_actions": [
+          "Load the current Order.",
+          "Resolve and display its configured WorkDrive reference."
+        ],
+        "mandatory_input_status": "Context requirement",
+        "mandatory_inputs": [
+          "An Order record context",
+          "A populated WorkDrive reference on the Order"
+        ],
+        "dependencies": [
+          "Authenticated WorkDrive access",
+          "Order WorkDrive reference"
+        ],
+        "local_equivalent_feasibility": "Partial",
+        "local_blockers": [
+          "External workspace access and authorization are not replicated locally."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000013052011",
+      "name": "Demo",
+      "source_display_name": "Demo",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 2,
+        "regular_files": 2,
+        "uncompressed_bytes": 8390
+      },
+      "behavior": {
+        "purpose": "Display a preconfigured WorkDrive viewer target without loading a CRM record.",
+        "context_modules": [],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [
+          "Open the preconfigured external workspace viewer."
+        ],
+        "mandatory_input_status": "None detected",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "Authenticated WorkDrive access",
+          "Preconfigured external target"
+        ],
+        "local_equivalent_feasibility": "Low",
+        "local_blockers": [
+          "The external target and its authorization are intentionally omitted from the public inventory."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000016434001",
+      "name": "Order Stages Update",
+      "source_display_name": "Order Stages Update",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 4,
+        "regular_files": 2,
+        "uncompressed_bytes": 112449
+      },
+      "behavior": {
+        "purpose": "Bulk-manage Blueprint stages for Orders related to an opportunity.",
+        "context_modules": [
+          "Contacts",
+          "Deals"
+        ],
+        "modules_read": [
+          "Contacts",
+          "Deals",
+          "Attachments"
+        ],
+        "modules_written": [
+          "Deals",
+          "Contacts",
+          "Attachments"
+        ],
+        "record_actions": [
+          "Load related Orders and the Blueprint transitions available to each Order.",
+          "Render transition-specific fields, picklists, checklists, and file controls.",
+          "Apply the selected Blueprint transition to each validated Order.",
+          "Copy or attach supporting files when required by the transition."
+        ],
+        "mandatory_input_status": "Dynamic from Blueprint metadata",
+        "mandatory_inputs": [
+          "Selected Order or Orders",
+          "Target transition",
+          "Every mandatory transition field",
+          "All required checklist confirmations",
+          "All required supporting files"
+        ],
+        "dependencies": [
+          "Deals Blueprint transition metadata",
+          "Contact and Order attachment APIs",
+          "Per-record transition eligibility"
+        ],
+        "local_equivalent_feasibility": "Partial",
+        "local_blockers": [
+          "Dynamic checklist and attachment persistence is not implemented locally."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000017358913",
+      "name": "Revise-Approve Quote-Any Stage",
+      "source_display_name": "Revise-Approve Quote-Any Stage Installed",
+      "hosting": "Zoho",
+      "type": "Button",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 4,
+        "regular_files": 2,
+        "uncompressed_bytes": 54026
+      },
+      "behavior": {
+        "purpose": "Revise or approve quote and design data from a Contact button, independent of the current order-stage entry point.",
+        "context_modules": [
+          "Contacts",
+          "Deals"
+        ],
+        "modules_read": [
+          "Contacts",
+          "Deals",
+          "Stage_History"
+        ],
+        "modules_written": [
+          "Deals",
+          "Notes",
+          "Attachments"
+        ],
+        "record_actions": [
+          "Load related Orders and their stage history.",
+          "Update design requirements, status, and revision reason for selected Orders.",
+          "Add supporting notes and files.",
+          "Use a matching Blueprint transition when one is available."
+        ],
+        "mandatory_input_status": "Mapped with status and product rules",
+        "mandatory_inputs": [
+          "At least one completed Order with a selected status",
+          "Kitchen or wardrobe selection when applicable",
+          "Conditional sales-manager notes",
+          "Conditional revision reason"
+        ],
+        "dependencies": [
+          "Opportunity-to-order relationship",
+          "Order stage history",
+          "Order attachments and notes",
+          "Conditional Blueprint transition"
+        ],
+        "local_equivalent_feasibility": "Partial",
+        "local_blockers": [
+          "Conditional record and file writes are not yet implemented atomically."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000018181042",
+      "name": "Closure Order Stage Update",
+      "source_display_name": "Closure Order Stage Update",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 2,
+        "regular_files": 2,
+        "uncompressed_bytes": 112342
+      },
+      "behavior": {
+        "purpose": "Manage order-stage transitions with closure, handover, checklist, and supporting-document safeguards.",
+        "context_modules": [
+          "Contacts",
+          "Deals"
+        ],
+        "modules_read": [
+          "Contacts",
+          "Deals",
+          "Attachments"
+        ],
+        "modules_written": [
+          "Deals",
+          "Contacts",
+          "Attachments"
+        ],
+        "record_actions": [
+          "Load related Orders and eligible Blueprint transitions.",
+          "Render transition fields, sign-off checklists, and document controls.",
+          "Apply the selected transition per Order after validation.",
+          "Enforce cross-order handover rules and attach supporting files."
+        ],
+        "mandatory_input_status": "Dynamic from Blueprint metadata",
+        "mandatory_inputs": [
+          "Selected Order or Orders",
+          "Target transition",
+          "Every mandatory transition field",
+          "All required sign-off confirmations",
+          "All required supporting files"
+        ],
+        "dependencies": [
+          "Deals Blueprint transition metadata",
+          "Cross-order stage state",
+          "Contact and Order attachment APIs"
+        ],
+        "local_equivalent_feasibility": "Partial",
+        "local_blockers": [
+          "Cross-order safeguards and dynamic attachment writes are not implemented locally."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000018181058",
+      "name": "Payment Milestone - pink",
+      "source_display_name": "Payment Milestone - pink",
+      "hosting": "External",
+      "type": "Blueprint",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "External-hosted behavior is not present in the downloaded Zoho package set.",
+        "context_modules": [],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Unavailable",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000018181128",
+      "name": "New Test Widget Order",
+      "source_display_name": "New Test Widget Order",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 2,
+        "regular_files": 2,
+        "uncompressed_bytes": 126247
+      },
+      "behavior": {
+        "purpose": "A later order-stage-manager variant with additional attachment diagnostics and connection-backed file handling.",
+        "context_modules": [
+          "Contacts",
+          "Deals"
+        ],
+        "modules_read": [
+          "Contacts",
+          "Deals",
+          "Attachments"
+        ],
+        "modules_written": [
+          "Deals",
+          "Contacts",
+          "Attachments"
+        ],
+        "record_actions": [
+          "Load related Orders, eligible transitions, and available Contact attachments.",
+          "Render transition-specific fields, checklists, and file controls.",
+          "Apply the selected Blueprint transition per validated Order.",
+          "Copy or upload supporting files using the configured CRM connection path."
+        ],
+        "mandatory_input_status": "Dynamic from Blueprint metadata",
+        "mandatory_inputs": [
+          "Selected Order or Orders",
+          "Target transition",
+          "Every mandatory transition field",
+          "All required checklist confirmations",
+          "All required supporting files"
+        ],
+        "dependencies": [
+          "Deals Blueprint transition metadata",
+          "Contact and Order attachment APIs",
+          "Configured CRM connection"
+        ],
+        "local_equivalent_feasibility": "Low",
+        "local_blockers": [
+          "The connection-backed attachment path is not configured locally.",
+          "Diagnostic-only controls must not be promoted as production behavior without approval."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000020866834",
+      "name": "Handover to Post Design",
+      "source_display_name": "Handover to Post Design Installed",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 2,
+        "regular_files": 2,
+        "uncompressed_bytes": 87526
+      },
+      "behavior": {
+        "purpose": "Move selected Orders through their eligible post-design handover transitions.",
+        "context_modules": [
+          "Contacts",
+          "Deals"
+        ],
+        "modules_read": [
+          "Contacts",
+          "Deals",
+          "Attachments"
+        ],
+        "modules_written": [
+          "Deals",
+          "Contacts",
+          "Attachments"
+        ],
+        "record_actions": [
+          "Load related Orders and each Order's eligible Blueprint transitions.",
+          "Collect transition-specific fields, checklists, and files.",
+          "Apply the selected post-design transition to each validated Order.",
+          "Copy supporting Contact files to Orders when required."
+        ],
+        "mandatory_input_status": "Dynamic from Blueprint metadata",
+        "mandatory_inputs": [
+          "Selected Order or Orders",
+          "Eligible post-design transition",
+          "Every mandatory transition field",
+          "All required checklist confirmations and files"
+        ],
+        "dependencies": [
+          "Deals Blueprint transition metadata",
+          "Contact and Order attachments",
+          "Per-record transition eligibility"
+        ],
+        "local_equivalent_feasibility": "Partial",
+        "local_blockers": [
+          "Dynamic transition and attachment persistence is not implemented locally."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000022772566",
+      "name": "Factory Ticket",
+      "source_display_name": "Factory Ticket",
+      "hosting": "External",
+      "type": "Blueprint",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "External-hosted behavior is not present in the downloaded Zoho package set.",
+        "context_modules": [],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Unavailable",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000022961582",
+      "name": "Deploy Team",
+      "source_display_name": "Deploy Team Installed",
+      "hosting": "Zoho",
+      "type": "Button",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 3,
+        "regular_files": 2,
+        "uncompressed_bytes": 49548
+      },
+      "behavior": {
+        "purpose": "Schedule an installation visit and deploy a team against selected Orders for an opportunity.",
+        "context_modules": [
+          "Contacts",
+          "Deals",
+          "Visit_Module",
+          "Service_A_X_Orders"
+        ],
+        "modules_read": [
+          "Contacts",
+          "Deals",
+          "Users",
+          "Visit_Module"
+        ],
+        "modules_written": [
+          "Visit_Module",
+          "Service_A_X_Orders"
+        ],
+        "record_actions": [
+          "Load related Orders eligible for installation handover.",
+          "Load installation-manager and team choices.",
+          "Create the installation Visit record.",
+          "Create the Visit-to-Order linking rows for selected Orders."
+        ],
+        "mandatory_input_status": "Mapped",
+        "mandatory_inputs": [
+          "At least one eligible Order",
+          "Installation manager",
+          "Visit date",
+          "Task",
+          "At least one team member"
+        ],
+        "dependencies": [
+          "Authenticated CRM user mapping",
+          "Installation picklists and users",
+          "Visit-to-Order linking module"
+        ],
+        "local_equivalent_feasibility": "Partial",
+        "local_blockers": [
+          "User identity and team lookup mappings are not complete.",
+          "Atomic Visit and linking-row creation is not implemented locally."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000023117488",
+      "name": "Handover To Post Team",
+      "source_display_name": "Handover To Post Team Installed",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 4,
+        "regular_files": 2,
+        "uncompressed_bytes": 108184
+      },
+      "behavior": {
+        "purpose": "Complete post-team handover for selected Orders and create the corresponding AMS service record.",
+        "context_modules": [
+          "Contacts",
+          "Deals",
+          "AMS_Complaints"
+        ],
+        "modules_read": [
+          "Contacts",
+          "Deals",
+          "AMS_Complaints",
+          "Attachments"
+        ],
+        "modules_written": [
+          "Deals",
+          "Contacts",
+          "AMS_Complaints",
+          "Attachments"
+        ],
+        "record_actions": [
+          "Load related Orders and eligible Blueprint transitions.",
+          "Collect transition-specific fields, checklists, handover data, and files.",
+          "Apply each validated Order transition and write final-handover values.",
+          "Create an AMS service record and carry forward approved files and service dates."
+        ],
+        "mandatory_input_status": "Dynamic from Blueprint metadata plus handover rules",
+        "mandatory_inputs": [
+          "Selected Order or Orders",
+          "Eligible handover transition",
+          "Every mandatory transition field",
+          "All required checklists and files",
+          "Required service and handover dates returned by the transition"
+        ],
+        "dependencies": [
+          "Deals Blueprint transition metadata",
+          "AMS record schema",
+          "Contact and Order attachments",
+          "Owner and service-date mappings"
+        ],
+        "local_equivalent_feasibility": "Low",
+        "local_blockers": [
+          "Atomic Order transition, attachment copy, and AMS creation is not implemented locally.",
+          "Owner identity mapping is incomplete."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000023270884",
+      "name": "Sunrooof Mark Closures",
+      "source_display_name": "Sunrooof Mark Closures Installed",
+      "hosting": "Zoho",
+      "type": "Button",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 2,
+        "regular_files": 2,
+        "uncompressed_bytes": 94117
+      },
+      "behavior": {
+        "purpose": "Create cross-organization Sunrooof CRM records from selected opportunity Orders, product rows, commercial terms, addresses, advance payment, and files.",
+        "context_modules": [
+          "Accounts",
+          "Contacts",
+          "Deals",
+          "Products",
+          "Product_Items",
+          "Payment_Milestones",
+          "Attachments"
+        ],
+        "modules_read": [
+          "Contacts",
+          "Deals",
+          "Products",
+          "Product_Items"
+        ],
+        "modules_written": [
+          "Accounts",
+          "Contacts",
+          "Deals",
+          "Product_Items",
+          "Payment_Milestones",
+          "Attachments"
+        ],
+        "record_actions": [
+          "Load related Orders and Sunrooof product choices without a complete relationship guard.",
+          "Collect item rows, prices, taxes, discounts, addresses, and advance-payment data.",
+          "Create a cross-organization Account, Contact, Order, four payment milestones, and related product records.",
+          "Create and share a WorkDrive folder, upload files, attach files, write cross-organization identifiers back, and trigger workflows."
+        ],
+        "mandatory_input_status": "Mapped with commercial conditional rules",
+        "mandatory_inputs": [
+          "At least one eligible Sunrooof Order",
+          "At least one Order Item with a selected Sunrooof design",
+          "Required billing and shipping address values",
+          "Required commercial and tax values",
+          "Accessory count and amount when management discount is entered",
+          "Required advance-payment reference and date values when advance payment is entered"
+        ],
+        "dependencies": [
+          "Product catalog and item subform",
+          "Opportunity-to-order relationship",
+          "Payment milestones",
+          "Server-side authorized access to both CRM organizations and WorkDrive",
+          "Target-organization schemas, privacy consent, and approved commercial mappings",
+          "Bounded attachment upload and safe file handling"
+        ],
+        "local_equivalent_feasibility": "Low",
+        "local_blockers": [
+          "Embedded OAuth credentials must be revoked or rotated before any rebuild.",
+          "Cross-organization authorization, target schemas, privacy consent, and commercial formulas and mappings are not accepted.",
+          "Complete relationship pagination, idempotency, rollback, bounded file handling, safe rendering, redacted logging, and accessibility are not implemented."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000023277323",
+      "name": "Service Team AMS Dashboard",
+      "source_display_name": "Service Team AMS Dashboard Installed",
+      "hosting": "External",
+      "type": "Home Page Dashboard",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "External-hosted behavior is not present in the downloaded Zoho package set.",
+        "context_modules": [],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Unavailable",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000023349089",
+      "name": "widget first dispatched",
+      "source_display_name": "widget first dispatched",
+      "hosting": "External",
+      "type": "Blueprint",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "External-hosted behavior is not present in the downloaded Zoho package set.",
+        "context_modules": [],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Unavailable",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000023774783",
+      "name": "Assign Technician Widget",
+      "source_display_name": "Assign Technician Widget Installed",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 2,
+        "regular_files": 2,
+        "uncompressed_bytes": 24432
+      },
+      "behavior": {
+        "purpose": "Schedule an AMS visit and assign one or more technicians from an AMS or Complaint Blueprint transition.",
+        "context_modules": [
+          "AMS_Complaints",
+          "Visit_Module"
+        ],
+        "modules_read": [
+          "AMS_Complaints",
+          "Visit_Module"
+        ],
+        "modules_written": [
+          "Visit_Module"
+        ],
+        "record_actions": [
+          "Load address, record type, date, owner, and picklist context from the AMS record.",
+          "Collect visit purpose, date, and team selection.",
+          "Create the Visit record linked to the AMS record.",
+          "Continue the invoking Blueprint after a successful Visit creation."
+        ],
+        "mandatory_input_status": "Mapped",
+        "mandatory_inputs": [
+          "Full address",
+          "Purpose of visit",
+          "At least one AMS team member",
+          "Visit date"
+        ],
+        "dependencies": [
+          "AMS owner identity",
+          "Visit purpose and team picklists",
+          "AMS-to-Visit relationship",
+          "Blueprint continuation"
+        ],
+        "local_equivalent_feasibility": "Partial",
+        "local_blockers": [
+          "Owner identity and team mappings are incomplete.",
+          "Atomic Visit creation plus Blueprint continuation is not implemented locally."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000024506045",
+      "name": "Design Dashboard",
+      "source_display_name": "Design Dashboard Installed",
+      "hosting": "External",
+      "type": "Home Page Dashboard",
+      "package": {
+        "captured": false,
+        "match_basis": "External-hosted source row",
+        "archive_validation": "Not applicable",
+        "static_analysis": "Blocked: no Zoho-hosted package exists in the captured set"
+      },
+      "behavior": {
+        "purpose": "External-hosted behavior is not present in the downloaded Zoho package set.",
+        "context_modules": [],
+        "modules_read": [],
+        "modules_written": [],
+        "record_actions": [],
+        "mandatory_input_status": "Unavailable from source package evidence",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "External hosting and configuration"
+        ],
+        "mapping_confidence": "Unavailable",
+        "local_equivalent_feasibility": "Blocked",
+        "local_blockers": [
+          "No source package was available because this widget is externally hosted.",
+          "External authorization and behavior must be specified separately before replication."
+        ]
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "External package behavior and authorization are unavailable."
+      }
+    },
+    {
+      "id": "1032257000025407208",
+      "name": "Closure New - Pinki",
+      "source_display_name": "Closure New - Pinki Installed",
+      "hosting": "Zoho",
+      "type": "Blueprint",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 4,
+        "regular_files": 2,
+        "uncompressed_bytes": 31603
+      },
+      "behavior": {
+        "purpose": "Move selected opportunity Orders into closure after validating payment milestones and an estimated handover date.",
+        "context_modules": [
+          "Contacts",
+          "Deals",
+          "Payment_Milestones"
+        ],
+        "modules_read": [
+          "Contacts",
+          "Deals",
+          "Payment_Milestones"
+        ],
+        "modules_written": [
+          "Deals",
+          "Payment_Milestones"
+        ],
+        "record_actions": [
+          "Load related Orders and payment milestones.",
+          "Select Orders eligible for closure.",
+          "Validate Magppie and conditional Sunrooof payment allocation.",
+          "Update closure payment values and apply the matching Order Blueprint transition."
+        ],
+        "mandatory_input_status": "Mapped with payment conditional rules",
+        "mandatory_inputs": [
+          "At least one eligible Order",
+          "Estimated handover date",
+          "Magppie milestone percentages totaling 100%",
+          "Per-milestone received amount, received date, discount, and reference values when applicable"
+        ],
+        "dependencies": [
+          "Opportunity-to-order relationship",
+          "Payment milestone relationship",
+          "Deals Blueprint transitions"
+        ],
+        "local_equivalent_feasibility": "Low",
+        "local_blockers": [
+          "Atomic milestone updates and Order transitions are not implemented locally."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    },
+    {
+      "id": "1032257000025584294",
+      "name": "Complaint",
+      "source_display_name": "Complaint",
+      "hosting": "Zoho",
+      "type": "Home Page Dashboard",
+      "package": {
+        "captured": true,
+        "match_basis": "Exact source name after removing only the trailing Installed status suffix",
+        "archive_validation": "Passed",
+        "static_analysis": "Completed without executing widget code",
+        "entries": 4,
+        "regular_files": 3,
+        "uncompressed_bytes": 44485
+      },
+      "behavior": {
+        "purpose": "Provide a read-only AMS and Complaints dashboard with filtering, refresh, record navigation, and spreadsheet or PDF export.",
+        "context_modules": [
+          "AMS_Complaints"
+        ],
+        "modules_read": [
+          "AMS_Complaints"
+        ],
+        "modules_written": [],
+        "record_actions": [
+          "Search and aggregate AMS or Complaint records.",
+          "Open the source record or module.",
+          "Export the current dashboard view to spreadsheet or PDF."
+        ],
+        "mandatory_input_status": "None for read-only use",
+        "mandatory_inputs": [],
+        "dependencies": [
+          "Complete AMS and Complaint data",
+          "CRM record navigation",
+          "Client-side export libraries"
+        ],
+        "local_equivalent_feasibility": "High",
+        "local_blockers": [
+          "Live-data parity and export rendering must be reconciled before this replaces the source dashboard."
+        ],
+        "mapping_confidence": "High"
+      },
+      "local_execution": {
+        "status": "Blocked",
+        "enabled": false,
+        "fail_closed": true,
+        "reason": "Static behavior is mapped, but source-backed dependencies and atomic write safeguards are not yet complete."
+      }
+    }
+  ]
+}

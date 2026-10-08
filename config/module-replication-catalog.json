@@ -1,0 +1,695 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-08-30T16:38:39.339Z",
+  "source_mode": "read_only_captures",
+  "evidence_epochs": {
+    "module_count_capture_at": "2026-08-29T18:08:21.123Z",
+    "task_generated_audit_at": "2026-08-30T16:00:09.934Z",
+    "notes_audit_at": "2026-08-30T16:38:39.339Z"
+  },
+  "expected_scope": {
+    "source_module_definition_count": 153,
+    "api_supported_dataset_count": 122,
+    "api_unsupported_definition_count": 31,
+    "scheduled_dataset_count": 16,
+    "unscheduled_dataset_count": 106
+  },
+  "scheduled_datasets": [
+    "Leads",
+    "Contacts",
+    "Accounts",
+    "Deals",
+    "Tasks",
+    "Events",
+    "Calls",
+    "Products",
+    "Vendors",
+    "Developers",
+    "Referral_Partners",
+    "Payment_Milestones",
+    "Designers",
+    "Visit_Module",
+    "AMS_Complaints",
+    "Notes"
+  ],
+  "datasets_by_classification": {
+    "reconciled_active_ids": [
+      {
+        "api_name": "Tasks",
+        "generated_type": "default",
+        "source_count": 12422,
+        "source_active_ids": 12422,
+        "local_source_active_ids": 12422,
+        "count_only_unavailable": 0,
+        "source_only_active_ids": 0,
+        "local_only_active_ids": 0,
+        "observed_at": "2026-08-30T16:00:09.934Z"
+      }
+    ],
+    "active_id_parity_count_scope_unresolved": [
+      {
+        "api_name": "Product_Details",
+        "generated_type": "subform",
+        "source_count": 822,
+        "source_active_ids": 786,
+        "local_source_active_ids": 786,
+        "count_only_unavailable": 36,
+        "source_only_active_ids": 0,
+        "local_only_active_ids": 0,
+        "observed_at": "2026-08-30T16:00:09.934Z"
+      },
+      {
+        "api_name": "Product_Details1",
+        "generated_type": "subform",
+        "source_count": 11609,
+        "source_active_ids": 6935,
+        "local_source_active_ids": 6935,
+        "count_only_unavailable": 4674,
+        "source_only_active_ids": 0,
+        "local_only_active_ids": 0,
+        "observed_at": "2026-08-30T16:00:09.934Z"
+      },
+      {
+        "api_name": "Project_Details",
+        "generated_type": "subform",
+        "source_count": 40,
+        "source_active_ids": 39,
+        "local_source_active_ids": 39,
+        "count_only_unavailable": 1,
+        "source_only_active_ids": 0,
+        "local_only_active_ids": 0,
+        "observed_at": "2026-08-30T16:00:09.934Z"
+      },
+      {
+        "api_name": "Project_Detail",
+        "generated_type": "subform",
+        "source_count": 93,
+        "source_active_ids": 67,
+        "local_source_active_ids": 67,
+        "count_only_unavailable": 26,
+        "source_only_active_ids": 0,
+        "local_only_active_ids": 0,
+        "observed_at": "2026-08-30T16:00:09.934Z"
+      },
+      {
+        "api_name": "Notes",
+        "generated_type": "default",
+        "source_count": 67948,
+        "source_active_ids": 67798,
+        "local_source_active_ids": 67798,
+        "count_only_unavailable": 150,
+        "source_only_active_ids": 0,
+        "local_only_active_ids": 0,
+        "observed_at": "2026-08-30T16:38:39.339Z"
+      }
+    ],
+    "count_only_unresolved": [
+      {
+        "api_name": "Leads",
+        "generated_type": "default",
+        "source_count": 20222
+      },
+      {
+        "api_name": "Contacts",
+        "generated_type": "default",
+        "source_count": 4640
+      },
+      {
+        "api_name": "Deals",
+        "generated_type": "default",
+        "source_count": 7307
+      },
+      {
+        "api_name": "Accounts",
+        "generated_type": "default",
+        "source_count": 5618
+      },
+      {
+        "api_name": "Events",
+        "generated_type": "default",
+        "source_count": 5
+      },
+      {
+        "api_name": "Calls",
+        "generated_type": "default",
+        "source_count": 56600
+      },
+      {
+        "api_name": "Products",
+        "generated_type": "default",
+        "source_count": 2640
+      },
+      {
+        "api_name": "Quotes",
+        "generated_type": "default",
+        "source_count": 0
+      },
+      {
+        "api_name": "Sales_Orders",
+        "generated_type": "default",
+        "source_count": 0
+      },
+      {
+        "api_name": "Purchase_Orders",
+        "generated_type": "default",
+        "source_count": 0
+      },
+      {
+        "api_name": "Invoices",
+        "generated_type": "default",
+        "source_count": 0
+      },
+      {
+        "api_name": "Campaigns",
+        "generated_type": "default",
+        "source_count": 0
+      },
+      {
+        "api_name": "Vendors",
+        "generated_type": "default",
+        "source_count": 693
+      },
+      {
+        "api_name": "Price_Books",
+        "generated_type": "default",
+        "source_count": 0
+      },
+      {
+        "api_name": "Cases",
+        "generated_type": "default",
+        "source_count": 0
+      },
+      {
+        "api_name": "Solutions",
+        "generated_type": "default",
+        "source_count": 0
+      },
+      {
+        "api_name": "Services__s",
+        "generated_type": "default",
+        "source_count": 0
+      },
+      {
+        "api_name": "Appointments__s",
+        "generated_type": "default",
+        "source_count": 0
+      },
+      {
+        "api_name": "Developers",
+        "generated_type": "custom",
+        "source_count": 21
+      },
+      {
+        "api_name": "Referral_Partners",
+        "generated_type": "custom",
+        "source_count": 2
+      },
+      {
+        "api_name": "Payment_Milestones",
+        "generated_type": "custom",
+        "source_count": 8
+      },
+      {
+        "api_name": "Designers",
+        "generated_type": "custom",
+        "source_count": 3
+      },
+      {
+        "api_name": "Visit_Module",
+        "generated_type": "custom",
+        "source_count": 10901
+      },
+      {
+        "api_name": "AMS_Complaints",
+        "generated_type": "custom",
+        "source_count": 3388
+      }
+    ],
+    "generated_count_only_unresolved": [
+      {
+        "api_name": "Sunrooof_Products",
+        "generated_type": "subform",
+        "source_count": 3
+      },
+      {
+        "api_name": "Actual_Material_Required",
+        "generated_type": "subform",
+        "source_count": 5
+      },
+      {
+        "api_name": "Complaint_Items_Detail",
+        "generated_type": "subform",
+        "source_count": 17
+      },
+      {
+        "api_name": "AMS_Done_Data_by_Team",
+        "generated_type": "subform",
+        "source_count": 4720
+      },
+      {
+        "api_name": "Services_X_Users__s",
+        "generated_type": "linking",
+        "source_count": 0
+      },
+      {
+        "api_name": "Payment_M_X_Orders",
+        "generated_type": "linking",
+        "source_count": 0
+      },
+      {
+        "api_name": "Service_A_X_Orders",
+        "generated_type": "linking",
+        "source_count": 14156
+      }
+    ],
+    "source_unavailable_unresolved": [
+      {
+        "api_name": "Visits",
+        "generated_type": "default",
+        "http_status": 400
+      },
+      {
+        "api_name": "Email_Sentiment",
+        "generated_type": "default",
+        "http_status": 400
+      },
+      {
+        "api_name": "Email_Analytics",
+        "generated_type": "default",
+        "http_status": 400
+      },
+      {
+        "api_name": "Email_Template_Analytics",
+        "generated_type": "default",
+        "http_status": 400
+      },
+      {
+        "api_name": "Approvals",
+        "generated_type": "default",
+        "http_status": 400
+      },
+      {
+        "api_name": "Attachments",
+        "generated_type": "default",
+        "http_status": 400
+      },
+      {
+        "api_name": "Actions_Performed",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "Facebook",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "Twitter",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "Locking_Information__s",
+        "generated_type": "default",
+        "http_status": 400
+      },
+      {
+        "api_name": "Functions__s",
+        "generated_type": "default",
+        "http_status": 400
+      },
+      {
+        "api_name": "Image_Upload_1__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "VocResources",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocResponses_Leads",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocAnswers_Leads",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocEvents_Leads",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocInferences_Leads",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocResponses_Contacts",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocAnswers_Contacts",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocEvents_Contacts",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocInferences_Contacts",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "Image_Upload_2__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "Image_Upload_3__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "Image_Upload_4__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "Image_Upload_5__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "Image_Upload_6__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "VocResponses_VocAnonymous",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocAnswers_VocAnonymous",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocEvents_VocAnonymous",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocInferences_VocAnonymous",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "Service_Managements",
+        "generated_type": "custom",
+        "http_status": 400
+      },
+      {
+        "api_name": "File_Upload_1__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_2__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_3__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_4__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_5__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_6__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_7__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_8__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_9__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_10__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_11__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_12__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "Image_Upload_7__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "VocInferenceRelations_Leads",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocInferenceRelations_Contacts",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "VocInferenceRelations_VocAnonymous",
+        "generated_type": "default",
+        "http_status": 500
+      },
+      {
+        "api_name": "File_Upload_13__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_14__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_15__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_16__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "Image_Upload_8__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_17__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_18__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_19__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_20__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_21__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_22__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_23__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_24__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_25__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_26__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "Image_Upload_9__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_27__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_28__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_29__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_30__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_31__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_32__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_33__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_34__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_35__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_36__s",
+        "generated_type": "default",
+        "http_status": 403
+      },
+      {
+        "api_name": "File_Upload_37__s",
+        "generated_type": "default",
+        "http_status": 403
+      }
+    ],
+    "generated_source_unavailable_unresolved": [
+      {
+        "api_name": "Quoted_Items",
+        "generated_type": "subform",
+        "http_status": 400
+      },
+      {
+        "api_name": "Ordered_Items",
+        "generated_type": "subform",
+        "http_status": 400
+      },
+      {
+        "api_name": "DealHistory",
+        "generated_type": "field_tracker",
+        "http_status": 403
+      },
+      {
+        "api_name": "Purchase_Items",
+        "generated_type": "subform",
+        "http_status": 400
+      },
+      {
+        "api_name": "Invoiced_Items",
+        "generated_type": "subform",
+        "http_status": 400
+      },
+      {
+        "api_name": "Lead_Status_History",
+        "generated_type": "field_tracker",
+        "http_status": 403
+      },
+      {
+        "api_name": "Appointments_Rescheduled_History__s",
+        "generated_type": "field_tracker",
+        "http_status": 401
+      },
+      {
+        "api_name": "Opportunity_Stage_History",
+        "generated_type": "field_tracker",
+        "http_status": 403
+      },
+      {
+        "api_name": "Service_Status_History",
+        "generated_type": "field_tracker",
+        "http_status": 403
+      },
+      {
+        "api_name": "Status_History",
+        "generated_type": "field_tracker",
+        "http_status": 403
+      },
+      {
+        "api_name": "Stages_History",
+        "generated_type": "field_tracker",
+        "http_status": 403
+      }
+    ]
+  }
+}

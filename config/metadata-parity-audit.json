@@ -1,0 +1,486 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-30T10:31:42.977Z",
+  "mode": "read-only metadata audit",
+  "evidence": "existing private source discovery plus restricted local metadata query",
+  "parity_status": "Blocked",
+  "comparison_rule": "Definitions match by stable configuration key or internal-only ID; drift compares shared non-sensitive semantic attributes and omits identifiers, identities, links, and volatile audit fields.",
+  "areas": {
+    "modules": {
+      "source_definitions": 153,
+      "local_definitions": 153,
+      "matched_definitions": 153,
+      "source_only": 0,
+      "local_only": 0,
+      "semantic_drift": 0,
+      "local_definition_coverage_percent": 100,
+      "source_scopes": 1,
+      "local_scopes": 1,
+      "affected_scopes": [],
+      "drift_attributes": [],
+      "source_capture": {
+        "requests": 1,
+        "successful_requests": 1,
+        "failed_requests": 0,
+        "status_counts": [
+          {
+            "http_status": 200,
+            "requests": 1
+          }
+        ],
+        "failed_scopes": [],
+        "complete": true
+      },
+      "status": "Reconciled"
+    },
+    "fields": {
+      "source_definitions": 2377,
+      "local_definitions": 2377,
+      "matched_definitions": 2377,
+      "source_only": 0,
+      "local_only": 0,
+      "semantic_drift": 0,
+      "local_definition_coverage_percent": 100,
+      "source_scopes": 122,
+      "local_scopes": 121,
+      "affected_scopes": [],
+      "drift_attributes": [],
+      "source_capture": {
+        "requests": 122,
+        "successful_requests": 121,
+        "failed_requests": 1,
+        "status_counts": [
+          {
+            "http_status": 200,
+            "requests": 120
+          },
+          {
+            "http_status": 204,
+            "requests": 1
+          },
+          {
+            "http_status": 400,
+            "requests": 1
+          }
+        ],
+        "failed_scopes": [
+          "Service_Managements"
+        ],
+        "complete": false
+      },
+      "status": "Blocked"
+    },
+    "layouts": {
+      "source_definitions": 70,
+      "local_definitions": 70,
+      "matched_definitions": 70,
+      "source_only": 0,
+      "local_only": 0,
+      "semantic_drift": 0,
+      "local_definition_coverage_percent": 100,
+      "source_scopes": 122,
+      "local_scopes": 75,
+      "affected_scopes": [],
+      "drift_attributes": [],
+      "source_capture": {
+        "requests": 122,
+        "successful_requests": 75,
+        "failed_requests": 47,
+        "status_counts": [
+          {
+            "http_status": 200,
+            "requests": 67
+          },
+          {
+            "http_status": 204,
+            "requests": 8
+          },
+          {
+            "http_status": 400,
+            "requests": 47
+          }
+        ],
+        "failed_scopes": [
+          "File_Upload_10__s",
+          "File_Upload_11__s",
+          "File_Upload_12__s",
+          "File_Upload_13__s",
+          "File_Upload_14__s",
+          "File_Upload_15__s",
+          "File_Upload_16__s",
+          "File_Upload_17__s",
+          "File_Upload_18__s",
+          "File_Upload_19__s",
+          "File_Upload_1__s",
+          "File_Upload_20__s",
+          "File_Upload_21__s",
+          "File_Upload_22__s",
+          "File_Upload_23__s",
+          "File_Upload_24__s",
+          "File_Upload_25__s",
+          "File_Upload_26__s",
+          "File_Upload_27__s",
+          "File_Upload_28__s",
+          "File_Upload_29__s",
+          "File_Upload_2__s",
+          "File_Upload_30__s",
+          "File_Upload_31__s",
+          "File_Upload_32__s",
+          "File_Upload_33__s",
+          "File_Upload_34__s",
+          "File_Upload_35__s",
+          "File_Upload_36__s",
+          "File_Upload_37__s",
+          "File_Upload_3__s",
+          "File_Upload_4__s",
+          "File_Upload_5__s",
+          "File_Upload_6__s",
+          "File_Upload_7__s",
+          "File_Upload_8__s",
+          "File_Upload_9__s",
+          "Image_Upload_1__s",
+          "Image_Upload_2__s",
+          "Image_Upload_3__s",
+          "Image_Upload_4__s",
+          "Image_Upload_5__s",
+          "Image_Upload_6__s",
+          "Image_Upload_7__s",
+          "Image_Upload_8__s",
+          "Image_Upload_9__s",
+          "Service_Managements"
+        ],
+        "complete": false
+      },
+      "status": "Blocked"
+    },
+    "picklists": {
+      "source_definitions": 387,
+      "local_definitions": 381,
+      "matched_definitions": 381,
+      "source_only": 6,
+      "local_only": 0,
+      "semantic_drift": 0,
+      "local_definition_coverage_percent": 98.45,
+      "source_scopes": 123,
+      "local_scopes": 121,
+      "affected_scopes": [
+        {
+          "kind": "global",
+          "scope": "Global",
+          "source_definitions": 6,
+          "local_definitions": 0,
+          "matched_definitions": 0,
+          "source_only": 6,
+          "local_only": 0,
+          "semantic_drift": 0
+        }
+      ],
+      "drift_attributes": [],
+      "source_capture": {
+        "field_metadata": {
+          "requests": 122,
+          "successful_requests": 121,
+          "failed_requests": 1,
+          "status_counts": [
+            {
+              "http_status": 200,
+              "requests": 120
+            },
+            {
+              "http_status": 204,
+              "requests": 1
+            },
+            {
+              "http_status": 400,
+              "requests": 1
+            }
+          ],
+          "failed_scopes": [
+            "Service_Managements"
+          ],
+          "complete": false
+        },
+        "global_picklists": {
+          "requests": 1,
+          "successful_requests": 1,
+          "failed_requests": 0,
+          "status_counts": [
+            {
+              "http_status": 200,
+              "requests": 1
+            }
+          ],
+          "failed_scopes": [],
+          "complete": true
+        }
+      },
+      "components": {
+        "field_picklists": {
+          "source_definitions": 381,
+          "local_definitions": 381,
+          "matched_definitions": 381,
+          "source_only": 0,
+          "local_only": 0,
+          "semantic_drift": 0,
+          "local_definition_coverage_percent": 100,
+          "source_scopes": 122,
+          "local_scopes": 121,
+          "affected_scopes": [],
+          "drift_attributes": []
+        },
+        "global_picklists": {
+          "source_definitions": 6,
+          "local_definitions": 0,
+          "matched_definitions": 0,
+          "source_only": 6,
+          "local_only": 0,
+          "semantic_drift": 0,
+          "local_definition_coverage_percent": 0,
+          "source_scopes": 1,
+          "local_scopes": 0,
+          "affected_scopes": [
+            {
+              "scope": "Global",
+              "source_definitions": 6,
+              "local_definitions": 0,
+              "matched_definitions": 0,
+              "source_only": 6,
+              "local_only": 0,
+              "semantic_drift": 0
+            }
+          ],
+          "drift_attributes": []
+        }
+      },
+      "option_coverage": {
+        "source_field_option_values": 31807,
+        "local_field_option_values": 31807,
+        "matched_field_option_values": 31807,
+        "source_only_field_option_values": 0,
+        "local_only_field_option_values": 0,
+        "field_option_semantic_drift": 0,
+        "source_definitions_with_values": 379,
+        "local_definitions_with_values": 379,
+        "captured_global_option_values": false
+      },
+      "status": "Blocked"
+    },
+    "pipelines": {
+      "source_definitions": 0,
+      "local_definitions": 0,
+      "matched_definitions": 0,
+      "source_only": 0,
+      "local_only": 0,
+      "semantic_drift": 0,
+      "local_definition_coverage_percent": null,
+      "source_scopes": 122,
+      "local_scopes": 0,
+      "affected_scopes": [],
+      "drift_attributes": [],
+      "source_capture": {
+        "requests": 70,
+        "successful_requests": 1,
+        "failed_requests": 69,
+        "status_counts": [
+          {
+            "http_status": 204,
+            "requests": 1
+          },
+          {
+            "http_status": 400,
+            "requests": 69
+          }
+        ],
+        "failed_scopes": [
+          "AMS_Complaints",
+          "AMS_Done_Data_by_Team",
+          "Accounts",
+          "Actions_Performed",
+          "Actual_Material_Required",
+          "Appointments_Rescheduled_History__s",
+          "Appointments__s",
+          "Attachments",
+          "Calls",
+          "Campaigns",
+          "Cases",
+          "Complaint_Items_Detail",
+          "Contacts",
+          "DealHistory",
+          "Designers",
+          "Developers",
+          "Events",
+          "Invoiced_Items",
+          "Invoices",
+          "Lead_Status_History",
+          "Leads",
+          "Notes",
+          "Opportunity_Stage_History",
+          "Ordered_Items",
+          "Payment_M_X_Orders",
+          "Payment_Milestones",
+          "Price_Books",
+          "Product_Details",
+          "Product_Details1",
+          "Products",
+          "Project_Detail",
+          "Project_Details",
+          "Purchase_Items",
+          "Purchase_Orders",
+          "Quoted_Items",
+          "Quotes",
+          "Referral_Partners",
+          "Sales_Orders",
+          "Service_A_X_Orders",
+          "Service_Status_History",
+          "Services_X_Users__s",
+          "Services__s",
+          "Solutions",
+          "Stages_History",
+          "Status_History",
+          "Sunrooof_Products",
+          "Tasks",
+          "Vendors",
+          "Visit_Module",
+          "Visits",
+          "VocAnswers_Contacts",
+          "VocAnswers_Leads",
+          "VocAnswers_VocAnonymous",
+          "VocEvents_Contacts",
+          "VocEvents_Leads",
+          "VocEvents_VocAnonymous",
+          "VocInferenceRelations_Contacts",
+          "VocInferenceRelations_Leads",
+          "VocInferenceRelations_VocAnonymous",
+          "VocInferences_Contacts",
+          "VocInferences_Leads",
+          "VocInferences_VocAnonymous",
+          "VocResources",
+          "VocResponses_Contacts",
+          "VocResponses_Leads",
+          "VocResponses_VocAnonymous"
+        ],
+        "complete": false
+      },
+      "status": "Blocked"
+    },
+    "custom_views": {
+      "source_definitions": 386,
+      "local_definitions": 386,
+      "matched_definitions": 386,
+      "source_only": 0,
+      "local_only": 0,
+      "semantic_drift": 2,
+      "local_definition_coverage_percent": 100,
+      "source_scopes": 122,
+      "local_scopes": 121,
+      "affected_scopes": [
+        {
+          "scope": "Deals",
+          "source_definitions": 61,
+          "local_definitions": 61,
+          "matched_definitions": 61,
+          "source_only": 0,
+          "local_only": 0,
+          "semantic_drift": 2
+        }
+      ],
+      "drift_attributes": [
+        {
+          "attribute": "default",
+          "definitions": 2
+        }
+      ],
+      "source_capture": {
+        "requests": 122,
+        "successful_requests": 121,
+        "failed_requests": 1,
+        "status_counts": [
+          {
+            "http_status": 200,
+            "requests": 41
+          },
+          {
+            "http_status": 204,
+            "requests": 80
+          },
+          {
+            "http_status": 400,
+            "requests": 1
+          }
+        ],
+        "failed_scopes": [
+          "Service_Managements"
+        ],
+        "complete": false
+      },
+      "criteria_coverage": {
+        "captured_rows": 386,
+        "captured_rows_with_criteria": 0,
+        "local_rows_with_criteria": 252
+      },
+      "status": "Blocked"
+    },
+    "related_lists": {
+      "source_definitions": 375,
+      "local_definitions": 375,
+      "matched_definitions": 375,
+      "source_only": 0,
+      "local_only": 0,
+      "semantic_drift": 0,
+      "local_definition_coverage_percent": 100,
+      "source_scopes": 122,
+      "local_scopes": 121,
+      "affected_scopes": [],
+      "drift_attributes": [],
+      "source_capture": {
+        "requests": 122,
+        "successful_requests": 121,
+        "failed_requests": 1,
+        "status_counts": [
+          {
+            "http_status": 200,
+            "requests": 29
+          },
+          {
+            "http_status": 204,
+            "requests": 92
+          },
+          {
+            "http_status": 400,
+            "requests": 1
+          }
+        ],
+        "failed_scopes": [
+          "Service_Managements"
+        ],
+        "complete": false
+      },
+      "status": "Blocked"
+    }
+  },
+  "blockers": [
+    "Captured source evidence remains incomplete: field 1/122 failed requests; layout 47/122 failed requests; custom-view 1/122 failed requests; related-list 1/122 failed requests. Definitions behind failed scopes are unknown.",
+    "2 matched custom-view definitions differ on shared semantic attributes.",
+    "386 captured custom-view list rows do not include executable criteria bodies and remain fail-closed.",
+    "Pipeline evidence is incomplete: 69 of 70 captured requests failed, with 0 source and 0 local definitions available for comparison.",
+    "6 captured global picklist definitions are absent locally, and the captured global catalog does not include option values."
+  ],
+  "mutation_boundary": {
+    "source_calls_enabled": false,
+    "source_writes_enabled": false,
+    "local_metadata_writes_enabled": false,
+    "updater_available": false,
+    "automatic_delete_enabled": false,
+    "status": "Blocked",
+    "reason": "This artifact is audit-only. A separate guarded hydrator may insert missing successfully captured local definitions, but this adapter cannot mutate metadata."
+  },
+  "privacy": {
+    "customer_records_exposed": false,
+    "identities_exposed": false,
+    "raw_source_identifiers_exposed": false,
+    "links_exposed": false,
+    "credentials_exposed": false,
+    "private_locations_exposed": false,
+    "hashes_exposed": false
+  }
+}
