@@ -2270,3 +2270,17 @@ button.flash-side-logo:hover { opacity:.82; }
 @media (prefers-reduced-motion: reduce) {
   .flash-pick, .flash-pick-option, .flash-studio.is-arriving .flash-side, .flash-studio.is-arriving .flash-main { animation:none; }
 }
+
+/* Show formulae: how a figure is worked out, under the responsibility it belongs to. */
+.flash-studio .flash-formula { display:grid; grid-template-columns:auto minmax(0,1fr); gap:10px; align-items:start; margin-top:10px; padding:9px 12px; border-radius:10px; background:var(--fs-brand-soft); border:1px solid #DCDAF8; animation:flash-formula-in .38s cubic-bezier(.16,1,.3,1) both; animation-delay:calc(var(--i,0) * 26ms); }
+.flash-studio .flash-formula span { padding:1px 7px; border-radius:6px; background:#fff; color:var(--fs-brand); font-size:11.5px; font-weight:600; line-height:1.6; }
+.flash-studio .flash-review-table tbody th .flash-formula p { margin:0; color:#2B2877; font-size:12.5px; font-weight:400; line-height:1.5; }
+@keyframes flash-formula-in { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+.flash-studio .flash-formula-toggle[aria-pressed="true"] { background:var(--fs-brand-soft); border-color:#CFCCF7; color:var(--fs-brand); }
+.flash-studio .flash-mis-status { margin-left:auto; }
+.flash-formula-form { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; padding:18px; }
+.flash-formula-form input { height:42px; padding:0 13px; border:1px solid var(--fs-line,#E4E7EF); border-radius:10px; font:inherit; font-size:15px; letter-spacing:.12em; }
+.flash-formula-form input:focus { border-color:var(--fs-brand,#3F37C9); box-shadow:0 0 0 3px var(--fs-brand-soft,#EEEDFC); outline:none; }
+.flash-studio .flash-formula-form .flash-action-primary { min-height:42px; }
+.flash-formula-error { grid-column:1 / -1; min-height:18px; margin:0; color:var(--fs-low,#B4372F); font-size:13px; }
+@media (prefers-reduced-motion: reduce) { .flash-studio .flash-formula { animation:none; } }

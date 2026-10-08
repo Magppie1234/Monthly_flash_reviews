@@ -160,6 +160,30 @@ test('an empty field names whoever is responsible for it, not always the person 
   assert.deepEqual(designer.items.map(item => item.note), ['Field exists but not filled by the site measurement team', 'Field exists but not filled by the PDI team']);
 });
 
+test('formulae are served only with the right code, and every figure has one', async t => {
+  for (const rows of Object.values(live.ROWS)) for (const id of Object.keys(rows)) assert.ok(live.FORMULAE[id], `${id} has no formula`);
+  const previous = process.env.FORMULA_CODE;
+  process.env.FORMULA_CODE = 'test-code';
+  const app = express();
+  mountMis(app, path.join(__dirname, '..'), { zoho: fakeZoho({}) });
+  const server = app.listen(0, '127.0.0.1');
+  await new Promise(resolve => server.once('listening', resolve));
+  t.after(() => { server.close(); if (previous === undefined) delete process.env.FORMULA_CODE; else process.env.FORMULA_CODE = previous; });
+  const url = `http://127.0.0.1:${server.address().port}/api/flash-review/formulae?role=psm`;
+  assert.equal((await fetch(url)).status, 403);
+  assert.equal((await fetch(url, { headers: { 'X-Formula-Code': 'wrong' } })).status, 403);
+  const ok = await fetch(url, { headers: { 'X-Formula-Code': 'test-code' } });
+  assert.equal(ok.status, 200);
+  const body = await ok.json();
+  assert.equal(Object.keys(body.items).length, 18);
+  assert.match(body.items.psm_w3, /within 12 hours/);
+  assert.match(body.items.psm_b_1, /assessed by the reviewing manager/);
+  assert.equal((await fetch(url.replace('psm', 'nope'), { headers: { 'X-Formula-Code': 'test-code' } })).status, 400);
+  // repeated wrong codes are cut off, even for a later correct one
+  for (let attempt = 0; attempt < 8; attempt += 1) await fetch(url, { headers: { 'X-Formula-Code': 'guess' } });
+  assert.equal((await fetch(url, { headers: { 'X-Formula-Code': 'test-code' } })).status, 429);
+});
+
 test('designers are matched by name and judged on dates met', async () => {
   const searches = [];
   const zoho = fakeZoho({ Deals: criteria => (criteria.includes('Send_For_Approval_Date')

@@ -18,6 +18,8 @@
  const judged=id=>/_(b|f)_?\d+$/.test(id);
  // Only a Zoho CRM address is ever turned into a link.
  const zohoLink=url=>String(url||'').startsWith('https://crm.zoho.in/')?url:'';
+ // Once the code has been accepted it is kept for this visit only, so the prompt appears once.
+ let formulaCode='',formulaeShown=false;const formulaCache=new Map();
  function mount(options){
   const {host,body,context}=options;if(!supported(context.policy))return;
   const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;};
@@ -71,7 +73,43 @@
    }catch(error){if(panel.isConnected&&ticket===request)status.textContent=error.name==='TimeoutError'?'Zoho CRM took too long. Try again.':error.message;}
    finally{if(panel.isConnected&&ticket===request)fetchButton.disabled=false;}
   };
+  const formulaButton=el('button','Show formulae','flash-action-secondary flash-formula-toggle');formulaButton.type='button';controls.insertBefore(formulaButton,status);
+  const drawFormulae=()=>{
+   body.querySelectorAll('.flash-formula').forEach(n=>n.remove());
+   const shown=formulaeShown&&formulaCache.get(context.policy);formulaButton.textContent=shown?'Hide formulae':'Show formulae';formulaButton.setAttribute('aria-pressed',String(Boolean(shown)));
+   if(!shown)return;
+   let index=0;for(const cell of body.querySelectorAll('td.flash-mis-result[data-mis-item]')){
+    const text=shown.items[cell.dataset.misItem],heading=cell.parentElement.querySelector('th');if(!text||!heading)continue;
+    const note=el('div',undefined,'flash-formula');note.style.setProperty('--i',String(Math.min(index++,14)));note.append(el('span','Formula'),el('p',text));heading.appendChild(note);
+   }
+  };
+  const loadFormulae=async code=>{
+   const response=await fetch('/api/flash-review/formulae?'+new URLSearchParams({role:context.policy}),{cache:'no-store',headers:{'X-Formula-Code':code},signal:AbortSignal.timeout(15000)});
+   const result=await response.json();if(!response.ok)throw Error(result.error||'Formulae could not be loaded.');
+   formulaCode=code;formulaCache.set(context.policy,result);
+  };
+  const askForCode=()=>{
+   const head=el('div',undefined,'flash-mis-dialog-head'),title=el('div'),close=el('button','Close','flash-action-secondary');close.type='button';close.onclick=()=>dialog.close();
+   title.append(el('strong','Show formulae'),el('span','Enter the formula code to see how each figure is worked out.'));head.append(title,close);
+   const form=el('form',undefined,'flash-formula-form'),input=el('input'),go=el('button','Show','flash-action-primary'),error=el('p','','flash-formula-error');
+   input.type='password';input.inputMode='numeric';input.autocomplete='off';input.setAttribute('aria-label','Formula code');input.placeholder='Formula code';go.type='submit';error.setAttribute('role','alert');
+   form.append(input,go,error);
+   form.onsubmit=async event=>{
+    event.preventDefault();if(go.disabled)return;if(!input.value.trim()){error.textContent='Enter the code first.';return;}
+    go.disabled=true;error.textContent='';
+    try{await loadFormulae(input.value.trim());formulaeShown=true;dialog.close();drawFormulae();}catch(problem){error.textContent=problem.name==='TimeoutError'?'That took too long. Try again.':problem.message;input.select();}finally{go.disabled=false;}
+   };
+   input.oninput=()=>{error.textContent='';};
+   dialog.replaceChildren(head,form);if(!dialog.open)dialog.showModal();input.focus();
+  };
+  formulaButton.onclick=async()=>{
+   if(formulaeShown){formulaeShown=false;drawFormulae();return;}
+   if(formulaCache.has(context.policy)){formulaeShown=true;drawFormulae();return;}
+   if(formulaCode){try{await loadFormulae(formulaCode);formulaeShown=true;drawFormulae();return;}catch{formulaCode='';}}
+   askForCode();
+  };
   panel.append(controls,dialog);host.appendChild(panel);draw(null);
+  if(formulaeShown&&!formulaCache.has(context.policy)&&formulaCode)loadFormulae(formulaCode).then(drawFormulae,()=>{formulaeShown=false;drawFormulae();});else drawFormulae();
  }
  return {supported,mount,contextKey,values,openable,notes,warnings,zohoLink};
 });
