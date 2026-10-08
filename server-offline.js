@@ -19,7 +19,9 @@ const DEFAULT_SNAPSHOT_DIR = process.env.VERCEL
   ? path.join(process.cwd(), 'snapshot-data')
   : path.join(__dirname, '.private', 'offline-snapshot');
 const SNAPSHOT_DIR = path.resolve(process.env.CRM_OFFLINE_SNAPSHOT_DIR || DEFAULT_SNAPSHOT_DIR);
-const BUILD = `offline-${Date.now()}`;
+// A hosted function evaluates this module again on every cold start. A time-based value would
+// look like a new release to the browser's version check and reload the page under the reviewer.
+const BUILD = process.env.VERCEL_DEPLOYMENT_ID || `offline-${Date.now()}`;
 
 function readPrivateJson(file) {
   const stat = fs.statSync(file);
@@ -34,6 +36,18 @@ function readPrivateJson(file) {
 }
 
 function loadSnapshot() {
+  // The snapshot is private and never committed, so a deployment built from git has none. The
+  // Monthly Flash Review needs only the staff directory: start without CRM data rather than fail
+  // to load. A snapshot that is present but incomplete or altered still throws below.
+  if (!fs.existsSync(path.join(SNAPSHOT_DIR, 'manifest.json'))) {
+    return {
+      available: false,
+      manifest: { record_counts: {} },
+      metadata: { modules: { modules: [] }, fields: {}, views: {}, layouts: {}, related_lists: {} },
+      records: {},
+      indexes: {},
+    };
+  }
   const manifest = readPrivateJson(path.join(SNAPSHOT_DIR, 'manifest.json'));
   const metadata = readPrivateJson(path.join(SNAPSHOT_DIR, 'metadata.json'));
   if (manifest.schema_version >= 4 && (manifest.source_org_id !== '60046349006' || metadata.org?.org?.length !== 1 || String(metadata.org.org[0].zgid) !== manifest.source_org_id)) {
@@ -53,7 +67,7 @@ function loadSnapshot() {
     }
     indexes[moduleName] = new Map(records[moduleName].map(record => [String(record.id), record]));
   }
-  return { manifest, metadata, records, indexes };
+  return { available: true, manifest, metadata, records, indexes };
 }
 
 const snapshot = loadSnapshot();
@@ -112,6 +126,16 @@ app.use('/api', (req, res, next) => {
 });
 
 require('./lib/flash-mis').mountMis(app, __dirname);
+
+// Every route below reads the snapshot. Without one they say so plainly; the browser already
+// treats a failed /api/boot as "CRM unavailable" and keeps the Monthly Flash Review usable.
+app.use('/api', (req, res, next) => {
+  if (snapshot.available || req.path === '/version') return next();
+  return res.status(503).json({
+    error: 'SNAPSHOT_UNAVAILABLE',
+    message: 'This deployment carries no CRM snapshot. Only the Monthly Flash Review is available.',
+  });
+});
 
 function moduleName(value) {
   const name = String(value || '');
@@ -400,6 +424,7 @@ module.exports = app;
 if (require.main === module) {
   app.listen(PORT, HOST, () => {
     console.log(`MAGPPIE CRM (snapshot app; read-only MIS pipeline enabled) → http://${HOST}:${PORT}`);
-    console.log(`Local snapshot: ${snapshot.manifest.source_snapshot_at} · ${Object.values(snapshot.manifest.record_counts).reduce((sum, count) => sum + count, 0).toLocaleString('en-IN')} records`);
+    if (!snapshot.available) console.log(`No CRM snapshot at ${SNAPSHOT_DIR} · Monthly Flash Review only`);
+    else console.log(`Local snapshot: ${snapshot.manifest.source_snapshot_at} · ${Object.values(snapshot.manifest.record_counts).reduce((sum, count) => sum + count, 0).toLocaleString('en-IN')} records`);
   });
 }

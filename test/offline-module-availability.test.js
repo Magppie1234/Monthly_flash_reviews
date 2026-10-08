@@ -54,3 +54,36 @@ test('uncached modules remain distinct from empty cached modules on all record r
   assert.equal((await fetch(`${base}/api/record/Leads`, { method: 'POST', headers })).status, 409);
   assert.equal((await fetch(`${base}/api/boot`)).status, 401);
 });
+
+test('a deployment without a snapshot still serves the Monthly Flash Review', async t => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'crm-offline-absent-'));
+  const previous = { dir: process.env.CRM_OFFLINE_SNAPSHOT_DIR, code: process.env.ACCESS_CODE };
+  process.env.CRM_OFFLINE_SNAPSHOT_DIR = directory;
+  delete process.env.ACCESS_CODE;
+  delete require.cache[require.resolve('../server-offline')];
+  const app = require('../server-offline');
+  const server = app.listen(0, '127.0.0.1');
+  await new Promise(resolve => server.once('listening', resolve));
+  t.after(() => {
+    server.close();
+    fs.rmSync(directory, { recursive: true, force: true });
+    delete require.cache[require.resolve('../server-offline')];
+    for (const [name, value] of [['CRM_OFFLINE_SNAPSHOT_DIR', previous.dir], ['ACCESS_CODE', previous.code]]) {
+      if (value === undefined) delete process.env[name]; else process.env[name] = value;
+    }
+  });
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const people = await fetch(`${base}/api/flash-review/people`);
+  assert.equal(people.status, 200);
+  assert.ok(Object.keys((await people.json()).roles).length > 0);
+  assert.equal((await fetch(`${base}/api/version`)).status, 200);
+  const page = await fetch(`${base}/`);
+  assert.equal(page.status, 200);
+  assert.match(await page.text(), /flash-review\.js/);
+  for (const route of ['/api/boot', '/api/dashboard', '/api/records/Leads', '/api/module_bundle/Leads', '/api/meta/org']) {
+    const response = await fetch(base + route);
+    assert.equal(response.status, 503, route);
+    assert.equal((await response.json()).error, 'SNAPSHOT_UNAVAILABLE');
+  }
+  assert.equal((await fetch(`${base}/api/record/Leads`, { method: 'POST' })).status, 409);
+});
