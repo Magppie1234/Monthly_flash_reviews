@@ -11,7 +11,7 @@ test('local business lists include only approved people and leave other departme
   assert.deepEqual(directory.roles.sales_manager.employees.map(p=>p.name),['Lang Takhel','Himanshu Thakur','Sakshi','Ashish','Abhinav Tomar','Arjun','Rahul Mahajan','Siddharth','Rananjay']);
   assert.deepEqual(directory.roles.asm.employees.map(p=>p.name),['Vaishnavi','Anushka','Shrestha']);
   assert.deepEqual(directory.roles.psm.employees.map(p=>p.name),['Sowmya','Ishita','Sparshan','Deepak']);
-  assert.deepEqual(directory.roles.avp.employees.map(p=>[p.name,p.department]),[['Tavneet','Retail'],['Harshita Magppie','Retail'],['Pratyush Pratyush','Projects']]);
+  assert.deepEqual(directory.roles.avp.employees.map(p=>[p.name,p.department]),[['Tavneet','Retail'],['Harshita Magppie','Retail'],['Pratyush','Projects']]);
   for(const name of ['Rahul Mahajan','Siddharth']){
     const person=directory.roles.sales_manager.employees.find(p=>p.name===name);
     assert.equal(person.assignedRole,'SM');assert.equal(person.policyRoleId,'asm');
@@ -85,11 +85,11 @@ test('confirmed reporting hierarchy respects department parents and explicit ide
   const roles=buildReviewDirectory(roster,mapping).roles;
   const people=Object.values(roles).flatMap(role=>role.employees);
   const manager=name=>people.find(person=>person.name===name)?.reportingManager;
-  for(const name of ['Tavneet','Harshita Magppie','Pratyush Pratyush']) assert.equal(manager(name).name,'Dr. Suruchi Mittal');
+  for(const name of ['Tavneet','Harshita Magppie','Pratyush']) assert.equal(manager(name).name,'Dr. Suruchi Mittal');
   for(const name of ['Lang Takhel','Arjun','Siddharth','Anushka','Vaishnavi']) assert.equal(manager(name).name,'Tavneet');
   assert.equal(manager('Ashish').name,'Harshita');
   for(const person of roles.psm.employees) assert.equal(person.reportingManager.name,'Sadhvi');
-  assert.deepEqual(manager('Sudhakar Sudhakar'),{name:'Factory',type:'department',source:'project'});
+  assert.deepEqual(manager('Sudhakar'),{name:'Factory',type:'department',source:'project'});
   for(const name of ['Rananjay','Rajkumar']) assert.equal(manager(name),undefined);
   assert.equal(mapping.reportingHierarchy.parents.Factory,'Dr. Suruchi Mittal');
   assert.equal(mapping.reportingHierarchy.parents.Sadhvi,'Dr. Suruchi Mittal');
