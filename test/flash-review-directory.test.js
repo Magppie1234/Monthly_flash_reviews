@@ -40,10 +40,17 @@ test('user-confirmed Designer team has individual reviews and reports to Sachin'
   assert.deepEqual(restored.employeeReviews.designer[people[1].id].reviews,{});
 });
 
-test('AVP identity is available without inventing a scorecard or allowing submission',()=>{
-  const config=flash.constants.ROLE_CONFIGS.avp;
-  assert.equal(config.policyPending,true);assert.deepEqual(config.workItems,[]);
-  assert.ok(flash.submissionIssues(flash.defaultState('avp'),'Apr').includes('AVP review policy is not configured.'));
+test('AVP review: team-outcome Work rows weighted as the KRA sheet, behavioural rows led by team leadership',()=>{
+  const config=flash.constants.ROLE_CONFIGS.avp,sm=flash.constants.ROLE_CONFIGS.sales_manager,name=item=>item.label.split(':')[0];
+  assert.equal(config.policyPending,undefined);assert.equal(config.workItems.length,11);
+  assert.equal(Object.values(config.kraWeights).reduce((sum,weight)=>sum+weight,0),100);
+  assert.ok(config.workItems.every(item=>config.kraWeights[item.kra]&&config.kraLabels[item.kra]));
+  assert.deepEqual(config.behaviouralItems.map(item=>item.id),['avp_b_1','avp_b_2','avp_b_3','avp_b_4','avp_b_5']);
+  // the Sales Manager rows, with team leadership moved to the front
+  assert.equal(name(config.behaviouralItems[0]),'Team leadership and coaching');
+  assert.deepEqual(config.behaviouralItems.map(item=>item.label).sort(),sm.behaviouralItems.map(item=>item.label).sort());
+  assert.deepEqual(config.foundationalItems.map(name),['Attendance and punctuality','Adherence to company policy and process','Systems and data discipline','Learning and self-development','Company values and conduct']);
+  assert.equal(flash.reviewCompleteness({ratings:{},remarks:{}},'avp').total,21);
 });
 
 test('uses exact roles, excluding profiles, inactive users, duplicates and unrelated heads', () => {
@@ -85,14 +92,14 @@ test('confirmed reporting hierarchy respects department parents and explicit ide
   const roles=buildReviewDirectory(roster,mapping).roles;
   const people=Object.values(roles).flatMap(role=>role.employees);
   const manager=name=>people.find(person=>person.name===name)?.reportingManager;
-  for(const name of ['Tavneet','Harshita Magppie','Pratyush']) assert.equal(manager(name).name,'Dr. Suruchi Mittal');
+  for(const name of ['Tavneet','Harshita Magppie','Pratyush']) assert.equal(manager(name).name,'Dr. Suruchi Mittar');
   for(const name of ['Lang Takhel','Arjun','Siddharth','Anushka','Vaishnavi']) assert.equal(manager(name).name,'Tavneet');
   assert.equal(manager('Ashish').name,'Harshita');
   for(const person of roles.psm.employees) assert.equal(person.reportingManager.name,'Sadhvi');
   assert.deepEqual(manager('Sudhakar'),{name:'Factory',type:'department',source:'project'});
   for(const name of ['Rananjay','Rajkumar']) assert.equal(manager(name),undefined);
-  assert.equal(mapping.reportingHierarchy.parents.Factory,'Dr. Suruchi Mittal');
-  assert.equal(mapping.reportingHierarchy.parents.Sadhvi,'Dr. Suruchi Mittal');
+  assert.equal(mapping.reportingHierarchy.parents.Factory,'Dr. Suruchi Mittar');
+  assert.equal(mapping.reportingHierarchy.parents.Sadhvi,'Dr. Suruchi Mittar');
 });
 
 
@@ -103,7 +110,7 @@ test('Factory Head is local Rajni and Installation Manager contains only verifie
  assert.deepEqual(roles.factory_head.employees.map(p=>[p.id,p.name]),[['local:rajni','Rajnikant']]);
  assert.deepEqual(roles.installation_manager.employees.map(p=>[p.id,p.name]),[['1032257000023448089','Rishabh']]);
  for(const key of ['factory_head','installation_manager']){
-  assert.equal(roles[key].employees[0].reportingManager.name,'Factory');
+  assert.equal(roles[key].employees[0].reportingManager.name,key==='factory_head'?'Dr. Suruchi Mittar':'Factory');
   assert.equal(roles[key].employees[0].policyRoleId,key);
  }
  const store=flash.defaultStore();
@@ -126,19 +133,19 @@ test('local Rajni review survives reload without claiming a CRM identity',()=>{
 test('revised managers and Factory Office labels preserve stable review identities',()=>{
  const roles=buildReviewDirectory(require('../data/flash-review-roster.json'),require('../config/flash-review-roles.json')).roles;
  const people=Object.values(roles).flatMap(r=>r.employees);
- for(const [name,manager] of [['Sakshi','Dr. Suruchi Mittal'],['Abhinav Tomar','Dr. Suruchi Mittal'],['Himanshu Thakur','Harshita'],['Rahul Mahajan','Tavneet'],['Shrestha','Ashish']]) assert.equal(people.find(p=>p.name===name).reportingManager.name,manager);
+ for(const [name,manager] of [['Sakshi','Dr. Suruchi Mittar'],['Abhinav Tomar','Dr. Suruchi Mittar'],['Himanshu Thakur','Harshita'],['Rahul Mahajan','Tavneet'],['Shrestha','Ashish']]) assert.equal(people.find(p=>p.name===name).reportingManager.name,manager);
  assert.equal(people.some(p=>p.id==='1032257000027013001'),false);
  assert.equal(roles.factory_head.employees[0].id,'local:rajni');
  assert.equal(roles.factory_head.employees[0].assignedRole,'Factory Office');
  assert.equal(flash.constants.ROLE_CONFIGS.factory_head.selectorLabel,'Factory Office');
 });
 
-test('Lokender has separate Purchase and Logistics workbooks without an inferred reporting manager',()=>{
+test('Lokender has separate Purchase and Logistics workbooks and reports to the Factory Head',()=>{
  const roles=buildReviewDirectory(require('../data/flash-review-roster.json'),require('../config/flash-review-roles.json')).roles;
  const store=flash.defaultStore();
  for(const key of ['purchase_head','logistics_head']){
   assert.deepEqual(roles[key].employees.map(p=>[p.id,p.name,p.policyRoleId]),[['local:lokender','Lokender',key]]);
-  assert.equal(roles[key].employees[0].reportingManager,undefined);
+  assert.equal(roles[key].employees[0].reportingManager.name,'Rajnikant');
   store.employeeReviews[key]={'local:lokender':flash.defaultState(key)};
  }
  store.employeeReviews.purchase_head['local:lokender'].reviews.Apr={overallRemark:'Purchase only'};

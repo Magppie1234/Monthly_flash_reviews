@@ -26,7 +26,7 @@
     "designer": "User-confirmed Designer team of 19, reporting to Sachin (2026-09-23). Local review identities; no inferred matches to CRM accounts. Replaces the generic Designer1 Magppie selector entry; previously saved reviews retain their original IDs.",
     "installation_manager": "User-confirmed local assignment: Rishabh only, using the Installation Manager review policy.",
     "customer_care_head": "Customer Care Head uses AMS Head.",
-    "unmapped": "AVP review scorecard remains pending. Lokender is assigned locally to Purchase Head and Logistics Head, with separate role workbooks. His reporting manager has not been specified.",
+    "unmapped": "Lokender is assigned locally to Purchase Head and Logistics Head, with separate role workbooks. He reports to the Factory Head, per the verified operations workbook.",
     "localAssignments": "Local display and review policy only. Do not write these assignments to Zoho. Other departments keep their CRM-role mapping."
   },
   "localAssignments": {
@@ -305,13 +305,13 @@
   "reportingHierarchy": {
     "source": "User-confirmed hierarchy, 2026-09-17; project only",
     "parents": {
-      "Pratyush": "Dr. Suruchi Mittal",
-      "Tavneet": "Dr. Suruchi Mittal",
-      "Harshita": "Dr. Suruchi Mittal",
-      "Sachin": "Dr. Suruchi Mittal",
-      "Sadhvi": "Dr. Suruchi Mittal",
-      "Satvir": "Dr. Suruchi Mittal",
-      "Factory": "Dr. Suruchi Mittal",
+      "Pratyush": "Dr. Suruchi Mittar",
+      "Tavneet": "Dr. Suruchi Mittar",
+      "Harshita": "Dr. Suruchi Mittar",
+      "Sachin": "Dr. Suruchi Mittar",
+      "Sadhvi": "Dr. Suruchi Mittar",
+      "Satvir": "Dr. Suruchi Mittar",
+      "Factory": "Dr. Suruchi Mittar",
       "Lang": "Tavneet",
       "Arjun": "Tavneet",
       "Siddharth": "Tavneet",
@@ -321,12 +321,13 @@
       "Shreya": "Harshita",
       "Sudhakar": "Factory",
       "Rishabh": "Factory",
-      "Sakshi": "Dr. Suruchi Mittal",
+      "Sakshi": "Dr. Suruchi Mittar",
       "Himanshu": "Harshita",
-      "Abhinav": "Dr. Suruchi Mittal",
+      "Abhinav": "Dr. Suruchi Mittar",
       "Rahul": "Tavneet",
       "Shrestha": "Ashish",
-      "Rajnikant": "Factory"
+      "Rajnikant": "Dr. Suruchi Mittar",
+      "Lokender": "Rajnikant"
     },
     "departments": [
       "Factory"
@@ -346,6 +347,7 @@
       "1032257000005147103": "Sudhakar",
       "1032257000023448089": "Rishabh",
       "local:rajni": "Rajnikant",
+      "local:lokender": "Lokender",
       "1032257000000453001": "Sakshi",
       "1032257000020181001": "Himanshu",
       "1032257000025789001": "Abhinav",

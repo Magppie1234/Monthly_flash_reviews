@@ -25,6 +25,6 @@ test('installation timing excludes invalid pairs and other managers',()=>{
 });
 test('AVP context is read-only; operational gaps never receive unrelated evidence',()=>{
  const live=snapshot('Events',['Owner','Start_DateTime'],[{id:'1',Owner:{id:directory.roles.avp.employees[0].id},Start_DateTime:'2026-09-01'}]);
- const avp=enrichRoles(make('avp'),null,live);assert.equal(avp.items[0].records.length,1);
+ const avp=enrichRoles(make('avp'),null,live);assert.equal(avp.items.find(item=>item.id==='avp_context_meetings').records.length,1);
  for(const role of ['factory_head','purchase_head','logistics_head'])assert.ok(enrichRoles(make(role),null,live).items.every(i=>i.status==='missing_data'&&i.suggestedRating===null));
 });

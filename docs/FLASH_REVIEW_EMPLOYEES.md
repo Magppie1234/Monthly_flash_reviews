@@ -75,7 +75,7 @@ The Windows local launcher currently uses `CLONE_PORT=3100`, `CLONE_HOST=127.0.0
 
 ## Reporting hierarchy (17 September 2026)
 
-`config/flash-review-roles.json` stores the confirmed reporting hierarchy. The directory maps CRM IDs to hierarchy nodes; all PSM workbook employees report to Sadhvi. This is local configuration only, with no Zoho writes. Factory is a department reporting to Dr. Suruchi Mittal, not an individual manager.
+`config/flash-review-roles.json` stores the confirmed reporting hierarchy. The directory maps CRM IDs to hierarchy nodes; all PSM workbook employees report to Sadhvi. This is local configuration only, with no Zoho writes. Factory is a department reporting to Dr. Suruchi Mittar, not an individual manager.
 
 Confirmed managers prefill on selection and are read-only in Setup and reviews. AVPs show their manager in the pending-policy panel. Previous differing manual manager names are retained in `setup.previousReportingManagers`; saved review answers remain untouched. Unspecified reporting lines remain optional. Shreya is not matched to Shrestha, and Rananjay is not assumed to report to Pratyush. Hierarchy nodes without verified roster identities do not add employees or change review policies.
 
@@ -85,7 +85,7 @@ Validation: 20 Node tests pass, including explicit mappings, department semantic
 Factory Head now contains only Rajni (`local:rajni`, explicitly supplied project identity with no claimed CRM account). Installation Manager now contains only Rishabh (`1032257000023448089`, verified saved CRM identity). Both report to Factory (department). Existing employee review records remain stored even when their employees are removed from the selectable list. `projectPeople` supports explicit local identities independently of CRM snapshot refresh; explicit CRM assignments are retained by the refresh script. Other workbooks are unchanged.
 
 ### Latest corrections
-Sakshi and Abhinav Tomar report to Dr. Suruchi Mittal (Founder's Office); Himanshu Thakur to Harshita; Rahul Mahajan to Tavneet; Shrestha to Ashish. Rajkumar is removed from selectable ASM membership, with saved reviews preserved. Factory Head is displayed as Factory Office, and Rajni is renamed Rajnikant. Internal keys `factory_head` and `local:rajni` deliberately remain stable to retain review history. Verified with 23 Node tests and browser checks for every changed manager and label.
+Sakshi and Abhinav Tomar report to Dr. Suruchi Mittar (Founder's Office); Himanshu Thakur to Harshita; Rahul Mahajan to Tavneet; Shrestha to Ashish. Rajkumar is removed from selectable ASM membership, with saved reviews preserved. Factory Head is displayed as Factory Office, and Rajni is renamed Rajnikant. Internal keys `factory_head` and `local:rajni` deliberately remain stable to retain review history. Verified with 23 Node tests and browser checks for every changed manager and label.
 
 ## Combined review framework
 The five operations workbooks now implement the approved combined draft: Factory Office 4 KPIs, Purchase 2, Logistics 1, Installation 4, AMS 4. Each has five behavioural and five foundational items, a reviewer-selected overall assessment, KPI baseline/target/actual/unit, evidence, closing actions and Section E savings. IDs use a new v2 namespace; previous item ratings, evidence and remarks remain stored and visible under preserved entries, not reassigned to new KPIs. Stable employee IDs and existing role policies for other departments are unchanged.

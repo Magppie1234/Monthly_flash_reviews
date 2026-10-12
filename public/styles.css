@@ -2142,6 +2142,7 @@ body:has(.flash-studio) .crm-assistant-launcher, body:has(.flash-home) .crm-assi
 .flash-studio .flash-mis-warn { position:relative; flex:none; width:20px; height:20px; border-radius:50%; background:var(--fs-warn-bg); border:1px solid #EBD9A6; color:var(--fs-warn); font-size:13px; font-weight:700; line-height:18px; text-align:center; cursor:help; }
 .flash-studio .flash-mis-warn:hover::after, .flash-studio .flash-mis-warn:focus::after { content:attr(data-tip); position:absolute; right:-6px; top:calc(100% + 8px); z-index:30; width:260px; padding:10px 12px; border-radius:10px; background:var(--fs-navy); color:#fff; font-size:12.5px; font-weight:400; line-height:1.45; text-align:left; white-space:normal; }
 .flash-studio .flash-mis-caption { display:block; width:100%; margin-top:1px; padding:0; border:0; background:none; text-align:right; font-size:12px; color:var(--fs-faint); }
+.flash-studio .flash-mis-caption { white-space:normal; line-height:1.35; }
 .flash-studio button.flash-mis-caption { color:var(--fs-brand); font-weight:600; cursor:pointer; }
 .flash-studio .flash-mis-caption.is-unfilled { color:var(--fs-low); font-weight:600; line-height:1.35; white-space:normal; }
 .flash-studio .flash-review-table.with-mis-results tbody td.flash-mis-result { width:170px; min-width:170px; }

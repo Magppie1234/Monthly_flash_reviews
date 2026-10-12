@@ -1,0 +1,7 @@
+{
+  "description": "Days that do not count as working days when a KPI says \"next working day\". Sunday is off for everyone. Pre-Sales Managers also take alternate Mondays off in two groups: list each PSM's Zoho user id under the Mondays of the month they are off. A fifth Monday is a working day for everyone.",
+  "mondayRota": {
+    "firstAndThird": [],
+    "secondAndFourth": []
+  }
+}

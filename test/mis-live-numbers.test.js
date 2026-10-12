@@ -154,7 +154,8 @@ test('a figure with an issue carries the reason; nothing is ever filled in for i
 test('an empty field names whoever is responsible for it, not always the person under review', async () => {
   const complaints = [{ id: 'A1', Name: 'Hinge loose', Owner: { id: '9', name: 'Ramesh' } }, { id: 'A2', Name: 'Shutter gap', Owner: { id: '9', name: 'Ramesh' } }];
   const care = await live.fetchNumbers({ zoho: fakeZoho({ AMS_Complaints: complaints }), policy: 'customer_care_head', employee: { id: '5', name: 'Sudhakar' }, month: '2026-09', itemIds: ['customer_care_head_v2_w1'], now: NOW });
-  assert.equal(care.items[0].note, 'Field exists but not filled by Ramesh');
+  // complaints sit under a shared login in CRM; the AMS Head is accountable, so the review names them
+  assert.equal(care.items[0].note, 'Field exists but not filled by Sudhakar');
   const designs = [{ id: 'D1', Deal_Name: 'Kitchen', Design_Approved_Date: at(4) }];
   const designer = await live.fetchNumbers({ zoho: fakeZoho({ Deals: designs }), policy: 'designer', employee: { id: 'local:designer-rashi', name: 'Rashi' }, month: '2026-09', itemIds: ['dc_w5', 'dc_w11'], now: NOW });
   assert.deepEqual(designer.items.map(item => item.note), ['Field exists but not filled by the site measurement team', 'Field exists but not filled by the PDI team']);
@@ -182,6 +183,21 @@ test('formulae are served only with the right code, and every figure has one', a
   // repeated wrong codes are cut off, even for a later correct one
   for (let attempt = 0; attempt < 8; attempt += 1) await fetch(url, { headers: { 'X-Formula-Code': 'guess' } });
   assert.equal((await fetch(url, { headers: { 'X-Formula-Code': 'test-code' } })).status, 429);
+});
+
+test('next working day skips Sunday for everyone and a PSM\'s own alternate Monday', t => {
+  const rota = live.WORKING_DAYS.mondayRota, saved = { ...rota };
+  t.after(() => Object.assign(rota, saved));
+  Object.assign(rota, { firstAndThird: ['A'], secondAndFourth: ['B'] });
+  const deadline = (day, who) => live.istDay(new Date(live.nextWorkingDayEnd(Date.parse(`${day}T10:00:00+05:30`), who)).toISOString());
+  assert.equal(deadline('2026-10-02', 'A'), '2026-10-03');                      // Friday: Saturday is a working day
+  assert.equal(deadline('2026-10-03', 'X'), '2026-10-05');                      // Saturday: Sunday skipped
+  assert.equal(deadline('2026-10-03', 'A'), '2026-10-06');                      // first Monday is A's day off
+  assert.equal(deadline('2026-10-03', 'B'), '2026-10-05');                      // B works the first Monday
+  assert.equal(deadline('2026-10-10', 'B'), '2026-10-13');                      // second Monday is B's day off
+  assert.equal(deadline('2026-10-17', 'A'), '2026-10-20');                      // third Monday
+  assert.equal(deadline('2026-11-28', 'A'), '2026-11-30');                      // a fifth Monday is worked by all
+  assert.equal(deadline('2026-11-28', 'B'), '2026-11-30');
 });
 
 test('designers are matched by name and judged on dates met', async () => {

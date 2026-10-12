@@ -1,0 +1,4 @@
+{
+  "description": "Monthly sales targets used when a KPI is measured against target. Booking value is in ₹ crore.",
+  "avpMonthlyBookingCrore": 9
+}

@@ -194,7 +194,7 @@ test('migrates the original Sales Manager review into the multi-workbook store w
 });
 
 test('blank and partial reviews can be submitted without employee details or evidence', () => {
-  for (const roleId of flashReview.constants.ROLE_ORDER.filter(id => !flashReview.constants.ROLE_CONFIGS[id].policyPending)) {
+  for (const roleId of flashReview.constants.ROLE_ORDER.filter(id => flashReview.constants.ROLE_CONFIGS[id].workItems.length)) {
     const state = flashReview.defaultState(roleId);
     assert.deepEqual(flashReview.setupIssues(state.setup), [], roleId);
     assert.deepEqual(flashReview.submissionIssues(state, 'Apr'), [], roleId);
