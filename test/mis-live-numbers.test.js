@@ -94,8 +94,9 @@ test('sales rows: bookings, booked value, price discussions, own handovers and f
   };
   const sm = await numbers('sales_manager', data);
   assert.deepEqual({ w2: sm.sm_w2, w3: sm.sm_w3, w6: sm.sm_w6, w8: sm.sm_w8, w9: sm.sm_w9, w12: sm.sm_w12 }, { w2: '1', w3: '2', w6: '₹1.15 Cr', w8: '1', w9: '67%', w12: '2' });
-  // the portfolio is today's picture, so a past month shows no follow-up figure
-  assert.equal((await numbers('sales_manager', data, { month: '2026-08' })).sm_w9, null);
+  // the portfolio is today's picture: it serves the review being held now (last month's), not older ones
+  assert.equal((await numbers('sales_manager', data, { month: '2026-08' })).sm_w9, '67%');
+  assert.equal((await numbers('sales_manager', data, { month: '2026-07' })).sm_w9, null);
   const asm = await numbers('asm', data);
   assert.equal(asm.asm_w5, '50%');
   assert.equal(asm.asm_w8, '₹1.15 Cr');
@@ -110,7 +111,7 @@ test('a field that exists but is empty names who has not filled it, instead of s
   assert.equal(portfolio.note, 'No CRM records this month');
   assert.deepEqual(notInCrm, { id: 'asm_w1', value: null, records: 0 });
   const past = await live.fetchNumbers({ zoho: fakeZoho({}), policy: 'asm', employee: { id: '77', name: 'Anushka' }, month: '2026-06', itemIds: ['asm_w10'], now: NOW });
-  assert.equal(past.items[0].note, 'Running total in CRM; only available for the current month');
+  assert.equal(past.items[0].note, 'Running total in CRM; only available for the latest review');
 });
 
 test('PSM duplicates and qualification speed come from the dead reason and the status history', async () => {

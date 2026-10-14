@@ -23,7 +23,8 @@
  function mount(options){
   const {host,body,context}=options;if(!supported(context.policy))return;
   const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;};
-  const query=extra=>new URLSearchParams({role:context.role,employeeId:context.employeeId,month:context.month,...extra});
+  const query=extra=>new URLSearchParams({role:context.role,employeeId:context.employeeId,month:context.month,...(context.reviewMonth?{reviewMonth:context.reviewMonth}:{}),...extra});
+  const covered=new Date(context.month+'-01T00:00:00Z').toLocaleDateString('en-IN',{month:'long',year:'numeric',timeZone:'UTC'});
   const read=async extra=>{
    const response=await fetch('/api/flash-review/mis?'+query(extra),{cache:'no-store',signal:AbortSignal.timeout(45000)});
    const result=await response.json();if(!response.ok)throw Error(result.error||'Unable to fetch MIS.');
@@ -32,7 +33,7 @@
   };
   const panel=el('section',undefined,'flash-panel flash-mis-panel');panel.setAttribute('aria-label','MIS results');
   const controls=el('div',undefined,'flash-mis-actions'),status=el('p','','flash-mis-status');status.setAttribute('role','status');
-  const fetchButton=el('button','Fetch MIS','flash-action-secondary');fetchButton.type='button';controls.append(fetchButton,status);
+  const fetchButton=el('button','Fetch MIS','flash-action-secondary');fetchButton.type='button';fetchButton.title=`Fetches the figures for ${covered}, the month this review covers`;status.textContent=`Covers ${covered}`;controls.append(fetchButton,status);
   const dialog=el('dialog',undefined,'flash-mis-dialog');
   const showRecords=async(id,shown,label)=>{
    const head=el('div',undefined,'flash-mis-dialog-head'),title=el('div'),close=el('button','Close','flash-action-secondary');close.type='button';close.onclick=()=>dialog.close();
@@ -67,9 +68,9 @@
    const ticket=++request;fetchButton.disabled=true;status.textContent='Fetching from Zoho CRM…';draw(null);
    try{
     const result=await read({});if(!panel.isConnected||ticket!==request)return;
-    draw(values(result),openable(result),notes(result),warnings(result));
+    draw(values(result),openable(result),notes(result),warnings(result));options.onResult?.(result,covered);
     const at=new Date(result.fetchedAt).toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit'});
-    status.textContent=`Zoho CRM · ${at}`+(result.incomplete?' · some rows did not load, fetch again':'');
+    status.textContent=`${covered} figures · Zoho CRM · ${at}`+(result.incomplete?' · some rows did not load, fetch again':'');
    }catch(error){if(panel.isConnected&&ticket===request)status.textContent=error.name==='TimeoutError'?'Zoho CRM took too long. Try again.':error.message;}
    finally{if(panel.isConnected&&ticket===request)fetchButton.disabled=false;}
   };

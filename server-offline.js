@@ -108,7 +108,7 @@ app.get('/api/flash-review/people', (req, res) => {
     const { buildReviewDirectory } = require('./lib/flash-review-directory');
     const roster = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/flash-review-roster.json'), 'utf8'));
     const mapping = JSON.parse(fs.readFileSync(path.join(__dirname, 'config/flash-review-roles.json'), 'utf8'));
-    return res.json(buildReviewDirectory(roster, mapping));
+    return res.json({ ...buildReviewDirectory(roster, mapping), targets: require('./config/sales-targets.json').monthlyBookingCrore });
   } catch {
     return res.status(503).json({error:'STAFF_DIRECTORY_UNAVAILABLE',message:'The verified employee directory is unavailable. Please retry after it has been refreshed.'});
   }

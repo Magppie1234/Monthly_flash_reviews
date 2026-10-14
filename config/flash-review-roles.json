@@ -156,7 +156,7 @@
       {
         "id": "local:rajni",
         "department": "Factory",
-        "assignedRole": "Factory Office",
+        "assignedRole": "Factory Head",
         "policyRoleId": "factory_head"
       }
     ],

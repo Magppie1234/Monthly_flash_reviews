@@ -129,7 +129,8 @@ test('adds the Designer, ASM, and PSM workbooks with their exact KPI and KRA str
 test('adds the five factory workbooks from the FY25-26 KRA tracking sheet', () => {
   const { ROLE_CONFIGS } = flashReview.constants;
   const factoryRoles = ['factory_head', 'purchase_head', 'logistics_head', 'installation_manager', 'customer_care_head'];
-  const expectedWorkItems = { factory_head: 4, purchase_head: 2, logistics_head: 1, installation_manager: 4, customer_care_head: 4 };
+  // Factory, Installation and AMS: the four tracking-sheet KRAs plus the rows from each management note.
+  const expectedWorkItems = { factory_head: 14, purchase_head: 2, logistics_head: 1, installation_manager: 13, customer_care_head: 12 };
   const seen = new Set();
   for (const roleId of factoryRoles) {
     const config = ROLE_CONFIGS[roleId];

@@ -1,4 +1,8 @@
 {
-  "description": "Monthly sales targets used when a KPI is measured against target. Booking value is in ₹ crore.",
-  "avpMonthlyBookingCrore": 9
+  "description": "Monthly booking targets by designation, in ₹ crore. Used wherever a review measures booking value against target.",
+  "monthlyBookingCrore": {
+    "avp": 9,
+    "sales_manager": 3,
+    "asm": 1.5
+  }
 }
