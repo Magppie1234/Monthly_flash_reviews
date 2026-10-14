@@ -2285,3 +2285,7 @@ button.flash-side-logo:hover { opacity:.82; }
 .flash-studio .flash-formula-form .flash-action-primary { min-height:42px; }
 .flash-formula-error { grid-column:1 / -1; min-height:18px; margin:0; color:var(--fs-low,#B4372F); font-size:13px; }
 @media (prefers-reduced-motion: reduce) { .flash-studio .flash-formula { animation:none; } }
+
+/* Section E (operations reviews) laid out like Target vs Achievement */
+.flash-savings-check { margin:0 20px 8px; }
+.flash-note.flash-savings-note { margin:4px 20px 14px; }

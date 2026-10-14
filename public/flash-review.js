@@ -474,9 +474,9 @@
   }
   function rating(value,onChange,label){
     const g=node('div','flash-rating-control');g.setAttribute('role','group');g.setAttribute('aria-label',label);
-    [['above','Above'],['meets','Meets'],['below','Below'],...(roleConfig(reviewPolicyRole()).combinedReview&&label!=='Overall monthly assessment'?[['na','N/A']]:[])].forEach(([k,l])=>{
+    [['above','Above'],['meets','Meets'],['below','Below']].forEach(([k,l])=>{
       const b=node('button',`flash-rate ${value===k?`is-${k}`:''}`,l);b.type='button';b.dataset.rating=k;b.setAttribute('aria-pressed',value===k?'true':'false');
-      b.onclick=()=>{value=value===k?'':k;g.querySelectorAll('button').forEach(button=>{const selected=button.dataset.rating===value;button.className=`flash-rate ${selected?`is-${value}`:''}`;button.setAttribute('aria-pressed',String(selected));});onChange(value);};if(k==='na'){const extra=node('details','flash-rating-extra');extra.append(node('summary',null,'Not applicable'),b);g.appendChild(extra);}else g.appendChild(b);
+      b.onclick=()=>{value=value===k?'':k;g.querySelectorAll('button').forEach(button=>{const selected=button.dataset.rating===value;button.className=`flash-rate ${selected?`is-${value}`:''}`;button.setAttribute('aria-pressed',String(selected));});onChange(value);};g.appendChild(b);
     });return g;
   }
   function refreshMonthly(){
@@ -540,11 +540,6 @@
     const c=roleConfig(reviewPolicyRole()),section=node('section','flash-panel flash-assessment'),wrap=node('div','flash-table-scroll'),table=node('table','flash-review-table without-mis'),thead=node('thead'),hr=node('tr'),tbody=node('tbody');section.appendChild(header(title,copy));
     ['Responsibility','Assessment','Remarks'].forEach(x=>hr.appendChild(node('th',null,x)));thead.appendChild(hr);
     list.forEach(item=>{const tr=node('tr'),heading=node('th'),cut=/^[^.:]+: /.exec(item.label),name=cut?cut[0].slice(0,-2):item.label,measure=cut?[item.label.slice(cut[0].length)]:[];const group=c.kraLabels?.[item.kra]?`${c.kraLabels[item.kra]} · ${c.kraWeights[item.kra]}%`:c.kraGroups?.[item.kra];if(group)heading.appendChild(node('span','flash-kra',group));heading.appendChild(node('strong',null,name));if(measure.length)heading.appendChild(node('p','flash-measure',measure[0]));if(item.referenceTarget)heading.appendChild(node('p','flash-measure flash-target-line',`Target: ${item.referenceTarget}`));tr.appendChild(heading);const rc=node('td');rc.appendChild(rating(review.ratings[item.id]||'',v=>{review.ratings[item.id]=v;save();refreshMonthly();},`${item.label} assessment`));tr.appendChild(rc);
-      if(c.combinedReview&&list===c.workItems){
-        review.measurements ||= {};const values=review.measurements[item.id] ||= {},cell=node('details','flash-measurement-details');cell.appendChild(node('summary',null,'Measurements'));
-        [['Baseline','baseline'],['Agreed target','target'],['Actual result','actual'],['Unit','unit']].forEach(([label,key])=>{const control=field(label,values[key],v=>{values[key]=v;save();});control.querySelector('input').setAttribute('aria-label',`${item.label}: ${label}`);cell.appendChild(control);});
-        heading.appendChild(cell);
-      }
       const td=node('td'),ta=node('textarea');ta.value=review.remarks[item.id]||'';ta.placeholder=c.id==='designer'?'Fact, example, impact and evidence source':'Specific example and impact';ta.setAttribute('aria-label',`${item.label} remarks`);ta.dataset.reviewItem=item.id;ta.onchange=()=>{review.remarks[item.id]=ta.value;save();refreshMonthly();};
       if(c.id==='designer'){const missing=['above','below'].includes(review.ratings[item.id])&&!ta.value.trim();ta.setAttribute('aria-invalid',String(missing));ta.style.borderColor=missing?'#b42318':'';const hint=node('small','flash-remark-hint',missing?'Remark required for Above or Below':'');td.append(ta,hint);}else td.appendChild(ta);tr.appendChild(td);tbody.appendChild(tr);});
     if(window.MagppieFlashMis?.supported(c.id)){
@@ -560,13 +555,15 @@
     return data.verified&&target!==null&&target>0&&actual!==null&&actual>=0?actual/target:null;
   }
   function renderSavings(body,review,readOnly){
-    const c=roleConfig(reviewPolicyRole()),panel=node('section','flash-panel'),grid=node('div','flash-form-grid');review.savings ||= {};const values=review.savings;
-    panel.appendChild(header('Section E: Savings and incentives',`FY 2025–26 reference target: ₹${c.referenceSavings.toLocaleString('en-IN')}. Historical seven-month calculation; current period and targets require confirmation.`));
-    [['Savings period / as-of date','period','text'],['Approved period savings target (₹)','target','number'],['Verified cumulative savings (₹)','actual','number'],['Savings evidence / verification reference','evidence','textarea']].forEach(([label,key,type])=>grid.appendChild(field(label,values[key],v=>{values[key]=v;save();update();},{type,readOnly})));
-    const label=node('label','flash-check'),check=node('input');check.type='checkbox';check.checked=!!values.verified;check.disabled=readOnly;check.onchange=()=>{values.verified=check.checked;save();update();};label.append(check,node('span',null,'Savings verified against comparable costs and approved period'));grid.appendChild(label);panel.appendChild(grid);
-    const result=node('p');const update=()=>{const pct=savingsResult(review);result.textContent=`Savings achievement: ${pct===null?'Pending assessment':fmtPercent(pct)} · Incentive multiplier / payout: Pending policy approval`;};update();panel.appendChild(result);
-    const proposal=node('details');proposal.appendChild(node('summary',null,'Proposed policy: not active'));proposal.appendChild(node('p',null,'Below 60%: 0×; 60% to below 85%: 0.5×; 85% to below 100%: 1×; 100%+: 1.5×. Below Expectations override: 0×. Rating, payout base and eligibility require approval. Two consecutive Below months: proposed HR review; three: proposed PIP. No automatic action.'));panel.appendChild(proposal);
-    if(c.id==='factory_head')panel.appendChild(node('p',null,'Factory department historical reference: ₹77,14,420 = Factory Head ₹20,86,420 + Purchase ₹49,56,000 + Logistics ₹6,72,000. This subtotal is not extra personal savings.'));
+    // Same layout as Target vs Achievement: inputs on the left, the result card on the right.
+    const c=roleConfig(reviewPolicyRole()),panel=node('section','flash-panel'),grid=node('div','flash-target-grid');review.savings ||= {};const values=review.savings;
+    panel.appendChild(header('Section E: Savings and incentives',`FY 2025-26 annual savings target: ₹${c.referenceSavings.toLocaleString('en-IN')}. Record the approved target and the verified savings for the period.`));
+    [['Savings period / as-of date','period','text'],['Approved period target (₹)','target','number'],['Verified savings (₹)','actual','number'],['Evidence / verification reference','evidence','textarea']].forEach(([label,key,type])=>grid.appendChild(field(label,values[key],v=>{values[key]=v;save();update();},{type,readOnly})));
+    const res=node('div');grid.appendChild(res);panel.appendChild(grid);
+    const label=node('label','flash-check flash-savings-check'),check=node('input');check.type='checkbox';check.checked=!!values.verified;check.disabled=readOnly;check.onchange=()=>{values.verified=check.checked;save();update();};label.append(check,node('span',null,'Savings verified against comparable costs and the approved period'));panel.appendChild(label);
+    const update=()=>{const pct=savingsResult(review);res.className=`flash-target-result ${Number.isFinite(pct)?(pct>=1?'is-good':'is-danger'):''}`;res.replaceChildren(node('span',null,'Savings achievement'),node('strong',null,pct===null?'-':fmtPercent(pct)),node('small',null,pct===null?(values.verified?'Enter the target and verified savings':'Tick verified to count the savings'):pct>=1?'Target achieved':'Below the period target'));};update();
+    panel.appendChild(node('p','flash-note flash-savings-note','Incentive multiplier (proposed, not active): below 60% of target 0×; 60–84% 0.5×; 85–99% 1×; 100% or more 1.5×; Below Expectations overall 0×. No payout or HR action is applied automatically.'));
+    if(c.id==='factory_head')panel.appendChild(node('p','flash-note flash-savings-note','Factory department historical reference: ₹77,14,420 = Factory Head ₹20,86,420 + Purchase ₹49,56,000 + Logistics ₹6,72,000. This subtotal is not extra personal savings.'));
     body.appendChild(panel);
   }
   function renderLegacy(body,review,c){
