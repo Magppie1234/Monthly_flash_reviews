@@ -65,26 +65,24 @@
     }),
     designer: Object.freeze({
       id:'designer', selectorLabel:'Designer / Design Consultant', designation:'Design Consultant', requiresMis:false,
-      sourceWorkbook:'Designer - Monthly Flash Review (1).xlsx', scoringMethod:'workbook-majority',
+      sourceWorkbook:'Design Head KRA & KPI (official), applied to each designer', scoringMethod:'workbook-majority',
       purpose:'Translates the customer requirement brief into concept, then production-ready detailed design, validating site conditions and technical integration along the way. Owns pre- and post-order design work end-to-end, and coordinates closely with installation, factory, and sales teams to close all client deliverables on time.',
-      workItems:work('dc',[
-        ['kra1','Concept-stage design output. Special condition: if only pre-design work is assigned.'],
-        ['kra1','Detailed-design stage output. Special condition: if only post-design work is assigned.'],
-        ['kra2','% of concepts presented within agreed design TAT within 48 hours (during working days)'],
-        ['kra2','% of post designs ready within specified target ( refer to Post Design TAT annexure attached for details)'],
-        ['kra3','% of detailed designs with site validated before drawing release'],
-        ['kra4','Average individual revisions per product post-design compared to team average'],
-        ['kra4','Revision-stage output and estimate volume when revisions are required calculated at 25% of total square ft'],
-        ['kra5','% of projects with a post-booking cost overrun traced to design/estimation error'],
-        ['kra5','% of BOQs / specifications issued error-free (no site or factory rework)'],
-        ['kra6','% of estimates delivered within 24 hours of complete inputs'],
-        ['kra7','Design errors caught before production release vs. after'],
-        ['kra8','% of projects with a post-production cost overrun traced to design error'],
-        ['kra9','Response time to client queries; same-day status updates'],
-        ['kra9','Morning plan and EOD update; weekly status update across all live projects'],
-        ['kra9','% of all deliverables: designs and estimates: communicated on time and correctly'],
-        ['kra10','Average client satisfaction rating'],
-        ['kra10','Escalations/Complaints raised by the client'],
+      // Built on the official Design Head KRA & KPI sheet: each KPI the Head is measured on, applied to the designer's own work.
+      workItems:work('dsg',[
+        ['kra1','Concept TAT: % of your concepts presented within the agreed design TAT (target ≥ 90%, monthly)'],
+        ['kra1','Detailed-design TAT: % of your post designs ready by the agreed design date (target ≥ 90%, monthly)'],
+        ['kra2','Revision escalation: % of your projects exceeding the revision-count benchmark (target ≤ 10%, monthly)'],
+        ['kra2','BOQ and specification accuracy: % of BOQs and specifications issued error-free, with no site or factory rework (monthly)'],
+        ['kra3','Coordination with Sales and Operations: requirements, drawings and changes shared with Sales, Factory and Installation on time and complete, with no surprises (monthly)'],
+        ['kra4','Costing error rate: % of your projects with a post-booking cost overrun traced to estimation error (target ≤ 2%, monthly)'],
+        ['kra5','Estimate TAT: % of estimates delivered within 1–2 working days of complete inputs, in support of proposal turnaround (target ≥ 90%, weekly)'],
+        ['kra6','Post-production cost overrun: % of your projects with a cost overrun after production traced to design error (monthly)'],
+        ['kra7','Revised estimate TAT: % of change-driven revised estimates issued within 1–2 working days (target ≥ 90%, weekly)'],
+        ['kra8','Errors after Final Approval: design errors surfaced after Final Approval (target 0, monthly audit)'],
+        ['kra8','Site validation: % of detailed designs with the site validated before drawing release (monthly)'],
+        ['kra9','Client query response: client queries answered, with a status update, the same day (monthly)'],
+        ['kra9','Daily and weekly updates: morning plan and end-of-day update, and a weekly status update across all live projects (monthly)'],
+        ['kra9','Deliverables communicated: % of designs and estimates communicated on time and correctly (monthly)'],
       ]),
       behaviouralItems:items('dc_b',[
         'Ownership and accountability: owns the design deliverable end to end, flags risk early, no follow-up needed',
@@ -100,8 +98,9 @@
         'Learning and self-development: takes ownership of building product, material and design-tool knowledge',
         'Company values and conduct: represents the company with integrity and respect in every interaction',
       ]),
-      kraWeights:Object.freeze({kra1:20,kra2:15,kra3:10,kra4:10,kra5:10,kra6:5,kra7:5,kra8:5,kra9:10,kra10:10}),
-      kraLabels:Object.freeze({kra1:'Concept and detailed-design quality',kra2:'Design turnaround time',kra3:'Site validation accuracy',kra4:'Controlled, documented revisions',kra5:'BOQ and costing accuracy',kra6:'Estimate turnaround time',kra7:'Margin protection',kra8:'Production release accuracy',kra9:'Milestone communication',kra10:'Client satisfaction'}),
+      // KRA names from the Design Head sheet; the sheet gives no weights, so these are provisional.
+      kraWeights:Object.freeze({kra1:20,kra2:15,kra3:5,kra4:10,kra5:10,kra6:10,kra7:10,kra8:10,kra9:10}),
+      kraLabels:Object.freeze({kra1:'Design TAT',kra2:'Design quality assurance',kra3:'Coordination with Sales and Operations',kra4:'Costing accuracy',kra5:'Proposal turnaround support',kra6:'Margin protection',kra7:'Change-estimate responsiveness',kra8:'Production release accuracy',kra9:'Milestone communication'}),
     }),
     asm: Object.freeze({
       id:'asm', selectorLabel:'Sales / ASM', designation:'Sales', requiresMis:true,
@@ -445,6 +444,9 @@
     const issues=setupIssues(data.setup);
     if(roleConfig(data.roleId).policyPending)issues.push('AVP review policy is not configured.');
     if(!monthSequence(data.setup).some(m=>m.key===monthKey&&m.inPeriod))issues.push('Select an eligible review month.');
+    const review=data.reviews?.[monthKey],c=roleConfig(data.roleId);
+    const unexplained=allItems(c).filter(i=>['above','below'].includes(review?.ratings?.[i.id])&&!String(review?.remarks?.[i.id]||'').trim());
+    if(unexplained.length)issues.push(`Add a remark for every Above and Below rating (${unexplained.length} missing): ${unexplained.map(i=>i.label.split(':')[0]).slice(0,4).join('; ')}${unexplained.length>4?'; …':''}.`);
     return issues;
   }
   function showIssues(issues){
@@ -479,11 +481,35 @@
       b.onclick=()=>{value=value===k?'':k;g.querySelectorAll('button').forEach(button=>{const selected=button.dataset.rating===value;button.className=`flash-rate ${selected?`is-${value}`:''}`;button.setAttribute('aria-pressed',String(selected));});onChange(value);};g.appendChild(b);
     });return g;
   }
+  // A Work row marked by Fetch MIS keeps a note of the mark and the target it came from.
+  function drawAutoNote(cell,review,id){
+    cell.querySelector('.flash-auto-rating')?.remove();
+    const auto=review.autoRatings?.[id];if(!auto)return;
+    const current=review.ratings?.[id],label={above:'Above',meets:'Meets',below:'Below'}[auto.value];
+    const note=node('small',`flash-auto-rating ${current===auto.value?'':'is-overridden'}`,current===auto.value?`Marked from MIS · ${auto.basis}`:`MIS suggests ${label} · ${auto.basis}`);
+    cell.appendChild(note);
+  }
+  // Fetch MIS marks each Work row that has a target. A mark the reviewer has changed is left alone.
+  function applyAutoRatings(review,result){
+    review.autoRatings ||= {};let changed=0;
+    for(const item of result.items||[]){
+      if(!item.rating)continue;
+      const before=review.ratings[item.id],previous=review.autoRatings[item.id]?.value;
+      if(!before||before===previous){if(before!==item.rating.value)changed++;review.ratings[item.id]=item.rating.value;}
+      review.autoRatings[item.id]={value:item.rating.value,basis:item.rating.basis};
+    }
+    for(const ta of currentContainer.querySelectorAll('textarea[data-review-item]')){
+      const id=ta.dataset.reviewItem,cell=ta.closest('tr')?.querySelector('.flash-rating-control')?.parentElement;if(!cell||!review.autoRatings[id])continue;
+      cell.querySelectorAll('.flash-rate').forEach(button=>{const selected=button.dataset.rating===review.ratings[id];button.className=`flash-rate ${selected?`is-${review.ratings[id]}`:''}`;button.setAttribute('aria-pressed',String(selected));});
+      drawAutoNote(cell,review,id);
+    }
+    return changed;
+  }
   function refreshMonthly(){
     const review=currentData.reviews[selectedMonth]||monthReview(),comp=reviewCompleteness(review,reviewPolicyRole()),progress=currentContainer.querySelector('.flash-progress strong');
     if(progress)progress.textContent=`${comp.ratings}/${comp.total} responsibilities marked`;
     drawSideProgress();
-    if(reviewPolicyRole()==='designer'){
+    {
       const guidance=currentContainer.querySelector('.flash-progress span');if(guidance)guidance.textContent=comp.missingRemarks?`${comp.missingRemarks} Above / Below ratings need remarks.`:'Use Above, Meets or Below; add remarks for Above and Below.';
       currentContainer.querySelectorAll('textarea[data-review-item]').forEach(ta=>{const missing=['above','below'].includes(review.ratings[ta.dataset.reviewItem])&&!ta.value.trim();ta.setAttribute('aria-invalid',String(missing));ta.style.borderColor=missing?'#b42318':'';const hint=ta.parentElement.querySelector('.flash-remark-hint');if(hint)hint.textContent=missing?'Remark required for Above or Below':'';});
     }
@@ -502,7 +528,7 @@
   function renderOverview(body){
     const c=roleConfig(reviewPolicyRole()),annual=calculateAnnual(currentData,reviewPolicyRole()),hero=node('section','flash-hero'),copy=node('div');
     copy.append(node('span','flash-eyebrow',`${c.selectorLabel} performance`),node('h1',null,currentData.setup.employeeName||'Monthly Flash Review'),node('p',null,c.purpose));
-    if(c.sourceWorkbook)copy.appendChild(node('p','flash-note',`Template: ${c.sourceWorkbook} · 17 work KPIs, 5 behavioural and 5 foundational criteria. Review by the 5th of the following month.`));
+    if(c.sourceWorkbook)copy.appendChild(node('p','flash-note',`Template: ${c.sourceWorkbook} · ${c.workItems.length} work KPIs, ${c.behaviouralItems.length} behavioural and ${c.foundationalItems.length} foundational criteria. Review by the 5th of the following month.`));
     const open=node('button','flash-primary','Open current month');open.type='button';open.onclick=()=>{currentView='monthly';selectedMonth=MONTHS[new Date().getMonth()][0];renderCurrent();};hero.append(copy,open);body.appendChild(hero);
     const metrics=node('section','flash-metrics');[
       ['Eligible months',`${annual.eligible.length}/12`,'Joining month through period end'],['Months assessed',`${annual.completed.length}/${annual.eligible.length}`,'Overall assessment recorded; includes drafts'],
@@ -539,9 +565,9 @@
     if(!list.length){const waiting=node('section','flash-panel flash-assessment');waiting.appendChild(header(title,'The responsibilities for this section are awaiting approval. Nothing is rated here yet.'));return waiting;}
     const c=roleConfig(reviewPolicyRole()),section=node('section','flash-panel flash-assessment'),wrap=node('div','flash-table-scroll'),table=node('table','flash-review-table without-mis'),thead=node('thead'),hr=node('tr'),tbody=node('tbody');section.appendChild(header(title,copy));
     ['Responsibility','Assessment','Remarks'].forEach(x=>hr.appendChild(node('th',null,x)));thead.appendChild(hr);
-    list.forEach(item=>{const tr=node('tr'),heading=node('th'),cut=/^[^.:]+: /.exec(item.label),name=cut?cut[0].slice(0,-2):item.label,measure=cut?[item.label.slice(cut[0].length)]:[];const group=c.kraLabels?.[item.kra]?`${c.kraLabels[item.kra]} · ${c.kraWeights[item.kra]}%`:c.kraGroups?.[item.kra];if(group)heading.appendChild(node('span','flash-kra',group));heading.appendChild(node('strong',null,name));if(measure.length)heading.appendChild(node('p','flash-measure',measure[0]));if(item.referenceTarget)heading.appendChild(node('p','flash-measure flash-target-line',`Target: ${item.referenceTarget}`));tr.appendChild(heading);const rc=node('td');rc.appendChild(rating(review.ratings[item.id]||'',v=>{review.ratings[item.id]=v;save();refreshMonthly();},`${item.label} assessment`));tr.appendChild(rc);
+    list.forEach(item=>{const tr=node('tr'),heading=node('th'),cut=/^[^.:]+: /.exec(item.label),name=cut?cut[0].slice(0,-2):item.label,measure=cut?[item.label.slice(cut[0].length)]:[];const group=c.kraLabels?.[item.kra]?`${c.kraLabels[item.kra]} · ${c.kraWeights[item.kra]}%`:c.kraGroups?.[item.kra];if(group)heading.appendChild(node('span','flash-kra',group));heading.appendChild(node('strong',null,name));if(measure.length)heading.appendChild(node('p','flash-measure',measure[0]));if(item.referenceTarget)heading.appendChild(node('p','flash-measure flash-target-line',`Target: ${item.referenceTarget}`));tr.appendChild(heading);const rc=node('td');rc.appendChild(rating(review.ratings[item.id]||'',v=>{review.ratings[item.id]=v;save();refreshMonthly();drawAutoNote(rc,review,item.id);},`${item.label} assessment`));drawAutoNote(rc,review,item.id);tr.appendChild(rc);
       const td=node('td'),ta=node('textarea');ta.value=review.remarks[item.id]||'';ta.placeholder=c.id==='designer'?'Fact, example, impact and evidence source':'Specific example and impact';ta.setAttribute('aria-label',`${item.label} remarks`);ta.dataset.reviewItem=item.id;ta.onchange=()=>{review.remarks[item.id]=ta.value;save();refreshMonthly();};
-      if(c.id==='designer'){const missing=['above','below'].includes(review.ratings[item.id])&&!ta.value.trim();ta.setAttribute('aria-invalid',String(missing));ta.style.borderColor=missing?'#b42318':'';const hint=node('small','flash-remark-hint',missing?'Remark required for Above or Below':'');td.append(ta,hint);}else td.appendChild(ta);tr.appendChild(td);tbody.appendChild(tr);});
+      {const missing=['above','below'].includes(review.ratings[item.id])&&!ta.value.trim();ta.setAttribute('aria-invalid',String(missing));ta.style.borderColor=missing?'#b42318':'';const hint=node('small','flash-remark-hint',missing?'Remark required for Above or Below':'');td.append(ta,hint);}tr.appendChild(td);tbody.appendChild(tr);});
     if(window.MagppieFlashMis?.supported(c.id)){
       table.classList.add('with-mis-results');hr.appendChild(node('th',null,'MIS results'));
       Array.from(tbody.rows).forEach((row,index)=>{const result=node('td','flash-mis-result');result.dataset.misItem=list[index].id;row.appendChild(result);});
@@ -613,7 +639,7 @@
       const host=node('div');body.insertBefore(host,body.querySelector('.flash-assessment'));
       // The review for a month looks back at the month before it, so that is the month Fetch MIS reads.
       const held=MONTHS.findIndex(m=>m[0]===month.key),stamp=(year,index)=>`${year}-${String(index+1).padStart(2,'0')}`;
-      window.MagppieFlashMis.mount({host,body,context:{role:currentRole,policy:c.id,employeeId:currentEmployee.id,month:held?stamp(month.year,held-1):stamp(month.year-1,11),reviewMonth:stamp(month.year,held)},onResult:(result,covered)=>fillTarget(result,covered)});
+      window.MagppieFlashMis.mount({host,body,context:{role:currentRole,policy:c.id,employeeId:currentEmployee.id,month:held?stamp(month.year,held-1):stamp(month.year-1,11),reviewMonth:stamp(month.year,held)},onResult:(result,covered)=>{applyAutoRatings(review,result);save();refreshMonthly();fillTarget(result,covered);}});
     }
     actions(body,`${remote.enabled?'Saved to the review database':'Saved only in this browser'}. Submit to generate the report. Editing returns a submitted review to draft; nothing is sent to CRM or HR.`,[
       actionButton('Save Draft',()=>{save('Draft saved');}),

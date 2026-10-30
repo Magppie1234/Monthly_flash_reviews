@@ -12,12 +12,12 @@ test('every assigned employee in every configured workbook gets isolated evidenc
 test('local designers match exact names, not CRM order owners; approvals change with month',()=>{
  const fields=['Designer_Name','Design_Approved_Date','Number_of_Design_Revisions'];
  const live=snapshot('Deals',fields,[{id:'1',Designer_Name:'Atif Hussain',Design_Approved_Date:'2026-08-31T20:00:00Z',Number_of_Design_Revisions:3},{id:'2',Designer_Name:'Rashi',Design_Approved_Date:'2026-09-01',Number_of_Design_Revisions:99},{id:'3',Designer_Name:'Atif Hussain',Design_Approved_Date:'2026-08-05',Number_of_Design_Revisions:null}]);
- const sept=enrichRoles(make('designer'),null,live);assert.equal(sept.identity.nameUnique,true);assert.deepEqual(sept.items.find(i=>i.id==='dc_w2').records.map(r=>r.id),['1']);assert.equal(sept.items.find(i=>i.id==='dc_w6').display.done,'3');
- const aug=enrichRoles(make('designer','2026-08'),null,live);assert.deepEqual(aug.items.find(i=>i.id==='dc_w2').records.map(r=>r.id),['3']);assert.equal(aug.items.find(i=>i.id==='dc_w6').status,'missing_data');
+ const sept=enrichRoles(make('designer'),null,live);assert.equal(sept.identity.nameUnique,true);assert.deepEqual(sept.items.find(i=>i.id==='dsg_w2').records.map(r=>r.id),['1']);assert.equal(sept.items.find(i=>i.id==='dsg_w3').display.done,'3');
+ const aug=enrichRoles(make('designer','2026-08'),null,live);assert.deepEqual(aug.items.find(i=>i.id==='dsg_w2').records.map(r=>r.id),['3']);assert.equal(aug.items.find(i=>i.id==='dsg_w3').status,'missing_data');
  const ambiguous=make('designer');ambiguous.identity.nameUnique=false;assert.ok(enrichRoles(ambiguous,null,live).items.every(i=>i.status==='missing_data'));
 });
 test('missing fields or all missing dates do not become zero output',()=>{
- for(const fields of [[],['Designer_Name','Design_Approved_Date','Number_of_Design_Revisions']]){const live=snapshot('Deals',fields,[{id:'1',Designer_Name:'Atif Hussain',Design_Approved_Date:null}]);assert.equal(enrichRoles(make('designer'),null,live).items.find(i=>i.id==='dc_w2').status,'missing_data');}
+ for(const fields of [[],['Designer_Name','Design_Approved_Date','Number_of_Design_Revisions']]){const live=snapshot('Deals',fields,[{id:'1',Designer_Name:'Atif Hussain',Design_Approved_Date:null}]);assert.equal(enrichRoles(make('designer'),null,live).items.find(i=>i.id==='dsg_w2').status,'missing_data');}
 });
 test('installation timing excludes invalid pairs and other managers',()=>{
  const live=snapshot('Deals',['Installation_Managers','Actual_installation_start_date','Actual_End_Date'],[{id:'1',Installation_Managers:'Rishabh',Actual_installation_start_date:'2026-09-01',Actual_End_Date:'2026-09-07'},{id:'2',Installation_Managers:'Rishabh',Actual_installation_start_date:'2026-09-15',Actual_End_Date:'2026-09-07'},{id:'3',Installation_Managers:'Rishab',Actual_installation_start_date:'2026-09-01',Actual_End_Date:'2026-09-20'}]);

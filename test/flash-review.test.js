@@ -115,10 +115,10 @@ test('adds the Designer, ASM, and PSM workbooks with their exact KPI and KRA str
     'avp', 'sales_manager', 'designer', 'asm', 'psm',
     'factory_head', 'purchase_head', 'logistics_head', 'installation_manager', 'customer_care_head',
   ]);
-  assert.equal(ROLE_CONFIGS.designer.workItems.length, 17);
+  assert.equal(ROLE_CONFIGS.designer.workItems.length, 14);
   assert.equal(ROLE_CONFIGS.asm.workItems.length, 12);
   assert.equal(ROLE_CONFIGS.psm.workItems.length, 8);
-  assert.equal(Object.keys(ROLE_CONFIGS.designer.kraWeights).length, 10);
+  assert.equal(Object.keys(ROLE_CONFIGS.designer.kraWeights).length, 9);
   assert.equal(Object.keys(ROLE_CONFIGS.asm.kraWeights).length, 7);
   assert.equal(Object.keys(ROLE_CONFIGS.psm.kraWeights).length, 4);
   assert.equal(Object.values(ROLE_CONFIGS.designer.kraWeights).reduce((sum, value) => sum + value, 0), 100);
@@ -200,8 +200,12 @@ test('blank and partial reviews can be submitted without employee details or evi
     assert.deepEqual(flashReview.setupIssues(state.setup), [], roleId);
     assert.deepEqual(flashReview.submissionIssues(state, 'Apr'), [], roleId);
     const item = flashReview.constants.ROLE_CONFIGS[roleId].workItems[0].id;
+    // Above and Below need a remark before submitting; Meets does not.
     state.reviews.Apr = { ratings: { [item]: 'above' }, mis: { [item]: 'Other' }, remarks: {} };
+    assert.ok(flashReview.submissionIssues(state, 'Apr').some(issue => issue.startsWith('Add a remark for every Above and Below rating (1 missing)')), roleId);
+    state.reviews.Apr.remarks[item] = 'Closed 14 proposals inside 2 days';
     assert.deepEqual(flashReview.submissionIssues(state, 'Apr'), [], roleId);
+    assert.deepEqual(flashReview.submissionIssues({ ...state, reviews: { Apr: { ratings: { [item]: 'meets' }, remarks: {} } } }, 'Apr'), [], roleId);
     const scores = flashReview.monthlyScores(state.reviews.Apr, roleId);
     assert.equal(scores.work, flashReview.constants.ROLE_CONFIGS[roleId].combinedReview ? null : 3);
     assert.equal(scores.behavioural, null);

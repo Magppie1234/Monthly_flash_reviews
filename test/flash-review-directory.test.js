@@ -33,10 +33,10 @@ test('user-confirmed Designer team has individual reviews and reports to Sachin'
   const store=flash.defaultStore();
   store.employeeReviews.designer={};
   for(const person of people)store.employeeReviews.designer[person.id]=flash.defaultState('designer');
-  store.employeeReviews.designer[people[0].id].reviews.Apr={remarks:{dc_w1:'Saved review'}};
+  store.employeeReviews.designer[people[0].id].reviews.Apr={remarks:{dsg_w1:'Saved review'}};
   const restored=flash.normalizeStore(JSON.parse(JSON.stringify(store)));
   assert.equal(Object.keys(restored.employeeReviews.designer).length,19);
-  assert.equal(restored.employeeReviews.designer[people[0].id].reviews.Apr.remarks.dc_w1,'Saved review');
+  assert.equal(restored.employeeReviews.designer[people[0].id].reviews.Apr.remarks.dsg_w1,'Saved review');
   assert.deepEqual(restored.employeeReviews.designer[people[1].id].reviews,{});
 });
 

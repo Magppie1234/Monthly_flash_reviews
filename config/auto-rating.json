@@ -1,0 +1,25 @@
+{
+  "description": "Work rows that Fetch MIS marks automatically. Each rule is the row's documented target: reaching 'meets' gives Meets, reaching 'above' gives Above, anything short of 'meets' gives Below. 'better' says whether higher or lower numbers are good. A row with no rule here, a figure with a warning, or a missing figure is left for the reviewer to mark. The 'above' levels are provisional until management confirms them.",
+  "rules": {
+    "sm_w4": { "better": "lower", "meets": 0, "unit": "count" },
+    "sm_w6": { "better": "higher", "meets": 100, "above": 110, "unit": "percentOfBookingTarget" },
+    "sm_w7": { "better": "higher", "meets": 100, "unit": "percent" },
+    "sm_w9": { "better": "higher", "meets": 95, "above": 99, "unit": "percent" },
+    "sm_w10": { "better": "higher", "meets": 90, "above": 95, "unit": "percent" },
+    "sm_w12": { "better": "higher", "meets": 10, "above": 12, "unit": "count" },
+    "dsg_w1": { "better": "higher", "meets": 90, "above": 95, "unit": "percent" },
+    "dsg_w2": { "better": "higher", "meets": 90, "above": 95, "unit": "percent" },
+    "asm_w8": { "better": "higher", "meets": 100, "above": 110, "unit": "percentOfBookingTarget" },
+    "avp_w1": { "better": "higher", "meets": 100, "above": 110, "unit": "percent" },
+    "avp_w2": { "better": "higher", "meets": 25, "above": 30, "unit": "percent" },
+    "avp_w4": { "better": "higher", "meets": 100, "unit": "percent" },
+    "avp_w6": { "better": "higher", "meets": 98, "above": 100, "unit": "percent" },
+    "avp_w7": { "better": "higher", "meets": 100, "unit": "percent" },
+    "avp_w13": { "better": "higher", "meets": 100, "unit": "percent" },
+    "avp_w14": { "better": "higher", "meets": 90, "above": 95, "unit": "percent" },
+    "avp_w15": { "better": "higher", "meets": 10, "above": 12, "unit": "countPerSalesManager" },
+    "avp_w17": { "better": "higher", "meets": 100, "unit": "percent" },
+    "installation_manager_v2_w1": { "better": "lower", "meets": 6, "above": 5, "unit": "days" },
+    "customer_care_head_v2_w1": { "better": "lower", "meets": 6, "above": 5, "unit": "days" }
+  }
+}

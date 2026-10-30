@@ -2289,3 +2289,8 @@ button.flash-side-logo:hover { opacity:.82; }
 /* Section E (operations reviews) laid out like Target vs Achievement */
 .flash-savings-check { margin:0 20px 8px; }
 .flash-note.flash-savings-note { margin:4px 20px 14px; }
+
+/* Work rows marked by Fetch MIS */
+.flash-auto-rating { display:block; margin-top:6px; color:var(--fs-brand,#5148cf); font-size:11.5px; line-height:1.4; }
+.flash-auto-rating.is-overridden { color:#b54708; }
+.flash-remark-hint { display:block; min-height:0; margin-top:4px; color:#b42318; font-size:11.5px; }
